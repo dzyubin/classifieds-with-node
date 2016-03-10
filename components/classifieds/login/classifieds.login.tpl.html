@@ -1,0 +1,27 @@
+<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-is-open="vm.sidenavOpen">
+    <section class="panel login">
+        <form name="myform" novalidate class="text-center" ng-submit="login()">
+            <div class="textintro">
+                <h1>Доброго дня!</h1>
+                <p>Увійдіть для отримання доступу до додаткових можливостей</p>
+                <p ng-show="message">{{ message }}</p>
+            </div>
+
+            <fieldset>
+                <div class="form-group">
+                    <input class="form-control" type="email" name="email" placeholder="Email"
+                            ng-model="user.email" ng-required="true" md-autofocus>
+                </div>
+                <p ng-show="myform.email.$invalid && myform.email.$touched">Некоректний E-mail</p>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Пароль"
+                           ng-model="user.password" ng-required="true"/>
+                </div>
+                <p ng-show="myform.password.$invalid && myform.password.$touched">Необхідно ввести пароль</p>
+            </fieldset>
+
+            <button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">Увійти</button>
+            <p>або <a ng-href="#classifieds/register">зареєструватись</a></p>
+        </form>
+    </section>
+</md-sidenav>
