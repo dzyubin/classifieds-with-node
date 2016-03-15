@@ -138,7 +138,7 @@ module.exports = function(app, express) {
         })
         .get(function(req, res) {
 
-            Classified.find({ creator: req.decoded.id }, function(err, classifieds) {
+            Classified.find({  }, function(err, classifieds) {
 
                 if(err) {
                     res.send(err);

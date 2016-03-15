@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var ClassifiedSchema = new Schema({
 
     creator: { type: Schema.Types.ObjectId, ref: 'User' },
+    
     content: String,
     created: { type: Date, default: Date.now }
 

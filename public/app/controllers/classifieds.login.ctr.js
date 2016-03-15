@@ -12,7 +12,7 @@
 
             this.sidenavOpen = true;
 
-           /* $scope.$watch('vm.sidenavOpen', function (sidenav) {
+            $scope.$watch('vm.sidenavOpen', function (sidenav) {
                 if (sidenav === false) {
                     $mdSidenav('right')
                         .close()
@@ -20,7 +20,7 @@
                             $state.go('classifieds');
                         });
                 }
-            });*/
+            });
 
             vm.doLogin = function () {
 
@@ -45,10 +45,10 @@
                     });
             };
 
-            vm.doLogout = function () {
+            /*vm.doLogout = function () {
                 Auth.logout();
                 $state.go('classifieds');
-            };
+            };*/
 
             /*$scope.login = function () {
                 Authentication.login($scope.user);

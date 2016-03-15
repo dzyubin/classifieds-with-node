@@ -51,10 +51,10 @@
                     });
             };*/
 
-            /*vm.doLogout = function () {
+            vm.doLogout = function () {
                 Auth.logout();
                 $state.go('classifieds');
-            };*/
+            };
 
             function openSidebar() {
                 if (Auth.isLoggedIn()) {
