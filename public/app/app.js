@@ -22,7 +22,7 @@ angular
             .state('classifieds.login', {
                 url: '/login',
                 templateUrl: 'app/views/pages/classifieds.login.tpl.html',
-                controller: 'classifiedsCtrl as vm'
+                controller: 'loginClassifiedsCtrl as vm'
             })
             .state('classifieds.register', {
                 url: '/register',

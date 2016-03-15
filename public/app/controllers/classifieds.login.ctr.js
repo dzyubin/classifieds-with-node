@@ -5,14 +5,14 @@
     angular
         .module('classifieds')
         .controller('loginClassifiedsCtrl',
-        ['$scope', '$mdSidenav', '$state',
+        ['$rootScope', '$scope', '$mdSidenav', '$state', 'Auth',
         function ($rootScope, $scope, $mdSidenav, $state, Auth) {
 
             var vm = this;
 
             this.sidenavOpen = true;
 
-            $scope.$watch('vm.sidenavOpen', function (sidenav) {
+           /* $scope.$watch('vm.sidenavOpen', function (sidenav) {
                 if (sidenav === false) {
                     $mdSidenav('right')
                         .close()
@@ -20,7 +20,7 @@
                             $state.go('classifieds');
                         });
                 }
-            });
+            });*/
 
             vm.doLogin = function () {
 
