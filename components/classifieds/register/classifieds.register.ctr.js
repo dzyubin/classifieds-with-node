@@ -8,7 +8,7 @@
         ['$scope', '$mdSidenav', '$state', 'Authentication',
             function ($scope, $mdSidenav, $state, Authentication) {
 
-                this.sidenavOpen = true;
+                /*this.sidenavOpen = true;
 
                 $scope.$watch('vm.sidenavOpen', function (sidenav) {
                     if (sidenav === false) {
@@ -18,10 +18,10 @@
                                 $state.go('classifieds');
                             });
                     }
-                });
+                });*/
 
-                $scope.register = function () {
+              /*  $scope.register = function () {
                     Authentication.register($scope.user);
-                }; // register
+                }; // register*/
         }]); // controller
 }());

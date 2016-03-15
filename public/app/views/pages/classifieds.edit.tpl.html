@@ -1,0 +1,29 @@
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="vm.sidenavOpen">
+    <md-toolbar>
+        <h1 class="md-toolbar-tools">Редагувати Товар</h1>
+    </md-toolbar>
+
+    <md-content layout-padding>
+        <form>
+            <md-input-container>
+                <label for="title">Назва</label>
+                <input type="text" id="title" ng-model="vm.classified.title" md-autofocus>
+            </md-input-container>
+            <md-input-container>
+                <label for="price">Ціна</label>
+                <input type="text" id="price" ng-model="vm.classified.price"/>
+            </md-input-container>
+            <md-input-container>
+                <label for="description">Опис</label>
+                <textarea id="description" ng-model="vm.classified.description"></textarea>
+            </md-input-container>
+            <md-input-container>
+                <label for="image">URL Зображення</label>
+                <input type="text" id="image" ng-model="vm.classified.image"/>
+            </md-input-container>
+            <md-button ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
+            <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
+        </form>
+        <!--<pre>{{ classified | json }}</pre>-->
+    </md-content>
+</md-sidenav>

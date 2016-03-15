@@ -35,7 +35,7 @@
                         email: 'sdfg@dfg.com'
                     };
 
-                    console.log(classified.category);
+                    //console.log(classified.category);
                     classified.categories = [classified.category];
                     delete classified.category;
                     //classified.categories[0] = classified.category;
