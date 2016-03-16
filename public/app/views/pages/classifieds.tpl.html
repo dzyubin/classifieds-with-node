@@ -81,6 +81,11 @@
 
 <div class="container" ng-controller="ClassifiedController as vm">
     <div ng-repeat="classified in vm.classifieds">
+        <h1>{{ classified.title }}</h1>
         <p>{{ classified.content }}</p>
+        <p>{{ classified.price }}</p>
+        <img ng-src="{{ classified.image }}" alt="" />
+        <p>{{ classified.category}}</p>
+        <!--{{ classified | json }}-->
     </div>
 </div>

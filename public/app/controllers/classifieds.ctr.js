@@ -24,7 +24,7 @@
                     .then(function (data) {
                         //vm.user = data.data;
                         $rootScope.user = data.data;
-                        console.log("state change");
+                        //console.log("state change");
                     });
             });
 

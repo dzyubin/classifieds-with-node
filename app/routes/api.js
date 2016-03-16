@@ -122,7 +122,11 @@ module.exports = function(app, express) {
             var classified = new Classified({
 
                 creator: req.decoded.id,
-                content: req.body.content
+                content: req.body.content,
+                title: req.body.title,
+                price: req.body.price,
+                image: req.body.image,
+                category: req.body.category
 
             });
 
@@ -138,7 +142,7 @@ module.exports = function(app, express) {
         })
         .get(function(req, res) {
 
-            Classified.find({  }, function(err, classifieds) {
+            Classified.find({}, function(err, classifieds) {
 
                 if(err) {
                     res.send(err);

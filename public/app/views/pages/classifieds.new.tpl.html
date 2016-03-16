@@ -7,11 +7,11 @@
         <form ng-submit="vm.createClassified()">
             <md-input-container>
                 <label for="title">Назва</label>
-                <input type="text" id="title" ng-model="classified.title" md-autofocus>
+                <input type="text" id="title" ng-model="vm.classifiedData.title" md-autofocus>
             </md-input-container>
             <md-input-container>
                 <label for="price">Ціна</label>
-                <input type="text" id="price" ng-model="classified.price"/>
+                <input type="text" id="price" ng-model="vm.classifiedData.price"/>
             </md-input-container>
             <md-input-container>
                 <label for="description">Опис</label>
@@ -19,11 +19,11 @@
             </md-input-container>
             <md-input-container>
                 <label for="image">URL Зображення</label>
-                <input type="text" id="image" ng-model="classified.image"/>
+                <input type="text" id="image" ng-model="vm.classifiedData.image"/>
             </md-input-container>
             <md-input-container>
                 <label for="category">Категорія</label>
-                <input type="text" id="category" ng-model="classified.category"/>
+                <input type="text" id="category" ng-model="vm.classifiedData.category"/>
             </md-input-container>
             <md-button ng-if="!editing" ng-click="vm.saveClassified(classified)" class="md-primary">Зберегти</md-button>
             <md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
