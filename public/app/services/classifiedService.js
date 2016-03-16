@@ -13,4 +13,4 @@ angular.module('classifiedService', [])
         };
 
         return classifiedFactory;
-    })
+    });

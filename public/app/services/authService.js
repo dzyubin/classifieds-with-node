@@ -81,7 +81,7 @@ angular.module('authService', [])
         interceptorFactory.responseError = function (response) {
             if(response.status == 403) {
                 //$location.path('/classifieds'); // had to comment it out because it was causing problems
-                serv//$state.go('classifieds');
+                //$state.go('classifieds');
             }
             return $q.reject(response);
         };
