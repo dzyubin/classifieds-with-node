@@ -80,12 +80,28 @@
 <ui-view></ui-view>
 
 <div class="container" ng-controller="ClassifiedController as vm">
-    <div ng-repeat="classified in vm.classifieds">
-        <h1>{{ classified.title }}</h1>
-        <p>{{ classified.content }}</p>
-        <p>{{ classified.price }}</p>
-        <img ng-src="{{ classified.image }}" alt="" />
-        <p>{{ classified.category}}</p>
-        <!--{{ classified | json }}-->
+
+    <!--<classified-card classifieds="vm.classifieds"
+                     classifieds-filter="classifiedsFilter"
+                     category="category">
+
+    </classified-card>-->
+
+    <div class="classified" ng-repeat="classified in vm.classifieds">
+        <div class="panel panel-default">
+
+            <div class="row">
+                <img class="pull-left img-responsive" ng-src="{{ classified.image }}" alt=""/>
+                <h2 class="layout-align-center text-center">{{ classified.title }}</h2>
+                <h3><span class="label label-info pull-right">{{ classified.price | currency }}</span></h3>
+            </div>
+
+            <div class="row">
+                <div class="classified-info col-sm-9">
+                    <p>{{ classified.content }}</p>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>

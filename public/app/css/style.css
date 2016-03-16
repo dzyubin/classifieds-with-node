@@ -38,7 +38,7 @@ ul.navbar {
     to { opacity: 0; }
 }
 
-classified-card img {
+.classified img {
     margin: 0 5px 15px 15px;
 }
 
