@@ -1,8 +1,10 @@
 //angular.module('classifiedCtrl', ['classifiedService'])
 angular.module('classifieds')
-    .controller('ClassifiedController', function ($scope, $timeout, $mdSidenav, $state, Classified) {
+    .controller('ClassifiedController', function ($scope, $timeout, $mdSidenav, $state, Classified, Auth) {
 
         var vm = this;
+
+        vm.loggedIn = Auth.isLoggedIn();
 
         vm.closeSidebar = closeSidebar;
 

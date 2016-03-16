@@ -79,6 +79,7 @@
 
 <ui-view></ui-view>
 
+
 <div class="container" ng-controller="ClassifiedController as vm">
 
     <!--<classified-card classifieds="vm.classifieds"
@@ -86,6 +87,14 @@
                      category="category">
 
     </classified-card>-->
+
+    <div ng-hide="vm.loggedIn">
+        <h2>
+            <span class="label label-success">
+                <a href="#/classifieds/login">Ввійдіть</a> щоб переглянути оголошення
+            </span>
+        </h2>
+    </div>
 
     <div class="classified" ng-repeat="classified in vm.classifieds">
         <div class="panel panel-default">
