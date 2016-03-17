@@ -13,18 +13,13 @@
                             ng-model="vm.userData.name" ng-required="true" md-autofocus />
                 </div>
                 <p ng-show="myform.firstname.$invalid && myform.firstname.$touched">Необхідно ввести ім'я</p>
-<!--
-                <div class="form-group">
-                    <input class="form-control" type="text" name="lastname" placeholder="Прізвище"
-                           ng-model="vm.userData.lastname"/>
-                </div>
--->
-                <!--<p ng-show="myform.lastname.$invalid && myform.lastname.$touched">Некоректний E-mail</p>-->
+
                 <div class="form-group">
                     <input class="form-control" type="text" name="username" placeholder="Email"
                            ng-model="vm.userData.username" ng-required="true"/>
                 </div>
                 <p ng-show="myform.email.$invalid && myform.email.$touched">Некоректний E-mail</p>
+
                 <div class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="Пароль"
                            ng-model="vm.userData.password" ng-required="true"/>

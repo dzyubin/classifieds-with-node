@@ -1,8 +1,5 @@
 angular
     .module("classifieds", ['ngMaterial', 'ui.router', 'authService', 'userCtrl', 'userService', 'classifiedService'])
-   /* .module("classifieds", ["ngMaterial", "ui.router", "firebase"])
-
-    .constant('FIREBASE_URL', 'https://class1f1eds.firebaseio.com/')*/
 
     .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
         $mdThemingProvider.theme('default')

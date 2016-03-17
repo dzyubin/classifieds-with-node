@@ -44,19 +44,5 @@
                         }
                     });
             };
-
-            /*vm.doLogout = function () {
-                Auth.logout();
-                $state.go('classifieds');
-            };*/
-
-            /*$scope.login = function () {
-                Authentication.login($scope.user);
-            }; // login
-
-            $scope.logout = function () {
-                Authentication.logout();
-            }; // logout*/
-
         }]);
 }());
