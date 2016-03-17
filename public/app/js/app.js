@@ -35,7 +35,7 @@ angular
                 url: '/new',
                 templateUrl: 'app/views/pages/classifieds.new.tpl.html',
                 controller: 'ClassifiedController as vm'
-            })
+            });
             /*.state('classifieds.edit', {
                 url: '/edit/:id',
                 templateUrl: 'app/views/pages/classifieds.edit.tpl.html',

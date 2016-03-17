@@ -1,6 +1,6 @@
 //angular.module('classifiedCtrl', ['classifiedService'])
 angular.module('classifieds')
-    .controller('ClassifiedController', function ($scope, $timeout, $mdSidenav, $state, Classified, Auth) {
+    .controller('ClassifiedController', function ($scope, $timeout, $mdSidenav, $mdComponentRegistry, $state, Classified, Auth) {
 
         var vm = this;
 
@@ -8,11 +8,15 @@ angular.module('classifieds')
 
         vm.closeSidebar = closeSidebar;
 
-        $timeout(function () {
+        /*$timeout(function () {
             $mdSidenav('left').open();
+        });*/
+
+        $mdComponentRegistry.when('left').then(function(it){
+            it.open();
         });
 
-        $scope.$watch('vm.sidenavOpen', function (sidenav) {
+        $scope.$watch('vm.sidenavOpen', function (sidenav) { // 'vm.sidenavOpen' or 'vm.sidenavLeftOpen'
             if (sidenav === false) {
                 $mdSidenav('left')
                     .close()
