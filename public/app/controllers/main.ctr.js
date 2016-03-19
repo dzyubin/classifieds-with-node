@@ -4,7 +4,7 @@
 
     angular
         .module("classifieds")
-        .controller("classifiedsCtrl", function ($rootScope, $scope, $mdSidenav, $state, $location, $mdToast, Auth) {
+        .controller("classifiedsCtrl", function ($rootScope, $scope, $mdSidenav, $state, $location, $mdToast, Auth, Classified) {
 
             var vm = this;
 
@@ -24,6 +24,11 @@
                         //console.log("state change");
                     });
             });
+
+            Classified.getClassifieds()
+                .success(function (data) {
+                    vm.classifieds = data;
+                });
 
             vm.doLogout = function () {
                 Auth.logout();

@@ -26,11 +26,6 @@ angular.module('classifieds')
             }
         });
 
-        Classified.getClassifieds()
-            .success(function (data) {
-                vm.classifieds = data;
-            });
-
         vm.createClassified = function () {
             vm.message = '';
             Classified.create(vm.classifiedData)
