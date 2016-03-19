@@ -11,7 +11,7 @@ function createToken(user){
         name: user.name,
         username: user.username
     }, secretKey, {
-        expiresInMinute: 1440 // in video it is "expirtesInMinute". Is it correct?
+        expiresInMinute: 1440
     });
 
     return token;

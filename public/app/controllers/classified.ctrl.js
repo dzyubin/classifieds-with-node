@@ -26,7 +26,7 @@ angular.module('classifieds')
             }
         });
 
-        Classified.allClassified()
+        Classified.getClassifieds()
             .success(function (data) {
                 vm.classifieds = data;
             });
