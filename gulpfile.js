@@ -4,14 +4,6 @@ var concat = require('gulp-concat');
 var pkg = require('./package.json');
 var ngAnnotate = require('gulp-ng-annotate');
 
-gulp.task('uglify', function(){
-    gulp.src(paths.js)
-        .pipe(concat('classifieds.min.js'))
-        .pipe(ngAnnotate())
-        .pipe(uglify())
-        .pipe(gulp.dest('public/app/js/build'));
-});
-
 var paths = {
     js: [
         'public/app/js/vendor/jquery.js',
@@ -33,3 +25,17 @@ var paths = {
         'public/app/directives/classified-card.dir.js'
     ]
 };
+
+gulp.task('uglify', function(){
+    gulp.src(paths.js)
+        .pipe(concat(pkg.name+'.min.js'))
+        .pipe(ngAnnotate())
+        .pipe(uglify())
+        .pipe(gulp.dest('public/app/js/build'));
+});
+
+gulp.task('watch', function () {
+    gulp.watch(paths.js, ['uglify']);
+});
+
+gulp.task('default', ['uglify']);

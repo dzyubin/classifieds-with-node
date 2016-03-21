@@ -7,7 +7,9 @@
 
         .directive('classifiedCard', function () {
             return {
-                template: '<p>Card</p>'
+                templateUrl: 'app/views/pages/classified-card.tpl.html',
+                controller: 'classifiedsCtrl',
+                controllerAs: "vm"
             }
         });
 
