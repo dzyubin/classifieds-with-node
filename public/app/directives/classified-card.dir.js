@@ -4,7 +4,14 @@
 
     angular
         .module("classifieds")
-        .directive("classifiedCard", function () {
+
+        .directive('classifiedCard', function () {
+            return {
+                template: '<p>Card</p>'
+            }
+        });
+
+        /*.directive("classifiedCard", function () {
             return {
                 templateUrl: 'public/app/views/pages/classified-card.tpl.html',
                 scope: {
@@ -54,4 +61,4 @@
 
             }
         })
-}());
+*/}());

@@ -1,6 +1,7 @@
 //angular.module('classifiedCtrl', ['classifiedService'])
 angular.module('classifieds')
-    .controller('ClassifiedController', function ($scope, $timeout, $mdSidenav, $mdComponentRegistry, $state, Classified, Auth) {
+    .controller('ClassifiedController', ['$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$state', 'Classified', 'Auth',
+        function ($scope, $timeout, $mdSidenav, $mdComponentRegistry, $state, Classified, Auth) {
 
         var vm = this;
 
@@ -45,4 +46,4 @@ angular.module('classifieds')
             vm.sidenavOpen = false;
         }
 
-    });
+    }]);

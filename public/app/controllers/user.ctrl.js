@@ -10,7 +10,8 @@ angular.module('userCtrl', ['userService'])
             })
     })
 
-    .controller('UserCreateController', function ($scope, $mdSidenav, $state, User, $location, $window) {
+    .controller('UserCreateController', ['$scope', '$mdSidenav', '$state', 'User', '$location', '$window',
+        function ($scope, $mdSidenav, $state, User, $location, $window) {
 
         var vm = this;
 
@@ -38,4 +39,4 @@ angular.module('userCtrl', ['userService'])
                     $location.path('/classifieds');
                 })
         };
-    });
+    }]);

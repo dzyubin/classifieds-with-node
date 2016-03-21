@@ -1,5 +1,5 @@
 angular.module('userService', [])
-.factory('User', function ($http) {
+.factory('User', ['$http', function ($http) {
 
         var userFactory = {};
 
@@ -12,4 +12,4 @@ angular.module('userService', [])
         };
 
         return userFactory;
-    });
+    }]);

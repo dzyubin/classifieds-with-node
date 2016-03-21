@@ -4,7 +4,8 @@
 
     angular
         .module("classifieds")
-        .controller("classifiedsCtrl", function ($rootScope, $scope, $mdSidenav, $state, $location, $mdToast, Auth, Classified) {
+        .controller("classifiedsCtrl", ['$rootScope', '$scope', '$mdSidenav', '$state', '$location', '$mdToast', 'Auth', 'Classified',
+            function ($rootScope, $scope, $mdSidenav, $state, $location, $mdToast, Auth, Classified) {
 
             var vm = this;
 
@@ -51,5 +52,5 @@
                         .hideDelay(3000)
                 );
             }
-        })
+        }])
 }());

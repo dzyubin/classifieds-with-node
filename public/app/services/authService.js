@@ -1,7 +1,8 @@
 angular.module('authService', [])
 
 
-    .factory('Auth', function($http, $q, AuthToken) {
+    .factory('Auth', ['$http', '$q', 'AuthToken',
+        function($http, $q, AuthToken) {
 
         var authFactory = {};
 
@@ -39,8 +40,9 @@ angular.module('authService', [])
         };
 
         return authFactory;
-    })
-    .factory('AuthToken', function ($window) {
+    }])
+    .factory('AuthToken', ['$window',
+        function ($window) {
 
         var authTokenFactory = {};
 
@@ -58,8 +60,9 @@ angular.module('authService', [])
 
         return authTokenFactory;
 
-    })
-    .factory('AuthInterceptor', function ($q, $location, AuthToken) {
+    }])
+    .factory('AuthInterceptor', ['$q', '$location', 'AuthToken',
+        function ($q, $location, AuthToken) {
 
         var interceptorFactory = {};
 
@@ -85,4 +88,4 @@ angular.module('authService', [])
         };
 
         return interceptorFactory;
-    });
+    }]);

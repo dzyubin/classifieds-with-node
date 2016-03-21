@@ -1,6 +1,6 @@
 angular.module('classifiedService', [])
 
-    .factory('Classified', function ($http) {
+    .factory('Classified', ['$http', function ($http) {
 
         var classifiedFactory = {};
 
@@ -13,4 +13,4 @@ angular.module('classifiedService', [])
         };
 
         return classifiedFactory;
-    });
+    }]);
