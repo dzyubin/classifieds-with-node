@@ -8,8 +8,13 @@
         .directive('classifiedCard', function () {
             return {
                 templateUrl: 'app/views/pages/classified-card.tpl.html',
-                controller: 'classifiedsCtrl',
-                controllerAs: "vm"
+                scope: {
+                    classifieds: "=classifieds",
+                    classifiedsFilter: "=classifiedsFilter",
+                    category: "=category"
+                }
+                //controller: 'classifiedsCtrl',
+                //controllerAs: "vm"
             }
         });
 

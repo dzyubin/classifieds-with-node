@@ -13,6 +13,7 @@
 
             vm.loggedIn = Auth.isLoggedIn();
 
+
             //$rootScope.$on('$routeChangeStart', function () {
             $rootScope.$on('$stateChangeStart', function () {
 
@@ -29,6 +30,7 @@
             Classified.getClassifieds()
                 .success(function (data) {
                     vm.classifieds = data;
+                    vm.categories = getCategories(vm.classifieds);
                 });
 
             vm.doLogout = function () {
@@ -51,6 +53,17 @@
                         .position('top, right')
                         .hideDelay(3000)
                 );
+            }
+
+            function getCategories(classifieds) {
+
+                var categories = [];
+
+                angular.forEach(classifieds, function (item) {
+                    categories.push(item.category);
+                });
+
+                return _.uniq(categories);
             }
         }])
 }());
