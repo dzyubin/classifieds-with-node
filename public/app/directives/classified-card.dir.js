@@ -13,23 +13,11 @@
                     classifiedsFilter: "=classifiedsFilter",
                     category: "=category"
                 }
-                //controller: 'classifiedsCtrl',
+                //, controller: classifiedCardController,
                 //controllerAs: "vm"
-            }
-        });
-
-        /*.directive("classifiedCard", function () {
-            return {
-                templateUrl: 'public/app/views/pages/classified-card.tpl.html',
-                scope: {
-                    classifieds: "=classifieds",
-                    classifiedsFilter: "=classifiedsFilter",
-                    category: "=category"
-                },
-                controller: classifiedCardController,
-                controllerAs: "vm"
             };
 
+/*
             function classifiedCardController($state, $scope, $mdDialog, $mdToast) {
 
                 var vm = this;
@@ -41,6 +29,19 @@
                         id: classified.$id
                     });
                 }
+
+                // mongoose. Removing document
+                vm.removeClassified = function () {
+                    Classified.findOneAndRemove(
+                        {title : "asgasg"},
+                        {select : 'category'},
+                        function (err, classified){
+                            if (!err) {
+                                console.log(classified.category);
+                            }
+                        }
+                    );
+                };
 
                 function deleteClassified(event, classified) {
                     var confirm = $mdDialog.confirm()
@@ -67,5 +68,6 @@
                 }
 
             }
+*/
         })
-*/}());
+}());

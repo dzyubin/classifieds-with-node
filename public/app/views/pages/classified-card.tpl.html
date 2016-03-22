@@ -13,7 +13,7 @@
             <div class="well-lg col-sm-3">
                 <button class="btn btn-default" ng-click="showContact = true" ng-show="!showContact">Контактні Дані</button>
                 <button class="btn btn-default" ng-click="showContact = false" ng-show="showContact">Детально</button>
-                <button class="btn btn-default" ng-click="showAdmin = true" ng-show="!showAdmin">Адмін</button>
+                <!--<button class="btn btn-default" ng-click="showAdmin = true" ng-show="!showAdmin">Адмін</button>-->
                 <button class="btn btn-default" ng-click="showAdmin = false" ng-show="showAdmin">Закрити</button>
             </div>
 
@@ -29,11 +29,12 @@
         </div>
 
 
-        <div class="classified-admin" ng-if="showAdmin">
+        <!--<div class="classified-admin" ng-if="showAdmin">
             <hr>
             <h3>Адмін</h3>
             <button ng-click="vm.editClassified(classified)" class="btn btn-primary">Редагувати</button>
             <button ng-click="vm.deleteClassified(event, classified)" class="btn btn-warning">Видалити</button>
-        </div>
+            <button ng-click="vm.removeClassified()" class="btn btn-warning">Видали</button>
+        </div>-->
     </div>
 </div>
