@@ -1,7 +1,7 @@
 //angular.module('classifiedCtrl', ['classifiedService'])
 angular.module('classifieds')
-    .controller('ClassifiedController', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$state', 'Classified', 'Auth',
-        function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $state, Classified, Auth) {
+    .controller('ClassifiedController', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$mdToast', '$state', 'Classified', 'Auth',
+        function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $mdToast, $state, Classified, Auth) {
 
         var vm = this;
 
@@ -17,7 +17,7 @@ angular.module('classifieds')
             it.open();
         });
 
-        $scope.$watch('vm.sidenavOpen', function (sidenav) { // 'vm.sidenavOpen' or 'vm.sidenavLeftOpen'
+        $scope.$watch('vm.sidenavNewClassifiedOpen', function (sidenav) { // 'vm.sidenavOpen' or 'vm.sidenavLeftOpen'
             if (sidenav === false) {
                 $mdSidenav('left')
                     .close()
@@ -38,12 +38,21 @@ angular.module('classifieds')
                     $rootScope.classifieds.push(data);
 
                     closeSidebar();
-                    //showToast("Товар Додано!");
+                    showToast("РўРѕРІР°СЂ Р”РѕРґР°РЅРѕ!");
                 })
         };
 
         function closeSidebar() {
-            vm.sidenavOpen = false;
+            vm.sidenavNewClassifiedOpen = false;
+        }
+
+        function showToast(message) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(message)
+                    .position('top, right')
+                    .hideDelay(3000)
+            );
         }
 
     }]);
