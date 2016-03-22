@@ -1,7 +1,7 @@
 //angular.module('classifiedCtrl', ['classifiedService'])
 angular.module('classifieds')
-    .controller('ClassifiedController', ['$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$state', 'Classified', 'Auth',
-        function ($scope, $timeout, $mdSidenav, $mdComponentRegistry, $state, Classified, Auth) {
+    .controller('ClassifiedController', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$state', 'Classified', 'Auth',
+        function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $state, Classified, Auth) {
 
         var vm = this;
 
@@ -35,7 +35,7 @@ angular.module('classifieds')
 
                     vm.message = data.message;
 
-                    vm.classifieds.push(data);
+                    $rootScope.classifieds.push(data);
 
                     closeSidebar();
                     //showToast("Товар Додано!");

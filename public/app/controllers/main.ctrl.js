@@ -29,8 +29,9 @@
 
             Classified.getClassifieds()
                 .success(function (data) {
-                    vm.classifieds = data;
-                    vm.categories = getCategories(vm.classifieds);
+                    //vm.classifieds = data;
+                    $rootScope.classifieds = data;
+                    vm.categories = getCategories($rootScope.classifieds);
                 });
 
             vm.doLogout = function () {
