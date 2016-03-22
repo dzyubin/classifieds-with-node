@@ -82,13 +82,7 @@
 
 <div class="container">
 
-    <classified-card classifieds="classifieds"
-                     classifieds-filter="classifiedsFilter"
-                     category="category">
-
-    </classified-card>
-
-    <!--<div ng-hide="vm.loggedIn">
+    <div ng-hide="vm.loggedIn">
         <h2>
             <span class="label label-success">
                 <a href="#/classifieds/login">Ввійдіть</a> щоб переглянути оголошення
@@ -96,6 +90,15 @@
         </h2>
     </div>
 
+
+    <div ng-hide="!vm.loggedIn">
+        <classified-card classifieds="classifieds"
+                         classifieds-filter="classifiedsFilter"
+                         category="category">
+        </classified-card>
+    </div>
+
+    <!--
     <div class="classified" ng-repeat="classified in vm.classifieds">
         <div class="panel panel-default">
 
