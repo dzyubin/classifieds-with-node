@@ -8,7 +8,8 @@ angular
 
         $httpProvider.interceptors.push('AuthInterceptor');
 
-        $urlRouterProvider.when('', '/classifieds');
+        // uncommenting this line fixes problem with new classified form
+        //$urlRouterProvider.when('', '/classifieds');
 
         $stateProvider
             .state('/', {
