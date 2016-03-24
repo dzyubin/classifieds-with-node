@@ -15,27 +15,22 @@
 
             Auth.getUser()
                 .then(function (data) {
-                    //vm.user = data.data;
                     $rootScope.user = data.data;
-                    //console.log("state change");
                 });
 
-            //$rootScope.$on('$routeChangeStart', function () {
             $rootScope.$on('$stateChangeStart', function () {
 
                 vm.loggedIn = Auth.isLoggedIn();
 
-                Auth.getUser()
+               /* Auth.getUser()
                     .then(function (data) {
                         //vm.user = data.data;
                         $rootScope.user = data.data;
-                        //console.log("state change");
-                    });
+                    });*/
             });
 
             Classified.getClassifieds()
                 .success(function (data) {
-                    //vm.classifieds = data;
                     $rootScope.classifieds = data;
                     vm.categories = getCategories($rootScope.classifieds);
                 });
@@ -47,6 +42,7 @@
 
             function openSidebar() {
                 if (Auth.isLoggedIn()) {
+                    //console.log($state);
                     $state.go('classifieds.new');
                 } else {
                     showToast("Необхідна авторизація (натисніть 'Вхід')");

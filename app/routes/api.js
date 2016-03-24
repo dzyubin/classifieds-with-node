@@ -63,7 +63,6 @@ module.exports = function(app, express) {
 
         User.findOne({
             username: req.body.username
-        //}).select('password').exec(function(err, user) {
         }).select('name username password').exec(function(err, user) {
             if(err) { throw err; }
             if(!user) {

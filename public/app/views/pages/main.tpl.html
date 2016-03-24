@@ -91,6 +91,11 @@
     </div>
 
 
+    <!-- TODO: Note: In real production apps that deal with thousands of records, programmers usually use pagination by fetching
+    only a certain number of items at once (5, 10, 100, and so on). To do this, use the limit and skip options with the find
+    method (e.g., HackHall example: https://github.com/azat-co/hackhall/blob/master/routes/posts.js#L37).
+    Practical Node.js - page 120. -->
+
     <div ng-hide="!vm.loggedIn">
         <classified-card classifieds="classifieds"
                          classifieds-filter="classifiedsFilter"
