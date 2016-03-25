@@ -59,6 +59,20 @@ module.exports = function(app, express) {
         });
     });
 
+    api.route('/')
+        .get(function(req, res) {
+
+            Classified.find({}, function(err, classifieds) {
+
+                if(err) {
+                    res.send(err);
+                    return;
+                }
+
+                res.json(classifieds);
+            })
+        });
+
     api.post('/login', function(req, res) {
 
         User.findOne({
@@ -139,7 +153,7 @@ module.exports = function(app, express) {
                 res.json({ message: "New Classified Created!" });
             });
         })
-        .get(function(req, res) {
+        /*.get(function(req, res) {
 
             Classified.find({}, function(err, classifieds) {
 
@@ -150,7 +164,7 @@ module.exports = function(app, express) {
 
                 res.json(classifieds);
             })
-        });
+        })*/;
 
     api.get('/me', function(req, res) {
         res.json(req.decoded);

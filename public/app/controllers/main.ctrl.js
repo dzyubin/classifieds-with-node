@@ -36,13 +36,16 @@
                 });
 
             vm.doLogout = function () {
+
+                // видалити user.id для того щоб вимкути фільтрування оголошень по автору оголошення
+                $rootScope.user.id = '';
+
                 Auth.logout();
                 $state.go('classifieds');
             };
 
             function openSidebar() {
                 if (Auth.isLoggedIn()) {
-                    //console.log($state);
                     $state.go('classifieds.new');
                 } else {
                     showToast("Необхідна авторизація (натисніть 'Вхід')");

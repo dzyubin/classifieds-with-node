@@ -11,7 +11,8 @@
                 scope: {
                     classifieds: "=classifieds",
                     classifiedsFilter: "=classifiedsFilter",
-                    category: "=category"
+                    category: "=category",
+                    userIdFilter: "=userIdFilter"
                 }
                 //, controller: classifiedCardController,
                 //controllerAs: "vm"

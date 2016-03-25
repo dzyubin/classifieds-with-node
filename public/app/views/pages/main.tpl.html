@@ -12,7 +12,7 @@
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
             <li>
-                <a ng-href="#" ng-click="vm.openSidebar()">
+                <a ng-href="#/classifieds/new" ng-click="vm.openSidebar()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     Новий Товар
                 </a>
@@ -54,7 +54,6 @@
 
     </div>
 </nav>
-
 <div class="filters well form-inline clearfix" ng-show="showFilters">
 
     <div class="form-group">
@@ -82,13 +81,13 @@
 
 <div class="container">
 
-    <div ng-hide="vm.loggedIn">
+    <!--<div ng-hide="vm.loggedIn">
         <h2>
             <span class="label label-success">
                 <a href="#/classifieds/login">Ввійдіть</a> щоб переглянути оголошення
             </span>
         </h2>
-    </div>
+    </div>-->
 
 
     <!-- TODO: Note: In real production apps that deal with thousands of records, programmers usually use pagination by fetching
@@ -96,13 +95,13 @@
     method (e.g., HackHall example: https://github.com/azat-co/hackhall/blob/master/routes/posts.js#L37).
     Practical Node.js - page 120. -->
 
-    <div ng-hide="!vm.loggedIn">
+    <!--<div ng-hide="!vm.loggedIn">-->
         <classified-card classifieds="classifieds"
                          classifieds-filter="classifiedsFilter"
-                         category="category">
+                         category="category"
+                         user-id-filter="user.id">
         </classified-card>
-    </div>
-
+    <!--</div>-->
     <!--
     <div class="classified" ng-repeat="classified in vm.classifieds">
         <div class="panel panel-default">

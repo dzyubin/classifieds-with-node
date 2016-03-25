@@ -13,11 +13,12 @@ angular.module('classifieds')
             $mdSidenav('left').open();
         });*/
 
+        // відкриває форму для додавання нового оголошення
         $mdComponentRegistry.when('left').then(function(it){
             it.open();
         });
 
-        $scope.$watch('vm.sidenavNewClassifiedOpen', function (sidenav) { // 'vm.sidenavOpen' or 'vm.sidenavLeftOpen'
+        $scope.$watch('vm.sidenavNewClassifiedOpen', function (sidenav) {
             if (sidenav === false) {
                 $mdSidenav('left')
                     .close()

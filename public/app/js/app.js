@@ -13,7 +13,7 @@ angular
 
         $stateProvider
             .state('/', {
-                url: '/classifieds',
+                url: '',
                 templateUrl: 'app/views/pages/main.tpl.html',
                 controller: 'classifiedsCtrl as vm'
             })

@@ -1,8 +1,8 @@
 <div class="classified" ng-repeat="classified in classifieds |
                                      filter: classifiedsFilter |
-                                     filter: category">
+                                     filter: category |
+                                     filter: userIdFilter">
     <div class="panel panel-default">
-
         <div class="row">
             <img class="pull-left img-responsive" ng-src="{{ classified.image }}" alt=""/>
             <h2 class="layout-align-center text-center">{{ classified.title }}</h2>
