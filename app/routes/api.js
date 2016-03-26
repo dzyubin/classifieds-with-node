@@ -165,6 +165,38 @@ module.exports = function(app, express) {
                 res.json(classifieds);
             })
         })*/;
+    api.post('/update', function (req, res) {
+        console.log(req.body);
+        Classified.findOne(
+            {_id : req.body._id},
+            function(err, classified) {
+                if(!err){
+
+                    // 2: EDIT the record
+                    classified.title = req.body.title;
+                    classified.price = req.body.price;
+                    classified.content = req.body.content;
+                    classified.image = req.body.image;
+                    classified.category = req.body.category;
+
+                    // 3: SAVE the record
+                    classified.save(function(err,classified){
+                        console.log('Classified saved:', classified);
+                    });
+                }
+            }
+        )
+    });
+
+    api.get('/classified', function (req, res) {
+        //console.log(req.query);
+        Classified.findById(
+            req.query.classified_id,
+            function (err, project) {
+                res.json(project);
+            }
+        )
+    });
 
     api.get('/me', function(req, res) {
         res.json(req.decoded);

@@ -15,11 +15,15 @@
             </md-input-container>
             <md-input-container>
                 <label for="description">Опис</label>
-                <textarea id="description" ng-model="vm.classified.description"></textarea>
+                <textarea id="description" ng-model="vm.classified.content"></textarea>
             </md-input-container>
             <md-input-container>
                 <label for="image">URL Зображення</label>
                 <input type="text" id="image" ng-model="vm.classified.image"/>
+            </md-input-container>
+            <md-input-container>
+                <label for="category">Категорія</label>
+                <input type="text" id="category" ng-model="vm.classifiedData.category"/>
             </md-input-container>
             <md-button ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
             <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>

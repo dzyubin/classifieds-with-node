@@ -14,12 +14,11 @@
                     category: "=category",
                     userIdFilter: "=userIdFilter"
                 }
-                //, controller: classifiedCardController,
-                //controllerAs: "vm"
+                , controller: classifiedCardController,
+                controllerAs: "vm"
             };
 
-/*
-            function classifiedCardController($state, $scope, $mdDialog, $mdToast) {
+            function classifiedCardController($state, $scope, $mdDialog, $mdToast, Classified) {
 
                 var vm = this;
                 vm.editClassified = editClassified;
@@ -27,9 +26,16 @@
 
                 function editClassified(classified) {
                     $state.go('classifieds.edit', {
-                        id: classified.$id
+                        id: classified._id
                     });
                 }
+
+/*
+                function editClassified(classified) {
+                    console.log(classified);
+                    Classified.editClassified(classified);
+                }
+*/
 
                 // mongoose. Removing document
                 vm.removeClassified = function () {
@@ -69,6 +75,5 @@
                 }
 
             }
-*/
         })
 }());

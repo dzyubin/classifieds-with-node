@@ -26,6 +26,7 @@ app.get('*', function (req, res) {
     res.sendFile(__dirname + '/public/app/views/index.html');
 });
 
+
 app.listen(config.port, function (err) {
     if(err) {
         console.log(err);

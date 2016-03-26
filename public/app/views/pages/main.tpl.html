@@ -11,7 +11,13 @@
 
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
-            <li>
+            <li ng-if="!vm.loggedIn">
+                <a ng-href="#/classifieds" ng-click="vm.openSidebar()">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    Новий Товар
+                </a>
+            </li>
+            <li ng-if="vm.loggedIn">
                 <a ng-href="#/classifieds/new" ng-click="vm.openSidebar()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     Новий Товар
@@ -102,22 +108,4 @@
                          user-id-filter="user.id">
         </classified-card>
     <!--</div>-->
-    <!--
-    <div class="classified" ng-repeat="classified in vm.classifieds">
-        <div class="panel panel-default">
-
-            <div class="row">
-                <img class="pull-left img-responsive" ng-src="{{ classified.image }}" alt=""/>
-                <h2 class="layout-align-center text-center">{{ classified.title }}</h2>
-                <h3><span class="label label-info pull-right">{{ classified.price | currency }}</span></h3>
-            </div>
-
-            <div class="row">
-                <div class="classified-info col-sm-9">
-                    <p>{{ classified.content }}</p>
-                </div>
-            </div>
-
-        </div>
-    </div>-->
 </div>
