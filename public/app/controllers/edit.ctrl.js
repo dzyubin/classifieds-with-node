@@ -15,9 +15,10 @@
                 vm.closeSidebar = closeSidebar;
                 vm.saveEdit = saveEdit;
 
+
                 Classified.getClassified($state.params.id)
                     .success(function (data) {
-                        console.log(data);
+                        //console.log(data);
                         vm.classified = data;
                     });
 
@@ -35,9 +36,23 @@
 
                     Classified.editClassified(vm.classified);
 
+                    $rootScope.classifieds.forEach(function(classified) {
+                        if (classified._id === $state.params.id) {
+                            for (var prop in vm.classified) {
+                                if (vm.classified.hasOwnProperty(prop)) {
+                                    classified[prop] = vm.classified[prop];
+                                }
+                            }
+                        }
+                    });
+
+                    vm.classified = {};
+                    vm.sidenavOpen = false;
+                    $scope.$emit('editSaved', 'Редагування збережено!');
+
 
                    /* vm.classifieds.$save(vm.classified).then(function () {
-                        $scope.$emit('editSaved', '����������� ���������!');
+                        $scope.$emit('editSaved', 'Редагування збережено!');
                         vm.sidenavOpen = false;
                     });*/
                 }

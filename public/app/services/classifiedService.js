@@ -18,7 +18,7 @@ angular.module('classifiedService', [])
         };
 
         classifiedFactory.editClassified = function (classified) {
-            console.log('classified: ', classified);
+            //console.log('classified: ', classified);
             return $http.post('/api/update', classified);
         };
 

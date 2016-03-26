@@ -189,7 +189,6 @@ module.exports = function(app, express) {
     });
 
     api.get('/classified', function (req, res) {
-        //console.log(req.query);
         Classified.findById(
             req.query.classified_id,
             function (err, project) {

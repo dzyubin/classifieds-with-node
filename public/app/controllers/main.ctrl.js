@@ -29,11 +29,16 @@
                     });*/
             });
 
+            $scope.$on('editSaved', function (event, message) {
+                showToast(message);
+            });
+
             Classified.getClassifieds()
                 .success(function (data) {
                     $rootScope.classifieds = data;
                     vm.categories = getCategories($rootScope.classifieds);
                 });
+
 
             vm.doLogout = function () {
 
