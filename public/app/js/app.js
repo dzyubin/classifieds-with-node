@@ -1,5 +1,5 @@
 angular
-    .module("classifieds", ['ngMaterial', 'ui.router', 'authService', 'userCtrl', 'userService', 'classifiedService'])
+    .module("classifieds", ['ngMaterial', 'ui.router', 'authService', 'userCtrl', 'userService', 'classifiedService', 'angularFileUpload'])
 
     .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
         $mdThemingProvider.theme('default')

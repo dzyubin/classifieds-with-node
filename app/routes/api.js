@@ -143,14 +143,16 @@ module.exports = function(app, express) {
 
             });
 
-            //classified.save(function(err, newClassified) {
-            classified.save(function(err) {
+            classified.save(function(err, newClassified) {
+            //classified.save(function(err) {
                 if(err) {
                     res.send(err);
                     return;
                 }
                 //io.emit('classified', newClassified);
-                res.json({ message: "New Classified Created!" });
+                //res.json({ message: "New Classified Created!" });
+                res.json(newClassified);
+
             });
         })
         /*.get(function(req, res) {

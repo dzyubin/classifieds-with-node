@@ -87,6 +87,22 @@
 
 <div class="container">
 
+    <!--<div ng-controller="FileUploadController">
+        <input type="file" nv-file-select uploader="uploader"/><br/>
+        <ul>
+            <li ng-repeat="item in uploader.queue">
+                Name: <span ng-bind="item.file.name"></span><br/>
+                <button ng-click="item.upload()">upload</button>
+            </li>
+        </ul>
+    </div>-->
+
+    <div ng-controller="FileUploadController">
+        Upload image <input type="file" nv-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
+        <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+        <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
+    </div>
+
     <!--<div ng-hide="vm.loggedIn">
         <h2>
             <span class="label label-success">
@@ -95,17 +111,14 @@
         </h2>
     </div>-->
 
-
     <!-- TODO: Note: In real production apps that deal with thousands of records, programmers usually use pagination by fetching
     only a certain number of items at once (5, 10, 100, and so on). To do this, use the limit and skip options with the find
     method (e.g., HackHall example: https://github.com/azat-co/hackhall/blob/master/routes/posts.js#L37).
     Practical Node.js - page 120. -->
 
-    <!--<div ng-hide="!vm.loggedIn">-->
-        <classified-card classifieds="classifieds"
-                         classifieds-filter="classifiedsFilter"
-                         category="category"
-                         user-id-filter="user.id">
-        </classified-card>
-    <!--</div>-->
+    <classified-card classifieds="classifieds"
+                     classifieds-filter="classifiedsFilter"
+                     category="category"
+                     user-id-filter="user.id">
+    </classified-card>
 </div>
