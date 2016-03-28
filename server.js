@@ -4,6 +4,10 @@ var morgan = require('morgan');
 var config = require('./config');
 var mongoose = require('mongoose');
 var app = express();
+var multiparty = require('connect-multiparty');
+var multipartyMiddleware = multiparty();
+var UserController = require('./controllers/UserController');
+
 
 mongoose.connect(config.database, function (err) {
     if(err) {
@@ -26,6 +30,8 @@ app.get('*', function (req, res) {
     res.sendFile(__dirname + '/public/app/views/index.html');
 });
 
+// uploading images to /public/images
+app.post('/uploads', multipartyMiddleware, UserController.uploadFile);
 
 app.listen(config.port, function (err) {
     if(err) {
