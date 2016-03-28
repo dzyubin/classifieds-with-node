@@ -143,8 +143,8 @@ module.exports = function(app, express) {
 
             });
 
-            //classified.save(function(err, newClassified) {
             classified.save(function(err, newClassified) {
+            //classified.save(function(err) {
                 if(err) {
                     res.send(err);
                     return;

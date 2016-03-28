@@ -4,7 +4,7 @@
     </md-toolbar>
 
     <md-content layout-padding>
-        <form ng-submit="vm.createClassified()">
+        <form ng-submit="vm.createClassified(picFile)">
             <md-input-container>
                 <label for="title">Назва</label>
                 <input type="text" id="title" ng-model="vm.classifiedData.title" md-autofocus>
@@ -18,15 +18,35 @@
                 <!--todo: rename 'content' to 'description'-->
                 <textarea id="description" ng-model="vm.classifiedData.content"></textarea>
             </md-input-container>
-            <md-input-container>
+            <!--<md-input-container>
                 <label for="image">URL Зображення</label>
                 <input type="text" id="image" ng-model="vm.classifiedData.image"/>
-            </md-input-container>
+            </md-input-container>-->
+
             <md-input-container>
                 <label for="category">Категорія</label>
                 <input type="text" id="category" ng-model="vm.classifiedData.category"/>
             </md-input-container>
-            <md-button ng-if="!editing" ng-click="vm.saveClassified(classified)" class="md-primary">Зберегти</md-button>
+            <md-input-container>
+                <fieldset>
+                    <p>Додати Зображення</p>
+                    <input type="file" ngf-select ng-model="picFile" name="file"
+                           accept="image/*" ngf-model-invalid="errorFile">
+                    <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+                    <button ng-click="picFile = null" ng-show="picFile">Скасувати</button>
+                    <br>
+                    <!--<button
+                            ng-click="uploadPic(picFile)">Додати</button>-->
+                    <span class="progress" ng-show="picFile.progress >= 0">
+                        <div style="width:{{picFile.progress}}%"
+                             ng-bind="picFile.progress + '%'"></div>
+                    </span>
+                    <span ng-show="picFile.result">Upload Successful</span>
+                    <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                </fieldset>
+                <br>
+            </md-input-container>
+            <md-button ng-if="!editing" class="md-primary">Зберегти</md-button>
             <md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
             <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
         </form>
