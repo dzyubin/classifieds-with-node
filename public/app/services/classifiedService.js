@@ -5,7 +5,6 @@ angular.module('classifiedService', [])
         var classifiedFactory = {};
 
         classifiedFactory.create = function (classifiedData) {
-            console.log(classifiedData);
             return $http.post('/api', classifiedData);
         };
 

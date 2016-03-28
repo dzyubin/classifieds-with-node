@@ -31,38 +31,47 @@ angular.module('classifieds')
         vm.createClassified = function (file) {
             vm.message = '';
 
+            // todo: додати в контролер можливість додавати контактні дані
+            vm.classifiedData.contact = {
+                name: "Олександр",
+                phone: "34-54-45",
+                email: "example@mail.com"
+            };
+            console.log(vm.classifiedData);
+            console.log(file);
             // upload image to 'public/images'
-            file.upload = Upload.upload({
-                url: '/uploads',
-                method: 'POST',
-                data: {user: $rootScope.user, file: file}
-            });
 
-            file.upload.then(function (response) {
-                $timeout(function () {
-                    file.result = response.data;
-                    vm.classifiedData.image = 'images/' + response.config.data.file.name;
-
-                    Classified.create(vm.classifiedData)
-                        .success(function (data) {
-                         vm.classifiedData = '';
-
-                         vm.message = data.message;
-
-                         $rootScope.classifieds.push(data);
-
-                         closeSidebar();
-                         showToast("Товар Додано!");
-                         })
+            if (file) {
+                file.upload = Upload.upload({
+                    url: '/uploads',
+                    method: 'POST',
+                    data: {user: $rootScope.user, file: file}
                 });
-            }, function (response) {
-                if (response.status > 0)
-                    $scope.errorMsg = response.status + ': ' + response.data;
-            }, function (evt) {
-                // Math.min is to fix IE which reports 200% sometimes
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });
+
+
+                file.upload.then(function (response) {
+                    $timeout(function () {
+                        file.result = response.data;
+
+                        vm.classifiedData.image = 'images/' + response.config.data.file.name;
+
+                        createClassifiedService();
+                       
+                    });
+                }, function (response) {
+                    if (response.status > 0)
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                }, function (evt) {
+                    // Math.min is to fix IE which reports 200% sometimes
+                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+            } else {
+                vm.classifiedData.image = 'images/658_large.300x300.jpg';
+                createClassifiedService();
+            }
         };
+
+
 
         function closeSidebar() {
             vm.sidenavNewClassifiedOpen = false;
@@ -76,4 +85,19 @@ angular.module('classifieds')
                     .hideDelay(3000)
             );
         }
+
+            function createClassifiedService() {
+
+                Classified.create(vm.classifiedData)
+                    .success(function (data) {
+                        vm.classifiedData = '';
+
+                        vm.message = data.message;
+
+                        $rootScope.classifieds.push(data);
+
+                        closeSidebar();
+                        showToast("Товар Додано!");
+                    })
+            }
     }]);
