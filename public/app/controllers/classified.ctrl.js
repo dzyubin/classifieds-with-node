@@ -56,7 +56,7 @@ angular.module('classifieds')
                         vm.classifiedData.image = 'images/' + response.config.data.file.name;
 
                         createClassifiedService();
-                       
+
                     });
                 }, function (response) {
                     if (response.status > 0)
@@ -66,7 +66,7 @@ angular.module('classifieds')
                     file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
             } else {
-                vm.classifiedData.image = 'images/658_large.300x300.jpg';
+                vm.classifiedData.image = 'images/photo-default-th.png';
                 createClassifiedService();
             }
         };
@@ -100,4 +100,15 @@ angular.module('classifieds')
                         showToast("Товар Додано!");
                     })
             }
+
+            /*for (var i = 0; i < 3; i+=1) {
+                vm.classifiedData = {};
+                vm.classifiedData.content = "Опис";
+                vm.classifiedData.title = "Тестове оголошення";
+                vm.classifiedData.price = 1000;
+                vm.classifiedData.category = "Спорт";
+                vm.classifiedData.image = "images/photo-default-th.png";
+
+                createClassifiedService();
+            }*/
     }]);
