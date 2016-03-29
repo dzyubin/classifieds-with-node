@@ -70,7 +70,7 @@
     <div class="form-group">
         <label for="category">Категорія</label>
         <select name="category" class="form-control" id="category" ng-model="category">
-            <option ng-repeat="category in vm.categories" value="{{ category }}">
+            <option ng-repeat="category in categories" value="{{ category }}">
                 {{ category }}
             </option>
         </select>
@@ -87,45 +87,6 @@
 
 <div class="container">
 
-    <!--<div ng-controller="FileUploadController">
-        <input type="file" nv-file-select uploader="uploader"/><br/>
-        <ul>
-            <li ng-repeat="item in uploader.queue">
-                Name: <span ng-bind="item.file.name"></span><br/>
-                <button ng-click="item.upload()">upload</button>
-            </li>
-        </ul>
-    </div>-->
-
-    <!--<div ng-controller="FileUploadController">
-        Upload image <input type="file" nv-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
-        <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
-        <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
-    </div>-->
-
-    <!--<div ng-controller="imageUploadController">
-        <form name="myForm">
-            <fieldset>
-                <legend>Upload on form submit</legend>
-                <br>Image:
-                <input type="file" ngf-select ng-model="picFile" name="file"
-                       accept="image/*" ngf-model-invalid="errorFile">
-                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
-                <button ng-click="picFile = null" ng-show="picFile">Remove</button>
-                <br>
-                <button ng-disabled="!myForm.$valid"
-                        ng-click="uploadPic(picFile)">Submit</button>
-                <span class="progress" ng-show="picFile.progress >= 0">
-                    <div style="width:{{picFile.progress}}%"
-                         ng-bind="picFile.progress + '%'"></div>
-                </span>
-                <span ng-show="picFile.result">Upload Successful</span>
-                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-            </fieldset>
-            <br>
-        </form>
-    </div>-->
-
     <!--<div ng-hide="vm.loggedIn">
         <h2>
             <span class="label label-success">
@@ -134,14 +95,54 @@
         </h2>
     </div>-->
 
-    <!-- TODO: Note: In real production apps that deal with thousands of records, programmers usually use pagination by fetching
-    only a certain number of items at once (5, 10, 100, and so on). To do this, use the limit and skip options with the find
-    method (e.g., HackHall example: https://github.com/azat-co/hackhall/blob/master/routes/posts.js#L37).
-    Practical Node.js - page 120. -->
-
-    <classified-card classifieds="classifieds"
+    <!--<classified-card classifieds="classifieds"
                      classifieds-filter="classifiedsFilter"
                      category="category"
                      user-id-filter="user.id">
-    </classified-card>
+    </classified-card>-->
+
+    <div class="bs-component" ng-controller="listdata as data">
+        <dir-pagination-controls
+                max-size="8"
+                direction-links="true"
+                boundary-links="true"
+                on-page-change="vm.getData(newPageNumber)" >
+        </dir-pagination-controls>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Ціна</th>
+                <th>Категорія</th>
+                <th>Зображення</th>
+                <th>Опис</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-show="classifieds.length <= 0">
+                    <td colspan="5" style="text-align:center;">
+                        Loading new data!!
+                    </td>
+                </tr>
+                <tr dir-paginate="classified in classifieds |
+                                  itemsPerPage:data.itemsPerPage |
+                                  filter: classifiedsFilter |
+                                  filter: category |
+                                  filter: user.id"
+                    total-items="data.total_count">
+                    <td>{{classified.title}}</td>
+                    <td>{{classified.price}}</td>
+                    <td>{{classified.category}}</td>
+                    <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
+                    <td>{{classified.content}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <dir-pagination-controls
+                max-size="8"
+                direction-links="true"
+                boundary-links="true"
+                on-page-change="data.getData(newPageNumber)" >
+        </dir-pagination-controls>
+    </div>
 </div>

@@ -2,6 +2,9 @@
                                      filter: classifiedsFilter |
                                      filter: category |
                                      filter: userIdFilter">
+<!--<div class="classified" dir-paginate="classified in classifieds |
+                                      itemsPerPage:data.itemsPerPage"
+                                      total-items="data.total_count">-->
     <div class="panel panel-default">
         <div class="row">
             <img class="pull-left img-responsive" width="100" ng-src="{{ classified.image }}" alt=""/>
@@ -39,3 +42,9 @@
         </div>
     </div>
 </div>
+<dir-pagination-controls
+        max-size="8"
+        direction-links="true"
+        boundary-links="true"
+        on-page-change="vm.getData(newPageNumber)" >
+</dir-pagination-controls>

@@ -8,9 +8,9 @@ angular.module('classifiedService', [])
             return $http.post('/api', classifiedData);
         };
 
-        classifiedFactory.getClassifieds = function () {
+        /*classifiedFactory.getClassifieds = function () {
             return $http.get('/api');
-        };
+        };*/
 
         classifiedFactory.getClassified = function (classified_id) {
             //console.log(classified_id);

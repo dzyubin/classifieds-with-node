@@ -59,7 +59,7 @@ module.exports = function(app, express) {
         });
     });
 
-    api.route('/')
+    /*api.route('/')
         .get(function(req, res) {
 
             Classified.find({}, function(err, classifieds) {
@@ -71,7 +71,22 @@ module.exports = function(app, express) {
 
                 res.json(classifieds);
             })
-        });
+        });*/
+
+    api.get('/list/:itemsPerPage/:pageNumber', function(req, res) {
+        //console.log(req.params);
+        var itemsPerPage = req.params.itemsPerPage,
+            pageNumber = req.params.pageNumber;
+
+        Classified.find()
+            .limit(itemsPerPage)
+            .skip(itemsPerPage * (pageNumber-1))
+            .exec(function (err, classifieds) {
+                Classified.count().exec(function (err, data) {
+                    res.json({ classifieds: classifieds, total_count: data })
+                })
+            });
+    });
 
     api.post('/login', function(req, res) {
 
@@ -153,19 +168,7 @@ module.exports = function(app, express) {
                 //res.json({ message: "New Classified Created!" });
                 res.json(newClassified);
             });
-        })
-        /*.get(function(req, res) {
-
-            Classified.find({}, function(err, classifieds) {
-
-                if(err) {
-                    res.send(err);
-                    return;
-                }
-
-                res.json(classifieds);
-            })
-        })*/;
+        });
     api.post('/update', function (req, res) {
         console.log(req.body);
         Classified.findOne(
@@ -192,15 +195,32 @@ module.exports = function(app, express) {
     api.get('/classified', function (req, res) {
         Classified.findById(
             req.query.classified_id,
-            function (err, project) {
-                res.json(project);
+            function (err, classified) {
+                res.json(classified);
             }
         )
+    });
+
+    api.get('/list/:itemsPerPage/:pageNumber/:userId', function(req, res) {
+        var itemsPerPage = req.params.itemsPerPage,
+            pageNumber = req.params.pageNumber,
+            userId = req.params.userId;
+
+        Classified.find({ creator: userId })
+            .limit(itemsPerPage)
+            .skip(itemsPerPage * (pageNumber-1))
+            .exec(function (err, classifieds) {
+                Classified.count({ creator: userId }).exec(function (err, data) {
+                    res.json({ classifieds: classifieds, total_count: data })
+                })
+            });
     });
 
     api.get('/me', function(req, res) {
         res.json(req.decoded);
     });
+
+
 
     return api;
 };

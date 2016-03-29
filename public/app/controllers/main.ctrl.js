@@ -4,8 +4,8 @@
 
     angular
         .module("classifieds")
-        .controller("classifiedsCtrl", ['$rootScope', '$scope', '$mdSidenav', '$state', '$location', '$mdToast', 'Auth', 'Classified',
-            function ($rootScope, $scope, $mdSidenav, $state, $location, $mdToast, Auth, Classified) {
+        .controller("classifiedsCtrl", ['$rootScope', '$scope', '$http', '$mdSidenav', '$state', '$location', '$mdToast', 'Auth', 'Classified',
+            function ($rootScope, $scope, $http, $mdSidenav, $state, $location, $mdToast, Auth, Classified) {
 
             var vm = this;
 
@@ -33,12 +33,27 @@
                 showToast(message);
             });
 
-            Classified.getClassifieds()
+            /*Classified.getClassifieds()
                 .success(function (data) {
                     $rootScope.classifieds = data;
                     vm.categories = getCategories($rootScope.classifieds);
-                });
+                });*/
 
+            /*vm.pageNumber = 1; // initialize page no to 1
+            vm.total_count = '';
+            vm.itemsPerPage = 5; //this could be a dynamic value from a drop down
+            vm.getData = function(pageNumber){ // This would fetch the data on page change.
+                //In practice this should be in a factory.
+                $rootScope.classifieds = [];
+
+                $http.get("/api/list/" + vm.itemsPerPage + "/" + pageNumber).success(function(response){
+                    console.log(response);
+                    $rootScope.classifieds = response.classifieds;  // data to be displayed on current page.
+                    vm.total_count = response.total_count; // total data count.
+                });
+            };
+
+            vm.getData(vm.pageNumber); // Call the function to fetch initial data on page load.*/
 
             vm.doLogout = function () {
 
@@ -66,15 +81,6 @@
                 );
             }
 
-            function getCategories(classifieds) {
 
-                var categories = [];
-
-                angular.forEach(classifieds, function (item) {
-                    categories.push(item.category);
-                });
-
-                return _.uniq(categories);
-            }
         }])
 }());
