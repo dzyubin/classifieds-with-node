@@ -6,15 +6,12 @@ UserController.prototype.uploadFile = function(req, res) {
     // We are able to access req.files.file thanks to
     // the multiparty middleware
     var file = req.files.file;
-    /*console.log(file.name);
-    console.log(file.type);*/
 
     // get the temporary location of the file
     var tmp_path = file.path;
-    //console.log(tmp_path);
     // set where the file should actually exists - in this case it is in the "images" directory
-    var target_path = 'C:/Users/Админ/Desktop/classifieds_node/public/images/' + file.name;
-    //console.log(target_path);
+    var target_path = './public/images/' + file.name;
+    //var target_path = 'C:/Users/Админ/Desktop/classifieds_node/public/images/' + file.name;
     // move the file from the temporary location to the intended location
     fs.rename(tmp_path, target_path, function(err) {
         if (err) throw err;
