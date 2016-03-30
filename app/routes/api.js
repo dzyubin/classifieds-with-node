@@ -174,7 +174,9 @@ module.exports = function(app, express) {
         Classified.findOne(
             {_id : req.body._id},
             function(err, classified) {
-                if(!err){
+                if(err) {
+                    console.log(err);
+                } else {
 
                     // 2: EDIT the record
                     classified.title = req.body.title;

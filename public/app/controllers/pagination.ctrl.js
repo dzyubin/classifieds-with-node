@@ -1,8 +1,9 @@
 angular.module('classifieds')
-    .controller('listdata', function($rootScope, $http, $timeout, $state, Auth){
+    .controller('listdata', function($rootScope, $http, $timeout, $state, Auth, Classified){
         var vm = this;
         var classifiedsDataRoute,
-            userId;
+            userId,
+            updatedCategories = [];
 
         vm.classifieds = []; //declare an empty array
         vm.pageNumber = 1; // initialize page no to 1
@@ -34,6 +35,28 @@ angular.module('classifieds')
             });
         };
         vm.getData(vm.pageNumber); // Call the function to fetch initial data on page load.
+
+        // Select2 плагін. Ініціалізація і реєстрація eventListener'а
+        $timeout(function() {
+
+            $(document).ready(function () {
+                var Select = $('select');
+                Select.select2();
+
+                Select.on("select2:select", function (e) {
+                    updatedCategories.push(e.params.data.id); //e.params.data.id);
+                });
+            });
+
+        }, 1000);
+
+        vm.updateCategories = function (classified) {
+            if (updatedCategories.length) {
+                classified.updatedCategories = updatedCategories;
+            }
+            console.log(classified);
+            Classified.editClassified(classified);
+        };
 
         function getCategories(classifieds) {
 

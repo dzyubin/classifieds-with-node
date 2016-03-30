@@ -39,6 +39,8 @@
                     vm.categories = getCategories($rootScope.classifieds);
                 });*/
 
+
+
             vm.doLogout = function () {
 
                 // видалити user.id для того щоб вимкути фільтрування оголошень по автору оголошення

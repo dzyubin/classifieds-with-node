@@ -116,6 +116,7 @@
                 <th>Категорія</th>
                 <th>Зображення</th>
                 <th>Опис</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -129,7 +130,7 @@
                                   filter: classifiedsFilter |
                                   filter: category |
                                   filter: user.id"
-                    total-items="data.total_count">
+                                  total-items="data.total_count">
                     <td>{{classified.title}}</td>
                     <td>{{classified.price}}</td>
                     <td>{{classified.category}}</td>
@@ -139,7 +140,7 @@
 
                         <!--Контактні дані-->
                         <div class="dropdown">
-                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenuContactData"
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuContactData"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Контактні дані
                                 <span class="caret"></span>
@@ -153,19 +154,34 @@
 
                         <!--Адмін-->
                         <div class="dropdown">
-                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenuAdmin"
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuAdmin"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Адмін
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+                            <ul class="dropdown-menu" style="padding: 0; min-width: 0;" aria-labelledby="dropdownMenuAdmin">
                                 <li>
-                                    <button ng-click="data.editClassified(classified)" class="btn btn-primary">
+                                    <button ng-click="data.editClassified(classified)" class="btn btn-primary btn-xs">
                                         Редагувати
                                     </button>
                                 </li>
                             </ul>
                         </div>
+                        <hr>
+                        <select class="form-control input-xs" multiple="multiple">
+                            <option value="{{category}}" ng-repeat="category in categories">
+                                {{ category }}
+                            </option>
+                        </select>
+                        <button class="btn btn-default btn-xs" ng-click="data.updateCategories(classified)">
+                            Змінити категорію
+                        </button>
+                        <!--<select class="form-control">
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                            <option>1</option>
+                        </select>-->
                     </td>
                 </tr>
             </tbody>
