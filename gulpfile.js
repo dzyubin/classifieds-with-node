@@ -23,7 +23,7 @@ var paths = {
         'public/app/services/classifiedService.js',
         'public/app/controllers/main.ctrl.js',
         'public/app/controllers/user.ctrl.js',
-        'public/app/controllers/classified.ctrl.js',
+        'public/app/controllers/newClassified.ctrl.js',
         'public/app/controllers/edit.ctrl.js',
         'public/app/controllers/login.ctrl.js',
         'public/app/controllers/pagination.ctrl.js',

@@ -34,7 +34,7 @@ angular
             })
             .state('classifieds.new', {
                 url: '/new',
-                templateUrl: 'app/views/pages/new.tpl.html',
+                templateUrl: 'app/views/pages/newClassified.tpl.html',
                 controller: 'ClassifiedController as vm'
             })
             .state('classifieds.edit', {
