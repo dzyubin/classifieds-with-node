@@ -24,11 +24,11 @@
                 vm.editClassified = editClassified;
                 vm.deleteClassified = deleteClassified;
 
-                function editClassified(classified) {
+                /*function editClassified(classified) {
                     $state.go('classifieds.edit', {
                         id: classified._id
                     });
-                }
+                }*/
 
 /*
                 function editClassified(classified) {
@@ -38,7 +38,7 @@
 */
 
                 // mongoose. Removing document
-                vm.removeClassified = function () {
+                /*vm.removeClassified = function () {
                     Classified.findOneAndRemove(
                         {title : "asgasg"},
                         {select : 'category'},
@@ -64,7 +64,7 @@
 
                     });
                 }
-
+*/
                 function showToast(message) {
                     $mdToast.show(
                         $mdToast.simple()

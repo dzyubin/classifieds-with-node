@@ -1,5 +1,5 @@
 angular.module('classifieds')
-    .controller('listdata', function($rootScope, $http, $timeout, Auth){
+    .controller('listdata', function($rootScope, $http, $timeout, $state, Auth){
         var vm = this;
         var classifiedsDataRoute,
             userId;
@@ -43,5 +43,11 @@ angular.module('classifieds')
             });
 
             return _.uniq(categories);
+        }
+
+        vm.editClassified = function (classified) {
+            $state.go('classifieds.edit', {
+                id: classified._id
+            });
         }
     });

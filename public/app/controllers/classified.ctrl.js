@@ -37,11 +37,9 @@ angular.module('classifieds')
                 phone: "34-54-45",
                 email: "example@mail.com"
             };
-            console.log(vm.classifiedData);
-            console.log(file);
-            // upload image to 'public/images'
 
-            if (file) {
+            // upload image to 'public/images'
+            if (file) { // якщо користувач обрав зображення
                 file.upload = Upload.upload({
                     url: '/uploads',
                     method: 'POST',
@@ -65,13 +63,11 @@ angular.module('classifieds')
                     // Math.min is to fix IE which reports 200% sometimes
                     file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
-            } else {
+            } else { // якщо користувач не обрав зображення, використати зображення за замовчуванням
                 vm.classifiedData.image = 'images/photo-default-th.png';
                 createClassifiedService();
             }
         };
-
-
 
         function closeSidebar() {
             vm.sidenavNewClassifiedOpen = false;

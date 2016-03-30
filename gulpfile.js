@@ -10,10 +10,11 @@ var paths = {
         'public/app/js/vendor/bootstrap.js',
         'public/app/js/vendor/angular.js',
         'public/app/js/vendor/angular-animate.js',
-        'public/app/js/vendor/angular-ui-router.js',
         'public/app/js/vendor/angular-aria.js',
         'public/app/js/vendor/angular-locale_uk-ua.js',
         'public/app/js/vendor/angular-material.js',
+        'public/app/js/vendor/angular-ui-router.js',
+        'public/app/js/vendor/dirPagination.js',
         'public/app/js/vendor/ng-file-upload-shim.js',
         'public/app/js/vendor/ng-file-upload.js',
         'public/app/js/app.js',
@@ -25,6 +26,7 @@ var paths = {
         'public/app/controllers/classified.ctrl.js',
         'public/app/controllers/edit.ctrl.js',
         'public/app/controllers/login.ctrl.js',
+        'public/app/controllers/pagination.ctrl.js',
         'public/app/directives/classified-card.dir.js'
     ]
 };

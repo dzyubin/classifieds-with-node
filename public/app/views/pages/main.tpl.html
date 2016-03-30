@@ -135,6 +135,38 @@
                     <td>{{classified.category}}</td>
                     <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
                     <td>{{classified.content}}</td>
+                    <td>
+
+                        <!--Контактні дані-->
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenuContactData"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Контактні дані
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuContactData">
+                                <li><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></li>
+                                <li><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></li>
+                                <li><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></li>
+                            </ul>
+                        </div>
+
+                        <!--Адмін-->
+                        <div class="dropdown">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenuAdmin"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Адмін
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+                                <li>
+                                    <button ng-click="data.editClassified(classified)" class="btn btn-primary">
+                                        Редагувати
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

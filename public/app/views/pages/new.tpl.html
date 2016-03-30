@@ -29,8 +29,8 @@
             </md-input-container>
             <md-input-container>
                 <fieldset>
-                    <p ng-click="showFileUploadField=true">Додати Зображення</p>
-                    <input ng-show="showFileUploadField" type="file" ngf-select ng-model="picFile" name="file"
+                    <p>Додати Зображення</p>
+                    <input type="file" ngf-select ng-model="picFile" name="file"
                            accept="image/*" ngf-model-invalid="errorFile">
                     <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
                     <button ng-click="picFile = null" ng-show="picFile">Скасувати</button>
