@@ -10,7 +10,7 @@ var ClassifiedSchema = new Schema({
     title: String,
     price: Number,
     image: String,
-    category: String
+    category: []
 
 });
 

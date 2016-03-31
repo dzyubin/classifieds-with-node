@@ -106,7 +106,7 @@
                 max-size="8"
                 direction-links="true"
                 boundary-links="true"
-                on-page-change="vm.getData(newPageNumber)" >
+                on-page-change="getData(newPageNumber)" >
         </dir-pagination-controls>
         <table class="table table-striped table-hover">
             <thead>
@@ -126,14 +126,15 @@
                     </td>
                 </tr>
                 <tr dir-paginate="classified in classifieds |
-                                  itemsPerPage:data.itemsPerPage |
+                                  itemsPerPage:itemsPerPage |
                                   filter: classifiedsFilter |
                                   filter: category |
                                   filter: user.id"
-                                  total-items="data.total_count">
+                                  total-items="total_count">
                     <td>{{classified.title}}</td>
                     <td>{{classified.price}}</td>
-                    <td>{{classified.category}}</td>
+                    <!--<td>{{classified.category}}</td>-->
+                    <td><p ng-repeat="category in classified.category">{{category}}</p></td>
                     <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
                     <td>{{classified.content}}</td>
                     <td>
@@ -153,7 +154,7 @@
                         </div>
 
                         <!--Адмін-->
-                        <div class="dropdown">
+                        <div class="dropdown" ng-show="data.loggedIn">
                             <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuAdmin"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Адмін
@@ -167,15 +168,37 @@
                                 </li>
                             </ul>
                         </div>
-                        <hr>
-                        <select class="form-control input-xs" multiple="multiple">
-                            <option value="{{category}}" ng-repeat="category in categories">
-                                {{ category }}
-                            </option>
-                        </select>
-                        <button class="btn btn-default btn-xs" ng-click="data.updateCategories(classified)">
-                            Змінити категорію
-                        </button>
+
+                        <!--Змінити категорію-->
+                        <div ng-show="data.loggedIn">
+                            <select class="form-control input-sm" multiple="multiple">
+                                <option value="{{category}}" ng-repeat="category in categories">
+                                    {{ category }}
+                                </option>
+                            </select>
+                            <button class="btn btn-default btn-xs" ng-click="data.updateCategories(classified)">
+                                Змінити категорію
+                            </button>
+                        </div>
+
+                        <!--Додати категоію-->
+                        <div class="dropdown"  ng-show="data.loggedIn">
+                            <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuNewCategory"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Додати категорію
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="padding: 0; min-width: 0;" aria-labelledby="dropdownMenuNewCategory">
+                                <li>
+                                    <input class="form-control" type="text" ng-model="classified.additionalCategory">
+                                    <button class="btn btn-primary btn-xs center-block"
+                                            ng-click="data.updateCategories(classified)">
+                                        Додати
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
                         <!--<select class="form-control">
                             <option>1</option>
                             <option>1</option>
@@ -190,7 +213,7 @@
                 max-size="8"
                 direction-links="true"
                 boundary-links="true"
-                on-page-change="data.getData(newPageNumber)" >
+                on-page-change="getData(newPageNumber)" >
         </dir-pagination-controls>
     </div>
 </div>

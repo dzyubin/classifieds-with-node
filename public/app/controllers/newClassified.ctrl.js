@@ -82,29 +82,29 @@ angular.module('classifieds')
             );
         }
 
-            function createClassifiedService() {
+        function createClassifiedService() {
 
-                Classified.create(vm.classifiedData)
-                    .success(function (data) {
-                        vm.classifiedData = '';
+            Classified.create(vm.classifiedData)
+                .success(function (data) {
+                    vm.classifiedData = '';
 
-                        vm.message = data.message;
+                    vm.message = data.message;
 
-                        $rootScope.classifieds.push(data);
+                    $rootScope.classifieds.push(data);
 
-                        closeSidebar();
-                        showToast("Товар Додано!");
-                    })
-            }
+                    closeSidebar();
+                    showToast("Товар Додано!");
+                })
+        }
 
-            /*for (var i = 0; i < 3; i+=1) {
-                vm.classifiedData = {};
-                vm.classifiedData.content = "Опис";
-                vm.classifiedData.title = "Тестове оголошення";
-                vm.classifiedData.price = 1000;
-                vm.classifiedData.category = "Спорт";
-                vm.classifiedData.image = "images/photo-default-th.png";
+        /*for (var i = 0; i < 3; i+=1) {
+            vm.classifiedData = {};
+            vm.classifiedData.content = "Опис";
+            vm.classifiedData.title = "Тестове оголошення";
+            vm.classifiedData.price = 1000;
+            vm.classifiedData.category = "Спорт";
+            vm.classifiedData.image = "images/photo-default-th.png";
 
-                createClassifiedService();
-            }*/
+            createClassifiedService();
+        }*/
     }]);

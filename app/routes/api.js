@@ -121,8 +121,9 @@ module.exports = function(app, express) {
     api.use(function(req, res, next) {
 
         console.log("Somebody just came to our app!");
-
-        var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+        console.log(req.headers);
+        //var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+        var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
         //check if token exist
         if(token) {
@@ -170,7 +171,8 @@ module.exports = function(app, express) {
             });
         });
     api.post('/update', function (req, res) {
-        console.log(req.body);
+        //console.log(req.body);
+        console.log(req.body.updatedCategories);
         Classified.findOne(
             {_id : req.body._id},
             function(err, classified) {
@@ -183,7 +185,13 @@ module.exports = function(app, express) {
                     classified.price = req.body.price;
                     classified.content = req.body.content;
                     classified.image = req.body.image;
-                    classified.category = req.body.category;
+                    if (req.body.updatedCategories) {
+                        classified.category = req.body.updatedCategories;
+                    } else if (req.body.additionalCategory){
+                        classified.category.push(req.body.additionalCategory)
+                    } else {
+                        classified.category = req.body.category
+                    }
 
                     // 3: SAVE the record
                     classified.save(function(err,classified){

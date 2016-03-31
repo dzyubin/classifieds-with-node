@@ -34,6 +34,9 @@
 
                 function saveEdit() {
 
+                    vm.classified.category = vm.classified.category.split(',');
+                    console.log(vm.classified.category);
+
                     Classified.editClassified(vm.classified);
 
                     $rootScope.classifieds.forEach(function(classified) {
