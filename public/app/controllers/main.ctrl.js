@@ -39,7 +39,9 @@
                     vm.categories = getCategories($rootScope.classifieds);
                 });*/
 
-
+            //console.log('main classifieds');
+           /* Classified.getClassifieds();
+            console.log('end main class');*/
 
             vm.doLogout = function () {
 

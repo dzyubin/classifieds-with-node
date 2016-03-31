@@ -37,6 +37,7 @@
                                 $rootScope.user = data.data;
                                 //vm.user = data.data;
                             });
+
                         if(data.success) {
                             $state.go('classifieds');
                         } else {

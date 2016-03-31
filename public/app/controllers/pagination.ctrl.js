@@ -1,12 +1,12 @@
 angular.module('classifieds')
-    .controller('listdata', function($rootScope, $http, $timeout, $state, Auth, Classified){
+    .controller('listdata', function($rootScope, $scope, $http, $timeout, $state, Auth, Classified){
         var vm = this;
         var classifiedsDataRoute,
             userId,
             updatedCategories = [];
 
         vm.loggedIn = Auth.isLoggedIn();
-        console.log(vm.loggedIn);
+        //console.log(vm.loggedIn);
         //vm.classifieds = []; //declare an empty array
         /*vm.pageNumber = 1; // initialize page no to 1
         //vm.total_count = 25;
@@ -53,13 +53,32 @@ angular.module('classifieds')
         };
         vm.getData(vm.pageNumber); // Call the function to fetch initial data on page load.*/
 
-        Classified.getClassifieds();
+        //Classified.getClassifieds();
+        //console.log('end pagination');
+
+        /*$rootScope.pageNumber = 1; // initialize page no to 1
+        pageNumber = $rootScope.pageNumber;
+        //console.log(pageNumber);
+        //vm.total_count = 25;
+        $rootScope.itemsPerPage = 5; //this could be a dynamic value from a drop down*/
+
+        // 
+        $scope.$watch('vm.loggedIn', function () {
+            //console.log('$watch Auth.islogged');
+            vm.loggedIn = Auth.isLoggedIn();
+        });
+
+        // перезавантаження оголошень при зміні стану авторизації
+        $scope.$watch('vm.loggedIn', function (loggedIn) {
+            //console.log('vm.loggedIn changed');
+            Classified.getClassifieds();
+        });
 
         vm.updateCategories = function (classified) {
             if (updatedCategories.length) { // якщо обрані нові категорії
                 classified.updatedCategories = updatedCategories; // додати їх до оголошення
             }
-            console.log(classified);
+            //console.log(classified);
             Classified.editClassified(classified);
         };
 
