@@ -60,7 +60,7 @@ angular.module('classifiedService', [])
                                 });
                             });
 
-                        }, 300);
+                        }, 100);
                     });
                 });
             };

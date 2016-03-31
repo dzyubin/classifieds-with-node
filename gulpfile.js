@@ -14,9 +14,10 @@ var paths = {
         'public/app/js/vendor/angular-locale_uk-ua.js',
         'public/app/js/vendor/angular-material.js',
         'public/app/js/vendor/angular-ui-router.js',
-        'public/app/js/vendor/dirPagination.js',
         'public/app/js/vendor/ng-file-upload-shim.js',
         'public/app/js/vendor/ng-file-upload.js',
+        'public/app/js/vendor/dirPagination.js',
+        'public/app/js/vendor/select2.js',
         'public/app/js/app.js',
         'public/app/services/authService.js',
         'public/app/services/userService.js',
@@ -24,8 +25,8 @@ var paths = {
         'public/app/controllers/main.ctrl.js',
         'public/app/controllers/user.ctrl.js',
         'public/app/controllers/newClassified.ctrl.js',
-        'public/app/controllers/edit.ctrl.js',
         'public/app/controllers/login.ctrl.js',
+        'public/app/controllers/edit.ctrl.js',
         'public/app/controllers/pagination.ctrl.js',
         'public/app/directives/classified-card.dir.js'
     ]
