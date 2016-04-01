@@ -97,14 +97,30 @@ angular.module('classifieds')
                 })
         }
 
-        /*for (var i = 0; i < 3; i+=1) {
+        // batman
+/*
+        for (var i = 0; i < 100; i+=1) {
             vm.classifiedData = {};
             vm.classifiedData.content = "Опис";
-            vm.classifiedData.title = "Тестове оголошення";
+            vm.classifiedData.title = "Транспорт";
+            vm.classifiedData.price = 1000;
+            vm.classifiedData.category = "Транспорт";
+            vm.classifiedData.image = "images/img.png";
+            createClassifiedService();
+        }
+*/
+
+        // joker
+       /* for (var i = 0; i < 100; i+=1) {
+            vm.classifiedData = {};
+            vm.classifiedData.content = "Опис";
+            vm.classifiedData.title = "Спорт";
             vm.classifiedData.price = 1000;
             vm.classifiedData.category = "Спорт";
-            vm.classifiedData.image = "images/photo-default-th.png";
-
+            vm.classifiedData.image = "images/sport.png";
             createClassifiedService();
         }*/
+
+            /*classifiedData = {};
+            Classified.remove(classifiedData);*/
     }]);

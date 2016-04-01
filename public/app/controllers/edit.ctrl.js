@@ -33,9 +33,9 @@
                 });
 
                 function saveEdit() {
-
-                    vm.classified.category = vm.classified.category.split(',');
-                    console.log(vm.classified.category);
+                    //console.log(vm.classified);
+                    //vm.classified.category = vm.classified.category.split(',');
+                    //console.log(vm.classified.category);
 
                     Classified.editClassified(vm.classified);
 
@@ -64,29 +64,27 @@
                     vm.sidenavOpen = false;
                 }
 
-                /*
-                                vm.doLogin = function () {
+                /*vm.doLogin = function () {
 
-                                    vm.processing = true;
+                    vm.processing = true;
 
-                                    vm.error = '';
+                    vm.error = '';
 
-                                    Auth.login(vm.loginData.username, vm.loginData.password)
-                                        .success(function (data) {
-                                            vm.processing = false;
+                    Auth.login(vm.loginData.username, vm.loginData.password)
+                        .success(function (data) {
+                            vm.processing = false;
 
-                                            Auth.getUser()
-                                                .then(function (data) {
-                                                    $rootScope.user = data.data;
-                                                    vm.user = data.data;
-                                                });
-                                            if(data.success) {
-                                                $state.go('classifieds');
-                                            } else {
-                                                vm.error = data.message;
-                                            }
-                                        });
-                                };
-                */
+                            Auth.getUser()
+                                .then(function (data) {
+                                    $rootScope.user = data.data;
+                                    vm.user = data.data;
+                                });
+                            if(data.success) {
+                                $state.go('classifieds');
+                            } else {
+                                vm.error = data.message;
+                            }
+                        });
+                };*/
             }]);
 }());

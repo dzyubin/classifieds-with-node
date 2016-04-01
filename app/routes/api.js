@@ -202,6 +202,16 @@ module.exports = function(app, express) {
         )
     });
 
+    api.post('/remove', function (req, res){
+        Classified.remove({ title: /Транспорт/ }, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('successfully removed');
+            }
+        })
+    });
+
     api.get('/classified', function (req, res) {
         Classified.findById(
             req.query.classified_id,

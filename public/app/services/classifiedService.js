@@ -23,7 +23,7 @@ angular.module('classifiedService', [])
             pageNumber = $rootScope.pageNumber;
             //console.log(pageNumber);
             //vm.total_count = 25;
-            $rootScope.itemsPerPage = 5; //this could be a dynamic value from a drop down
+            $rootScope.itemsPerPage = 20; //this could be a dynamic value from a drop down
             $rootScope.getData = function(pageNumber){ // This would fetch the data on page change.
                 //In practice this should be in a factory.
                 $timeout(function () {
@@ -60,7 +60,7 @@ angular.module('classifiedService', [])
                                 });
                             });
 
-                        }, 100);
+                        }, 50);
                     });
                 });
             };
@@ -87,6 +87,10 @@ angular.module('classifiedService', [])
 
             return _.uniq(categories);
         }
+
+        classifiedFactory.remove = function (classified) {
+            return $http.post('/api/remove', classified);
+        };
 
         return classifiedFactory;
     }]);
