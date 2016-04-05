@@ -30,7 +30,7 @@
             });
 
             $scope.$on('editSaved', function (event, message) {
-                showToast(message);
+                showToast(message, 3000);
             });
 
             /*Classified.getClassifieds()
@@ -38,10 +38,6 @@
                     $rootScope.classifieds = data;
                     vm.categories = getCategories($rootScope.classifieds);
                 });*/
-
-            //console.log('main classifieds');
-           /* Classified.getClassifieds();
-            console.log('end main class');*/
 
             vm.doLogout = function () {
 
@@ -56,16 +52,16 @@
                 if (Auth.isLoggedIn()) {
                     $state.go('classifieds.new');
                 } else {
-                    showToast("Необхідна авторизація (натисніть 'Вхід')");
+                    showToast("Необхідна авторизація (натисніть 'Вхід')", 1000);
                 }
             }
 
-            function showToast(message) {
+            function showToast(message, delay) {
                 $mdToast.show(
                     $mdToast.simple()
                         .content(message)
                         .position('top, right')
-                        .hideDelay(3000)
+                        .hideDelay(delay)
                 );
             }
 

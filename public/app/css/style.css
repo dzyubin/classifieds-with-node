@@ -61,3 +61,7 @@ input.ng-valid.ng-touched {
 .md-sidenav-backdrop.md-opaque, md-sidenav {
     position: fixed;
 }
+
+.progress {
+    background: #3636ff;
+}

@@ -1,5 +1,7 @@
-var User = require('../models/user');
-var Classified = require('../models/classified');
+var User = require('../models/user'),
+    Classified = require('../models/classified'),
+    Categories = require('../models/categories');
+
 var config = require('../../config');
 var secretKey = config.secretKey;
 var jsonwebtoken = require('jsonwebtoken');
@@ -58,6 +60,24 @@ module.exports = function(app, express) {
 
         });
     });
+
+    /*api.post('/categories', function(req, res) {
+        console.log(req.body);
+        var categories = new Categories({
+            categories: req.body
+        });
+
+        categories.save(function(err, newCategories) {
+            //classified.save(function(err) {
+            if(err) {
+                res.send(err);
+                return;
+            }
+            //io.emit('classified', newCategories);
+            //res.json({ message: "New Classified Created!" });
+            res.json(newCategories);
+        });
+    });*/
 
     /*api.route('/')
         .get(function(req, res) {
@@ -121,7 +141,6 @@ module.exports = function(app, express) {
     api.use(function(req, res, next) {
 
         console.log("Somebody just came to our app!");
-        console.log(req.headers);
         //var token = req.body.token || req.param('token') || req.headers['x-access-token'];
         var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
@@ -149,14 +168,12 @@ module.exports = function(app, express) {
         .post(function(req, res) {
 
             var classified = new Classified({
-
                 creator: req.decoded.id,
                 content: req.body.content,
                 title: req.body.title,
                 price: req.body.price,
                 image: req.body.image,
-                category: req.body.category
-
+                category: req.body.chosenCategories
             });
 
             classified.save(function(err, newClassified) {
@@ -170,9 +187,8 @@ module.exports = function(app, express) {
                 res.json(newClassified);
             });
         });
+
     api.post('/update', function (req, res) {
-        //console.log(req.body);
-        console.log(req.body.updatedCategories);
         Classified.findOne(
             {_id : req.body._id},
             function(err, classified) {
@@ -239,8 +255,6 @@ module.exports = function(app, express) {
     api.get('/me', function(req, res) {
         res.json(req.decoded);
     });
-
-
 
     return api;
 };

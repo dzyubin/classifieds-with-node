@@ -4,14 +4,11 @@ angular.module('classifieds')
         function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $mdToast, $state, Classified, Auth, Upload) {
 
         var vm = this;
-
         vm.loggedIn = Auth.isLoggedIn();
-
         vm.closeSidebar = closeSidebar;
 
-        /*$timeout(function () {
-            $mdSidenav('left').open();
-        });*/
+        vm.likedAnimals = ["mouse", "dog"];
+        vm.animals = ["mouse", "dog", "cat", "bird"];
 
         // відкриває форму для додавання нового оголошення
         $mdComponentRegistry.when('left').then(function(it){
@@ -28,7 +25,7 @@ angular.module('classifieds')
             }
         });
 
-        vm.createClassified = function (file) {
+        vm.uploadImageAndCreateClassified = function (file) {
             vm.message = '';
 
             // todo: додати в контролер можливість додавати контактні дані
@@ -45,7 +42,6 @@ angular.module('classifieds')
                     method: 'POST',
                     data: {user: $rootScope.user, file: file}
                 });
-
 
                 file.upload.then(function (response) {
                     $timeout(function () {
@@ -67,6 +63,7 @@ angular.module('classifieds')
                 vm.classifiedData.image = 'images/photo-default-th.png';
                 createClassifiedService();
             }
+            //Classified.categories(vm.classifiedData.chosenCategories);
         };
 
         function closeSidebar() {
@@ -97,30 +94,5 @@ angular.module('classifieds')
                 })
         }
 
-        // batman
-/*
-        for (var i = 0; i < 100; i+=1) {
-            vm.classifiedData = {};
-            vm.classifiedData.content = "Опис";
-            vm.classifiedData.title = "Транспорт";
-            vm.classifiedData.price = 1000;
-            vm.classifiedData.category = "Транспорт";
-            vm.classifiedData.image = "images/img.png";
-            createClassifiedService();
-        }
-*/
 
-        // joker
-       /* for (var i = 0; i < 100; i+=1) {
-            vm.classifiedData = {};
-            vm.classifiedData.content = "Опис";
-            vm.classifiedData.title = "Спорт";
-            vm.classifiedData.price = 1000;
-            vm.classifiedData.category = "Спорт";
-            vm.classifiedData.image = "images/sport.png";
-            createClassifiedService();
-        }*/
-
-            /*classifiedData = {};
-            Classified.remove(classifiedData);*/
     }]);

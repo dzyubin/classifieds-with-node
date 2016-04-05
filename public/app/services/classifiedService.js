@@ -4,6 +4,10 @@ angular.module('classifiedService', [])
 
         var classifiedFactory = {};
 
+        /*classifiedFactory.categories = function (categories) {
+            return $http.post('/api/categories', categories)
+        };*/
+
         classifiedFactory.create = function (classifiedData) {
             return $http.post('/api', classifiedData);
         };
