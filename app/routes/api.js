@@ -6,19 +6,6 @@ var config = require('../../config');
 var secretKey = config.secretKey;
 var jsonwebtoken = require('jsonwebtoken');
 
-function createToken(user){
-
-    var token = jsonwebtoken.sign({
-        id: user.id,
-        name: user.name,
-        username: user.username
-    }, secretKey, {
-        expiresInMinute: 1440
-    });
-
-    return token;
-}
-
 module.exports = function(app, express) {
 
     var api = express.Router();
@@ -46,6 +33,19 @@ module.exports = function(app, express) {
             });
         });
     });
+
+    function createToken(user){
+
+	    var token = jsonwebtoken.sign({
+	        id: user.id,
+	        name: user.name,
+	        username: user.username
+	    }, secretKey, {
+	        expiresInMinute: 1440
+	    });
+
+	    return token;
+	}
 
     api.get('/users', function(req, res) {
 
@@ -106,6 +106,16 @@ module.exports = function(app, express) {
                     res.json({ classifieds: classifieds, total_count: data })
                 })
             });
+    });
+
+    api.get('/categories', function (req, res) {
+        Categories.find({}, function (err, categories) {
+            if (err) {
+                res.send(err);
+                return;
+            }
+            res.json(categories);
+        })
     });
 
     api.post('/login', function(req, res) {
@@ -218,7 +228,7 @@ module.exports = function(app, express) {
         )
     });
 
-    api.post('/remove', function (req, res){
+    /*api.post('/remove', function (req, res){
         Classified.remove({ title: /Транспорт/ }, function (err) {
             if (err) {
                 console.log(err);
@@ -226,7 +236,7 @@ module.exports = function(app, express) {
                 console.log('successfully removed');
             }
         })
-    });
+    });*/
 
     api.get('/classified', function (req, res) {
         Classified.findById(

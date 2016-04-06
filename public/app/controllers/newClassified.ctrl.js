@@ -6,11 +6,16 @@ angular.module('classifieds')
         var vm = this;
         vm.loggedIn = Auth.isLoggedIn();
         vm.closeSidebar = closeSidebar;
+        vm.categories = [];
+        //vm.categories = Classified.getCategories();
+        Classified.getCategories()
+            .success(function (data) {
+                console.log(data[0].categories);
+                vm.categories = data[0].categories;
+            });
+            console.log(vm.categoriesw);
 
-        vm.likedAnimals = ["mouse", "dog"];
-        vm.animals = ["mouse", "dog", "cat", "bird"];
-
-        // відкриває форму для додавання нового оголошення
+            // відкриває форму для додавання нового оголошення
         $mdComponentRegistry.when('left').then(function(it){
             it.open();
         });

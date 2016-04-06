@@ -48,7 +48,7 @@ angular.module('classifiedService', [])
                     $http.get(classifiedsDataRoute).success(function(response){
                         $rootScope.classifieds = response.classifieds;  // data to be displayed on current page.
                         $rootScope.total_count = response.total_count; // total data count.
-                        $rootScope.categories = getCategories($rootScope.classifieds);
+                        //$rootScope.categories = getCategories($rootScope.classifieds);
 
                         // Select2 плагін. Ініціалізація і реєстрація eventListener'а
                         $timeout(function() {
@@ -76,12 +76,16 @@ angular.module('classifiedService', [])
             return $http.get('/api/classified', {params: {classified_id: classified_id}});
         };
 
+        classifiedFactory.getCategories = function () {
+            return $http.get('/api/categories');
+        };
+
         classifiedFactory.editClassified = function (classified) {
             //console.log('classified: ', classified);
             return $http.post('/api/update', classified);
         };
 
-        function getCategories(classifieds) {
+        /*function getCategories(classifieds) {
             var categories = [];
             angular.forEach(classifieds, function (item) {
                 angular.forEach(item.category, function (item) {
@@ -90,11 +94,11 @@ angular.module('classifiedService', [])
             });
 
             return _.uniq(categories);
-        }
+        }*/
 
-        classifiedFactory.remove = function (classified) {
+        /*classifiedFactory.remove = function (classified) {
             return $http.post('/api/remove', classified);
-        };
+        };*/
 
         return classifiedFactory;
     }]);

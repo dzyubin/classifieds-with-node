@@ -24,7 +24,9 @@
             </md-input-container>-->
             <md-input-container>
                 <md-select multiple ng-model="vm.classifiedData.chosenCategories" placeholder="Категорія(-ії)">
-                    <md-option ng-repeat="a in vm.animals" value="{{a}}">{{a}}</md-option>
+                    <md-option ng-repeat="category in vm.categories" value="{{category}}">
+                        {{category}}
+                    </md-option>
                 </md-select>
             </md-input-container>
             <md-input-container>
