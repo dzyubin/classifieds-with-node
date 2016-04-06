@@ -23,11 +23,25 @@
                 <input type="text" id="category" ng-model="vm.classifiedData.category"/>
             </md-input-container>-->
             <md-input-container>
-                <md-select multiple ng-model="vm.classifiedData.chosenCategories" placeholder="Категорія(-ії)">
+                <label for="categories">Категорія(-ії)</label>
+                <md-select id="categories" multiple ng-model="vm.classifiedData.categories">
                     <md-option ng-repeat="category in vm.categories" value="{{category}}">
                         {{category}}
                     </md-option>
                 </md-select>
+            </md-input-container>
+            <md-input-container flex>
+                <label for="newCategory">Нова категорія</label>
+                <input type="text" id="newCategory" ng-model="vm.newCategory">
+            </md-input-container>
+            <div class="alert alert-warning" ng-show="vm.newCategoryError">
+                {{ vm.newCategoryError }}
+            </div>
+            <md-input-container>
+                <md-button class="md-button md-primary" aria-label="" type="button"
+                           ng-click="vm.addNewCategory()">
+                    Додати нову категорію
+                </md-button>
             </md-input-container>
             <md-input-container>
                 <fieldset>
@@ -50,7 +64,7 @@
             </md-input-container>
             <md-button ng-if="!editing" class="md-primary">Зберегти</md-button>
             <!--<md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>-->
-            <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
+            <md-button type="button" ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
         </form>
     </md-content>
 </md-sidenav>

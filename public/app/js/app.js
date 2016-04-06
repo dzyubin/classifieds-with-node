@@ -3,7 +3,7 @@ angular
 
     .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('blue-grey')
+            .primaryPalette('blue')
             .accentPalette('orange');
 
         $httpProvider.interceptors.push('AuthInterceptor');

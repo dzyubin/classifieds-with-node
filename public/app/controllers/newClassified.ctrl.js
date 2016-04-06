@@ -10,10 +10,8 @@ angular.module('classifieds')
         //vm.categories = Classified.getCategories();
         Classified.getCategories()
             .success(function (data) {
-                console.log(data[0].categories);
                 vm.categories = data[0].categories;
             });
-            console.log(vm.categoriesw);
 
             // відкриває форму для додавання нового оголошення
         $mdComponentRegistry.when('left').then(function(it){
@@ -29,6 +27,28 @@ angular.module('classifieds')
                     });
             }
         });
+
+        vm.addNewCategory = function() {
+
+            vm.classifiedData.categories = [];
+
+            if (!vm.newCategory) {
+                vm.newCategoryError = 'Введіть назву категорії';
+                return;
+            } else if (vm.categories.indexOf(vm.newCategory) !== -1) {
+                vm.newCategoryError = 'Категорія з такою назвою вже створена!';
+                vm.newCategory = '';
+            } else {
+                vm.categories.push(vm.newCategory);
+                vm.classifiedData.categories.push(vm.newCategory);
+                vm.newCategory = '';
+                //vm.newCategoryError = "Категорію додано. Щоб обрати натисніть 'Категорія(-ії)'";
+                $timeout(function () {
+                    vm.newCategoryError = '';
+                }, 5000);
+            }
+            console.log(vm.categories);
+        };
 
         vm.uploadImageAndCreateClassified = function (file) {
             vm.message = '';
@@ -68,7 +88,7 @@ angular.module('classifieds')
                 vm.classifiedData.image = 'images/photo-default-th.png';
                 createClassifiedService();
             }
-            //Classified.categories(vm.classifiedData.chosenCategories);
+            //Classified.categories(vm.classifiedData.categories);
         };
 
         function closeSidebar() {
@@ -98,6 +118,4 @@ angular.module('classifieds')
                     showToast("Товар Додано!");
                 })
         }
-
-
     }]);

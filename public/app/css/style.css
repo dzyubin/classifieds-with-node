@@ -65,3 +65,7 @@ input.ng-valid.ng-touched {
 .progress {
     background: #3636ff;
 }
+
+md-option {
+    height: 24px;
+}

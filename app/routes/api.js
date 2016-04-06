@@ -183,7 +183,7 @@ module.exports = function(app, express) {
                 title: req.body.title,
                 price: req.body.price,
                 image: req.body.image,
-                category: req.body.chosenCategories
+                category: req.body.categories
             });
 
             classified.save(function(err, newClassified) {
