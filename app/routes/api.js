@@ -211,13 +211,13 @@ module.exports = function(app, express) {
                     classified.price = req.body.price;
                     classified.content = req.body.content;
                     classified.image = req.body.image;
-                    if (req.body.updatedCategories) {
-                        classified.category = req.body.updatedCategories;
-                    } else if (req.body.additionalCategory){
-                        classified.category.push(req.body.additionalCategory)
-                    } else {
-                        classified.category = req.body.category
-                    }
+                    //if (req.body.updatedCategories) {
+                    //    classified.category = req.body.updatedCategories;
+                    //} else if (req.body.additionalCategory){
+                    //    classified.category.push(req.body.additionalCategory)
+                    //} else {
+                        classified.category = req.body.category;
+                    //}
 
                     // 3: SAVE the record
                     classified.save(function(err,classified){

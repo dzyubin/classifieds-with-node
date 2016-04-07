@@ -23,12 +23,12 @@
                     Новий Товар
                 </a>
             </li>
-            <li>
+            <!--<li>
                 <a ng-href="#" ng-click="showFilters = !showFilters">
                     <span class="glyphicon glyphicon-search"></span>
                     Фільтр
                 </a>
-            </li>
+            </li>-->
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -86,14 +86,6 @@
 
 
 <div class="container">
-
-    <!--<div ng-hide="vm.loggedIn">
-        <h2>
-            <span class="label label-success">
-                <a href="#/classifieds/login">Ввійдіть</a> щоб переглянути оголошення
-            </span>
-        </h2>
-    </div>-->
 
     <!--<classified-card classifieds="classifieds"
                      classifieds-filter="classifiedsFilter"
@@ -154,7 +146,7 @@
                         </div>
 
                         <!--Адмін-->
-                        <div class="dropdown" ng-show="data.loggedIn">
+                        <div class="dropdown" ng-show="vm.loggedIn">
                             <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuAdmin"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Адмін
@@ -162,7 +154,7 @@
                             </button>
                             <ul class="dropdown-menu" style="padding: 0; min-width: 0;" aria-labelledby="dropdownMenuAdmin">
                                 <li>
-                                    <button ng-click="data.editClassified(classified)" class="btn btn-primary btn-xs">
+                                    <button ng-click="vm.editClassified(classified)" class="btn btn-primary btn-xs">
                                         Редагувати
                                     </button>
                                 </li>
@@ -170,7 +162,7 @@
                         </div>
 
                         <!--Змінити категорію-->
-                        <div ng-show="data.loggedIn">
+                        <!--<div ng-show="vm.loggedIn">
                             <select class="form-control input-sm" multiple="multiple">
                                 <option value="{{category}}" ng-repeat="category in categories">
                                     {{ category }}
@@ -179,10 +171,10 @@
                             <button class="btn btn-default btn-xs" ng-click="data.updateCategories(classified)">
                                 Змінити категорію
                             </button>
-                        </div>
+                        </div>-->
 
                         <!--Додати категоію-->
-                        <div class="dropdown"  ng-show="data.loggedIn">
+                        <!--<div class="dropdown"  ng-show="vm.loggedIn">
                             <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuNewCategory"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 Додати категорію
@@ -197,14 +189,7 @@
                                     </button>
                                 </li>
                             </ul>
-                        </div>
-
-                        <!--<select class="form-control">
-                            <option>1</option>
-                            <option>1</option>
-                            <option>1</option>
-                            <option>1</option>
-                        </select>-->
+                        </div>-->
                     </td>
                 </tr>
             </tbody>

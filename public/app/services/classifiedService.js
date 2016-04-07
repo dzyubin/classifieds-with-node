@@ -4,10 +4,6 @@ angular.module('classifiedService', [])
 
         var classifiedFactory = {};
 
-        /*classifiedFactory.categories = function (categories) {
-            return $http.post('/api/categories', categories)
-        };*/
-
         classifiedFactory.create = function (classifiedData) {
             return $http.post('/api', classifiedData);
         };
@@ -25,7 +21,6 @@ angular.module('classifiedService', [])
             //vm.classifieds = []; //declare an empty array
             $rootScope.pageNumber = 1; // initialize page no to 1
             pageNumber = $rootScope.pageNumber;
-            //console.log(pageNumber);
             //vm.total_count = 25;
             $rootScope.itemsPerPage = 20; //this could be a dynamic value from a drop down
             $rootScope.getData = function(pageNumber){ // This would fetch the data on page change.
@@ -36,7 +31,6 @@ angular.module('classifiedService', [])
 
                     if (Auth.isLoggedIn()){
                         userId = $rootScope.$root.user.id;
-                        //console.log(userId);
                         classifiedsDataRoute = "/api/list/" + $rootScope.itemsPerPage + "/" + pageNumber + "/" + userId;
                         console.log(classifiedsDataRoute);
                     } else {
@@ -81,20 +75,8 @@ angular.module('classifiedService', [])
         };
 
         classifiedFactory.editClassified = function (classified) {
-            //console.log('classified: ', classified);
             return $http.post('/api/update', classified);
         };
-
-        /*function getCategories(classifieds) {
-            var categories = [];
-            angular.forEach(classifieds, function (item) {
-                angular.forEach(item.category, function (item) {
-                    categories.push(item);
-                })
-            });
-
-            return _.uniq(categories);
-        }*/
 
         /*classifiedFactory.remove = function (classified) {
             return $http.post('/api/remove', classified);

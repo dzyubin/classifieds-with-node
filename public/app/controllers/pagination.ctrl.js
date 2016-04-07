@@ -20,12 +20,12 @@ angular.module('classifieds')
             Classified.getClassifieds();
         });
 
-        vm.updateCategories = function (classified) {
+        /*vm.updateCategories = function (classified) {
             if (updatedCategories.length) { // якщо обрані нові категорії
                 classified.updatedCategories = updatedCategories; // додати їх до оголошення
             }
             Classified.editClassified(classified);
-        };
+        };*/
 
         vm.editClassified = function (classified) {
             $state.go('classifieds.edit', {

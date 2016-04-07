@@ -1,4 +1,4 @@
-//angular.module('classifiedCtrl', ['classifiedService'])
+// todo: add 'use strict' to all js files
 angular.module('classifieds')
     .controller('ClassifiedController', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$mdToast', '$state', 'Classified', 'Auth', 'Upload',
         function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $mdToast, $state, Classified, Auth, Upload) {
@@ -7,7 +7,6 @@ angular.module('classifieds')
         vm.loggedIn = Auth.isLoggedIn();
         vm.closeSidebar = closeSidebar;
         vm.categories = [];
-        //vm.categories = Classified.getCategories();
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
