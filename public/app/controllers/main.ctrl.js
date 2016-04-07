@@ -52,7 +52,7 @@
                 if (Auth.isLoggedIn()) {
                     $state.go('classifieds.new');
                 } else {
-                    showToast("Необхідна авторизація (натисніть 'Вхід')", 1000);
+                    showToast("Необхідна авторизація (натисніть 'Увійти')", 1000);
                 }
             }
 

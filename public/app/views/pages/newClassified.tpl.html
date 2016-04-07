@@ -25,12 +25,13 @@
             <md-input-container>
                 <label for="categories">Категорія(-ії)</label>
                 <md-select id="categories" multiple ng-model="vm.classifiedData.categories">
+                    <i ng-show="!vm.categories" class="fa fa-spinner fa-spin"></i>
                     <md-option ng-repeat="category in vm.categories" value="{{category}}">
                         {{category}}
                     </md-option>
                 </md-select>
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container>
                 <label for="newCategory">Нова категорія</label>
                 <input type="text" id="newCategory" ng-model="vm.newCategory">
             </md-input-container>

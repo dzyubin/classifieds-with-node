@@ -114,7 +114,7 @@
             <tbody>
                 <tr ng-show="classifieds.length <= 0">
                     <td colspan="5" style="text-align:center;">
-                        Loading new data!!
+                        <i class="fa fa-spinner fa-spin"></i>
                     </td>
                 </tr>
                 <tr dir-paginate="classified in classifieds |
@@ -154,7 +154,7 @@
                             </button>
                             <ul class="dropdown-menu" style="padding: 0; min-width: 0;" aria-labelledby="dropdownMenuAdmin">
                                 <li>
-                                    <button ng-click="vm.editClassified(classified)" class="btn btn-primary btn-xs">
+                                    <button ng-click="data.editClassified(classified)" class="btn btn-primary btn-xs">
                                         Редагувати
                                     </button>
                                 </li>

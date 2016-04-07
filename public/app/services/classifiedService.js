@@ -45,7 +45,7 @@ angular.module('classifiedService', [])
                         //$rootScope.categories = getCategories($rootScope.classifieds);
 
                         // Select2 плагін. Ініціалізація і реєстрація eventListener'а
-                        $timeout(function() {
+                        /*$timeout(function() {
 
                             $(document).ready(function () {
                                 var Select = $('select');
@@ -58,7 +58,7 @@ angular.module('classifiedService', [])
                                 });
                             });
 
-                        }, 50);
+                        }, 50);*/
                     });
                 });
             };

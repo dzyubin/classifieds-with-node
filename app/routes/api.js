@@ -177,6 +177,22 @@ module.exports = function(app, express) {
 
         .post(function(req, res) {
 
+            if (req.body.newCategories) { // якщо користувач створив нові категорії
+                Categories.find({}, function (err, categories) { // додати їх в базу данних
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        req.body.newCategories.forEach(function (element, index) {
+                            categories[0].categories.push(element);
+                        });
+
+                        categories[0].save(function (err, categories) {
+                            console.log('Categories saved:', categories);
+                        });
+                    }
+                });
+            }
+
             var classified = new Classified({
                 creator: req.decoded.id,
                 content: req.body.content,

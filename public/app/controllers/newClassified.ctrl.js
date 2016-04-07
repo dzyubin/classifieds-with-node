@@ -28,18 +28,20 @@ angular.module('classifieds')
         });
 
         vm.addNewCategory = function() {
-
-            vm.classifiedData.categories = [];
+            vm.classifiedData.newCategories = [];
+            if (!vm.classifiedData.categories) {
+                vm.classifiedData.categories = [];
+            }
 
             if (!vm.newCategory) {
                 vm.newCategoryError = 'Введіть назву категорії';
-                return;
             } else if (vm.categories.indexOf(vm.newCategory) !== -1) {
                 vm.newCategoryError = 'Категорія з такою назвою вже створена!';
                 vm.newCategory = '';
             } else {
                 vm.categories.push(vm.newCategory);
-                vm.classifiedData.categories.push(vm.newCategory);
+                vm.classifiedData.categories.push(vm.newCategory); // обновити локальний список категорій
+                vm.classifiedData.newCategories.push(vm.newCategory); // додати категорії, які будуть додані до бази даних
                 vm.newCategory = '';
                 //vm.newCategoryError = "Категорію додано. Щоб обрати натисніть 'Категорія(-ії)'";
                 $timeout(function () {

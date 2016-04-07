@@ -17,6 +17,7 @@ angular.module('classifieds')
         // перезавантаження оголошень при зміні стану авторизації
         $scope.$watch('vm.loggedIn', function (loggedIn) {
             //console.log('vm.loggedIn changed');
+            $rootScope.classifieds = [];
             Classified.getClassifieds();
         });
 
