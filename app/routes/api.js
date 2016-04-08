@@ -93,18 +93,19 @@ module.exports = function(app, express) {
             })
         });*/
 
-    api.get('/list/:itemsPerPage/:pageNumber', function(req, res) {
-        //console.log(req.params);
-        var itemsPerPage = req.params.itemsPerPage,
-            pageNumber = req.params.pageNumber;
+    api.get('/list', function(req, res) {
+        console.log(req.params);
+        /*var itemsPerPage = req.params.itemsPerPage,
+            pageNumber = req.params.pageNumber;*/
 
         Classified.find()
-            .limit(itemsPerPage)
-            .skip(itemsPerPage * (pageNumber-1))
+            /*.limit(itemsPerPage)
+            .skip(itemsPerPage * (pageNumber-1))*/
             .exec(function (err, classifieds) {
-                Classified.count().exec(function (err, data) {
-                    res.json({ classifieds: classifieds, total_count: data })
-                })
+                //Classified.count().exec(function (err, data) {
+                //    res.json({ classifieds: classifieds, total_count: data })
+                    res.json(classifieds);
+                //})
             });
     });
 

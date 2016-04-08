@@ -1,9 +1,6 @@
 angular.module('classifieds')
-    .controller('listdata', function($rootScope, $scope, $http, $timeout, $state, Auth, Classified){
+    .controller('listdata', function($rootScope, $scope, $http, $timeout, $state, Auth, Classified, ClassifiedsDB){
         var vm = this;
-        var classifiedsDataRoute,
-            userId,
-            updatedCategories = [];
 
         vm.loggedIn = Auth.isLoggedIn();
 
@@ -12,25 +9,28 @@ angular.module('classifieds')
             vm.loggedIn = Auth.isLoggedIn();
         });
 
+        $scope.classifiedsDB = new ClassifiedsDB();
         //Classified.getClassifieds();
 
         // перезавантаження оголошень при зміні стану авторизації
-        $scope.$watch('vm.loggedIn', function (loggedIn) {
+        /*$scope.$watch('vm.loggedIn', function (loggedIn) {
             //console.log('vm.loggedIn changed');
             $rootScope.classifieds = [];
             Classified.getClassifieds();
-        });
-
-        /*vm.updateCategories = function (classified) {
-            if (updatedCategories.length) { // якщо обрані нові категорії
-                classified.updatedCategories = updatedCategories; // додати їх до оголошення
-            }
-            Classified.editClassified(classified);
-        };*/
+        });*/
 
         vm.editClassified = function (classified) {
             $state.go('classifieds.edit', {
                 id: classified._id
             });
-        }
+        };
+
+/*
+        $scope.loadMoreClassifieds = function() {
+            var last = $rootScope.classifieds[$rootScope.classifieds.length - 1];
+            for(var i = 1; i <= 8; i++) {
+                $rootScope.classifieds.push({title: 'test-infinit-scroll'});
+            }
+        };
+*/
     });

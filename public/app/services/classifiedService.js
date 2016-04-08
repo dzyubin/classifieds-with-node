@@ -12,13 +12,11 @@ angular.module('classifiedService', [])
             return $http.get('/api');
         };*/
 
+/*
         classifiedFactory.getClassifieds = function () {
             var classifiedsDataRoute,
-                userId,
-                updatedCategories = [],
-                pageNumber;
+                userId;
 
-            //vm.classifieds = []; //declare an empty array
             $rootScope.pageNumber = 1; // initialize page no to 1
             pageNumber = $rootScope.pageNumber;
             //vm.total_count = 25;
@@ -42,28 +40,12 @@ angular.module('classifiedService', [])
                     $http.get(classifiedsDataRoute).success(function(response){
                         $rootScope.classifieds = response.classifieds;  // data to be displayed on current page.
                         $rootScope.total_count = response.total_count; // total data count.
-                        //$rootScope.categories = getCategories($rootScope.classifieds);
-
-                        // Select2 плагін. Ініціалізація і реєстрація eventListener'а
-                        /*$timeout(function() {
-
-                            $(document).ready(function () {
-                                var Select = $('select');
-                                Select.select2({
-                                    //placeholder: "Змінити категорію"
-                                });
-
-                                Select.on("select2:select", function (e) {
-                                    updatedCategories.push(e.params.data.id); //e.params.data.id);
-                                });
-                            });
-
-                        }, 50);*/
                     });
                 });
             };
             $rootScope.getData(pageNumber); // Call the function to fetch initial data on page load.
         };
+*/
 
         classifiedFactory.getClassified = function (classified_id) {
             //console.log(classified_id);

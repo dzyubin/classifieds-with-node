@@ -1,5 +1,5 @@
 angular
-    .module("classifieds", ['ngMaterial', 'ui.router', 'authService', 'userCtrl', 'userService', 'classifiedService', 'ngFileUpload', 'angularUtils.directives.dirPagination'])
+    .module("classifieds", ['ngMaterial', 'ui.router', 'authService', 'userCtrl', 'userService', 'classifiedService', 'ngFileUpload', 'angularUtils.directives.dirPagination', 'infinite-scroll'])
 
     .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
         $mdThemingProvider.theme('default')
