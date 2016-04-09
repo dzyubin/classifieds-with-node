@@ -87,16 +87,21 @@
 
 <div class="container">
 
-    <!--<classified-card classifieds="classifieds"
-                     classifieds-filter="classifiedsFilter"
-                     category="category"
-                     user-id-filter="user.id">
-    </classified-card>-->
 
-    <!--<div ng-controller='listdata as data'>
-        <div infinite-scroll='classifiedsDB.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
+    <script>
+        setTimeout(function () {
+            $("#infinite-scroll-hack").hide("blind", 500);
+        }, 50);
+    </script>
+
+    <!--<input type="button" value="set color" ng-click="infiniteScrollHack=true">-->
+    <div id="infinite-scroll-hack"></div>
+    <div ng-controller='listdata as data'>
+      <!--  {{user}}
+        {{classifieds}}-->
+        <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
              infinite-scroll-distance='1'>
-            &lt;!&ndash;<div ng-repeat="classified in classifieds">&ndash;&gt;
+            <!--<div ng-repeat="classified in classifieds">-->
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -109,24 +114,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                    &lt;!&ndash;<tr ng-show="classifieds.length <= 0">
+                    <!--<tr ng-show="classifieds.length <= 0">
                         <td colspan="5" style="text-align:center;">
                             <i class="fa fa-spinner fa-spin"></i>
                         </td>
-                    </tr>&ndash;&gt;
-                    <tr ng-repeat="classified in classifiedsDB.classifieds |
+                    </tr>-->
+                    <tr ng-repeat="classified in classifieds |
                                   filter: classifiedsFilter |
                                   filter: category |
                                   filter: user.id">
                         <td>{{classified.title}}</td>
                         <td>{{classified.price}}</td>
-                        &lt;!&ndash;<td>{{classified.category}}</td>&ndash;&gt;
+                        <!--<td>{{classified.category}}</td>-->
                         <td><p ng-repeat="category in classified.category">{{category}}</p></td>
                         <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
                         <td>{{classified.content}}</td>
                         <td>
 
-                            &lt;!&ndash;Контактні дані&ndash;&gt;
+                            <!--Контактні дані-->
                             <div class="dropdown">
                                 <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuContactData"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -140,7 +145,7 @@
                                 </ul>
                             </div>
 
-                            &lt;!&ndash;Адмін&ndash;&gt;
+                            <!--Адмін-->
                             <div class="dropdown" ng-show="vm.loggedIn">
                                 <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuAdmin"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -157,16 +162,16 @@
                             </div>
                         </td>
                     </tr>
-                    <tr ng-show="classifiedsDB.busy">
-                        <td colspan="5">
+                    <tr ng-show="classifiedsDBService.busy">
+                        <td colspan="5" class="text-center">
                             <i class="fa fa-spinner fa-spin"></i>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-            &lt;!&ndash;</div>&ndash;&gt;
+            <!--</div>-->
         </div>
-    </div>-->
+    </div>
 
     <!--<div class="bs-component" ng-controller="listdata as data">
         <dir-pagination-controls

@@ -1,10 +1,9 @@
 var User = require('../models/user'),
     Classified = require('../models/classified'),
-    Categories = require('../models/categories');
-
-var config = require('../../config');
-var secretKey = config.secretKey;
-var jsonwebtoken = require('jsonwebtoken');
+    Categories = require('../models/categories'),
+    config = require('../../config'),
+    secretKey = config.secretKey,
+    jsonwebtoken = require('jsonwebtoken');
 
 module.exports = function(app, express) {
 
@@ -94,18 +93,14 @@ module.exports = function(app, express) {
         });*/
 
     api.get('/list', function(req, res) {
-        console.log(req.params);
-        /*var itemsPerPage = req.params.itemsPerPage,
-            pageNumber = req.params.pageNumber;*/
+        var itemsPerPage = 20,
+            after = parseInt(req.query.after);
 
         Classified.find()
-            /*.limit(itemsPerPage)
-            .skip(itemsPerPage * (pageNumber-1))*/
+            .skip(after)
+            .limit(itemsPerPage)
             .exec(function (err, classifieds) {
-                //Classified.count().exec(function (err, data) {
-                //    res.json({ classifieds: classifieds, total_count: data })
-                    res.json(classifieds);
-                //})
+                res.json(classifieds);
             });
     });
 
@@ -228,13 +223,7 @@ module.exports = function(app, express) {
                     classified.price = req.body.price;
                     classified.content = req.body.content;
                     classified.image = req.body.image;
-                    //if (req.body.updatedCategories) {
-                    //    classified.category = req.body.updatedCategories;
-                    //} else if (req.body.additionalCategory){
-                    //    classified.category.push(req.body.additionalCategory)
-                    //} else {
-                        classified.category = req.body.category;
-                    //}
+                    classified.category = req.body.category;
 
                     // 3: SAVE the record
                     classified.save(function(err,classified){
@@ -264,18 +253,16 @@ module.exports = function(app, express) {
         )
     });
 
-    api.get('/list/:itemsPerPage/:pageNumber/:userId', function(req, res) {
-        var itemsPerPage = req.params.itemsPerPage,
-            pageNumber = req.params.pageNumber,
-            userId = req.params.userId;
+    api.get('/list/:userId', function(req, res) {
+        var itemsPerPage = 20,
+            userId = req.params.userId,
+            after = parseInt(req.query.after);
 
         Classified.find({ creator: userId })
+            .skip(after)
             .limit(itemsPerPage)
-            .skip(itemsPerPage * (pageNumber-1))
             .exec(function (err, classifieds) {
-                Classified.count({ creator: userId }).exec(function (err, data) {
-                    res.json({ classifieds: classifieds, total_count: data })
-                })
+                res.json(classifieds);
             });
     });
 

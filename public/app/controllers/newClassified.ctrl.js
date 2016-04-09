@@ -115,6 +115,8 @@ angular.module('classifieds')
 
                     $rootScope.classifieds.push(data);
 
+                    //$rootScope.$emit('newClassified', data);
+
                     closeSidebar();
                     showToast("Товар Додано!");
                 })
