@@ -13,10 +13,12 @@
 
             vm.loggedIn = Auth.isLoggedIn();
 
-            Auth.getUser()
+            /*Auth.getUser()
                 .then(function (data) {
                     $rootScope.user = data.data;
-                });
+                    console.log($rootScope.user);
+
+                });*/
 
             $rootScope.$on('$stateChangeStart', function () {
 

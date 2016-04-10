@@ -8,7 +8,6 @@ var multiparty = require('connect-multiparty');
 var multipartyMiddleware = multiparty();
 var UserController = require('./controllers/UserController');
 
-
 mongoose.connect(config.database, function (err) {
     if(err) {
         console.log(err);

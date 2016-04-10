@@ -7,11 +7,20 @@ angular.module('classifieds')
 
         // перезавантаження оголошень при зміні стану авторизації
         $scope.$watch('vm.loggedIn', function () {
-            vm.loggedIn = Auth.isLoggedIn();
-            $rootScope.classifieds = [];
-            $scope.classifiedsDBService = new ClassifiedsDB();
-            $scope.classifiedsDBService.nextPage();
-            $('#infinite-scroll-hack').css('display', 'block');
+            Auth.getUser()
+                .then(function (data) { // користувач авторизований
+                    $rootScope.user = data.data;
+                    $rootScope.classifieds = [];
+                    $scope.classifiedsDBService = new ClassifiedsDB();
+                    $scope.classifiedsDBService.nextPage();
+                    //$('#infinite-scroll-hack').css('display', 'block');
+                }, function () { // користувач не авторизований
+                    $rootScope.classifieds = [];
+                    $rootScope.user = {};
+                    $scope.classifiedsDBService = new ClassifiedsDB();
+                    $scope.classifiedsDBService.nextPage();
+                    //$('#infinite-scroll-hack').css('display', 'block');
+                });
         });
 
         //$scope.classifiedsDB = new ClassifiedsDB();
