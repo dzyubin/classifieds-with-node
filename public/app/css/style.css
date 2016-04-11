@@ -69,3 +69,7 @@ input.ng-valid.ng-touched {
 md-option {
     height: 24px;
 }
+
+.dropdown button {
+    margin-bottom: 5px;
+}

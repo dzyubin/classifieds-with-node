@@ -25,9 +25,9 @@ angular.module('classifiedService', [])
             return $http.post('/api/update', classified);
         };
 
-        /*classifiedFactory.remove = function (classified) {
+        classifiedFactory.remove = function (classified) {
             return $http.post('/api/remove', classified);
-        };*/
+        };
 
         return classifiedFactory;
     }]);

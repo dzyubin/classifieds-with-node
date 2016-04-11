@@ -234,15 +234,15 @@ module.exports = function(app, express) {
         )
     });
 
-    /*api.post('/remove', function (req, res){
-        Classified.remove({ title: /Транспорт/ }, function (err) {
+    api.post('/remove', function (req, res){
+        Classified.findByIdAndRemove({ _id: req.body._id }, function (err, removedClassified) {
             if (err) {
                 console.log(err);
             } else {
-                console.log('successfully removed');
+                res.json(removedClassified);
             }
         })
-    });*/
+    });
 
     api.get('/classified', function (req, res) {
         Classified.findById(

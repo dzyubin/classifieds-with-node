@@ -1,5 +1,8 @@
+(function () {
+    'use strict';
+
 angular.module('classifieds')
-    .controller('listdata', ['$rootScope', '$scope', '$state', 'Auth', 'Classified', 'ClassifiedsDB',
+    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', 'Auth', 'Classified', 'ClassifiedsDB',
         function($rootScope, $scope, $state, Auth, Classified, ClassifiedsDB){
         var vm = this;
 
@@ -35,4 +38,17 @@ angular.module('classifieds')
                 id: classified._id
             });
         };
+
+        vm.removeClassified = function (classified) {
+            Classified.remove(classified)
+                .success(function () {
+                    $rootScope.classifieds = $rootScope.classifieds.filter(function (el) {
+                        return el._id !== classified._id;
+                    })
+                })
+                .error(function (err) {
+                    console.log(err);
+                })
+        }
     }]);
+}());

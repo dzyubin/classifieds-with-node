@@ -84,18 +84,9 @@
 
 <ui-view></ui-view>
 
-
 <div class="container">
-
-
-   <!-- <script>
-        setTimeout(function () {
-            $("#infinite-scroll-hack").hide("blind", 500);
-        }, 50);
-    </script>-->
-
     <div id="infinite-scroll-hack"></div>
-    <div ng-controller='listdata as data'>
+    <div ng-controller='PaginationCtrl as data'>
         <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
              infinite-scroll-distance='0'>
             <!--<div ng-repeat="classified in classifieds">-->
@@ -125,7 +116,7 @@
 
                             <!--Контактні дані-->
                             <div class="dropdown">
-                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuContactData"
+                                <button class="btn btn-default btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuContactData"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Контактні дані
                                     <span class="caret"></span>
@@ -139,16 +130,19 @@
 
                             <!--Адмін-->
                             <div class="dropdown" ng-show="vm.loggedIn">
-                                <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenuAdmin"
+                                <button class="btn btn-default btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuAdmin"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     Адмін
                                     <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" style="padding: 0; min-width: 0;" aria-labelledby="dropdownMenuAdmin">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
                                     <li>
-                                        <button ng-click="data.editClassified(classified)" class="btn btn-primary btn-xs">
+                                        <a ng-href="javascript:;" ng-click="data.editClassified(classified)">
                                             Редагувати
-                                        </button>
+                                        </a>
+                                        <a ng-href="javascript:;" ng-click="data.removeClassified(classified)">
+                                            Видалити
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
