@@ -86,6 +86,8 @@ angular.module('classifieds')
                     file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                 });
             } else { // якщо користувач не обрав зображення, використати зображення за замовчуванням
+                // todo: додати default до classified моделі
+                // image: { type: String, default: 'images/photo-default-th.png' }
                 vm.classifiedData.image = 'images/photo-default-th.png';
                 createClassifiedService();
             }

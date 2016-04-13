@@ -5,7 +5,6 @@ angular
     .module('classifiedDBService', [])
     .factory('ClassifiedsDB', ['$rootScope', '$http', function($rootScope, $http) {
 
-        //todo: перемістити if-блок в функцію nextPage() ?
         if (!$rootScope.classifieds) {
             $rootScope.classifieds = [];
         }
@@ -22,33 +21,33 @@ angular
 
             this.busy = true;
 
-            //todo: замінити наступних 4 стрічки функцією setURL()
-            var url = "/api/list?after=" + this.after;
+            /*var url = "/api/list?after=" + this.after;
 
             if ($rootScope.user && $rootScope.user.id) {
                 url = '/api/list/' + $rootScope.user.id + '?after=' + this.after;
-            }
+            }*/
+
+            var url = setURL(this);
 
             $http.get(url).success(function(classifieds) {
                 for (var i = 0; i < classifieds.length; i++) {
-                    //this.classifieds.push(classifieds[i]);
                     $rootScope.classifieds.push(classifieds[i]);
                 }
                 this.after = $rootScope.classifieds.length;
                 this.busy = false;
             }.bind(this));
+
+            function setURL(contextObj) {
+                var url = "/api/list?after=" + contextObj.after;
+
+                if ($rootScope.user && $rootScope.user.id) {
+                    url = '/api/list/' + $rootScope.user.id + '?after=' + contextObj.after;
+                }
+                return url;
+            }
         };
 
-        // Refactoring. Extracting code into separate function
-        function setURL() {
-            var url = "/api/list?after=" + this.after;
 
-            if ($rootScope.user && $rootScope.user.id) {
-                url = '/api/list/' + $rootScope.user.id + '?after=' + this.after;
-            }
-            return url;
-        }
-        
         return ClassifiedsDB;
     }]);
 }());
