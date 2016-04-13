@@ -24,7 +24,6 @@ module.exports = function(app, express) {
                 res.send(err);
                 return;
             }
-
             res.json({
                 success: true,
                 message: 'User has been created!',
@@ -122,24 +121,20 @@ module.exports = function(app, express) {
             if(err) { throw err; }
             if(!user) {
                 res.send({ message: "User doesn't exist" });
+            }
 
-            } else if (user) {
+            var validPassword = user.comparePassword(req.body.password);
+            if(!validPassword) {
+                res.send({ message: "Invalid Password" });
+            } else {
+                //// token
+                var token = createToken(user);
 
-                var validPassword = user.comparePassword(req.body.password);
-
-                if(!validPassword) {
-                    res.send({ message: "Invalid Password" });
-                } else {
-
-                    //// token
-                    var token = createToken(user);
-
-                    res.json({
-                        success: true,
-                        message: "Successful login!",
-                        token: token
-                    })
-                }
+                res.json({
+                    success: true,
+                    message: "Successful login!",
+                    token: token
+                })
             }
         })
     });
@@ -152,15 +147,11 @@ module.exports = function(app, express) {
 
         //check if token exist
         if(token) {
-
             jsonwebtoken.verify(token, secretKey, function(err, decoded) {
-
                 if(err) {
                     res.status(403).send({ success: false, message: "Failed to authenticate user" });
                 } else {
-
                     req.decoded = decoded;
-
                     next();
                 }
             })

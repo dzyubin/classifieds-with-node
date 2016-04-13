@@ -4,21 +4,21 @@
             <div class="textintro">
                 <h1>Реєстрація!</h1>
                 <p>Зареєструйтесь для отримання доступу до додаткових можливостей</p>
-                <p ng-show="user.firstname">{{ message }}</p>
+                <p ng-show="vm.message" class="alert alert-danger">{{ vm.message }}</p>
             </div>
 
             <fieldset>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <input class="form-control" type="text" name="name" placeholder="Ім'я"
                             ng-model="vm.userData.name" ng-required="true" md-autofocus />
-                </div>
-                <p ng-show="myform.firstname.$invalid && myform.firstname.$touched">Необхідно ввести ім'я</p>
+                </div>-->
+                <!--<p ng-show="myform.firstname.$invalid && myform.firstname.$touched">Необхідно ввести ім'я</p>-->
 
                 <div class="form-group">
-                    <input class="form-control" type="text" name="username" placeholder="Email"
+                    <input class="form-control" type="text" name="username" placeholder="Ім'я"
                            ng-model="vm.userData.username" ng-required="true"/>
                 </div>
-                <p ng-show="myform.email.$invalid && myform.email.$touched">Некоректний E-mail</p>
+                <p ng-show="myform.username.$invalid && myform.username.$touched">Необхідно ввести ім'я</p>
 
                 <div class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="Пароль"

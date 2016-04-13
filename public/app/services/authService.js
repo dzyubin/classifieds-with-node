@@ -24,15 +24,16 @@ angular.module('authService', [])
         };
 
         authFactory.isLoggedIn = function() {
-            if(AuthToken.getToken())
+            var token = AuthToken.getToken();
+            if (token) {
                 return true;
-            else
+            } else {
                 return false;
+            }
         };
 
         authFactory.getUser = function() {
             if(AuthToken.getToken()) {
-                //console.log('getUser');
                 return $http.get('/api/me');
             } else {
                 return $q.reject({ message: "User has no token" });
@@ -71,7 +72,6 @@ angular.module('authService', [])
             var token = AuthToken.getToken();
 
             if(token) {
-
                 config.headers['x-access-token'] = token;
             }
 

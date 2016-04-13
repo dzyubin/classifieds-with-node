@@ -32,10 +32,15 @@ angular.module('userCtrl', ['userService'])
 
             User.create(vm.userData)
                 .then(function (response) {
+                    var data = response.data;
                     vm.userData = {};
-                    vm.message = response.data.message;
-
-                    $window.localStorage.setItem('token', response.data.token);
+                    if (data.code === 11000) {
+                        vm.message = 'Користувач з таким ім\'ям вже зареєстрований. Оберіть інше ім\'я';
+                        return;
+                    }
+                    if (data.token) {
+                        $window.localStorage.setItem('token', data.token);
+                    }
                     $location.path('/classifieds');
                 })
         };
