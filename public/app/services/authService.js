@@ -25,7 +25,7 @@ angular.module('authService', [])
 
         authFactory.isLoggedIn = function() {
             var token = AuthToken.getToken();
-            if (token) {
+            if (token.token || token.FBToken) {
                 return true;
             } else {
                 return false;
@@ -33,12 +33,21 @@ angular.module('authService', [])
         };
 
         authFactory.getUser = function() {
-            if(AuthToken.getToken()) {
+            var token = AuthToken.getToken();
+            //console.log(token);
+            if(token.token) {
                 return $http.get('/api/me');
+            } else if (token.FBToken) {
+                return $http.get('/api/me?facebook=true');
             } else {
+                //console.log('user has no token');
                 return $q.reject({ message: "User has no token" });
             }
         };
+
+        /*authFactory.getFBProfile = function () {
+            return $http.get('/api/me?facebook=true');
+        };*/
 
         return authFactory;
     }])
@@ -48,7 +57,10 @@ angular.module('authService', [])
         var authTokenFactory = {};
 
         authTokenFactory.getToken = function () {
-            return $window.localStorage.getItem('token');
+            return {
+                token: $window.localStorage.getItem('token'),
+                FBToken: $window.localStorage.getItem('satellizer_token')
+            }
         };
 
         authTokenFactory.setToken = function (token) {
@@ -56,6 +68,7 @@ angular.module('authService', [])
                 $window.localStorage.setItem('token', token);
             } else {
                 $window.localStorage.removeItem('token');
+                $window.localStorage.removeItem('satellizer_token');
             }
         };
 
@@ -70,13 +83,11 @@ angular.module('authService', [])
         interceptorFactory.request = function (config) {
 
             var token = AuthToken.getToken();
-
-            if(token) {
-                config.headers['x-access-token'] = token;
+            //console.log(token);
+            if (token.token || token.FBToken) {
+                config.headers['x-access-token'] = token.token || token.FBToken;
             }
-
             return config;
-
         };
 
         interceptorFactory.responseError = function (response) {

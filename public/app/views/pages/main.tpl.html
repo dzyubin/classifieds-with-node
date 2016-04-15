@@ -54,10 +54,8 @@
                     <span class="glyphicon glyphicon-log-out"></span>
                     Вийти
                 </a>
-                <!--<span ng-show="currentUser">Hi {{ currentUser.firstname }}</span>-->
             </li>
         </ul>
-
     </div>
 </nav>
 <div class="filters well form-inline clearfix" ng-show="showFilters">
@@ -88,7 +86,7 @@
     <div id="infinite-scroll-hack"></div>
     <div ng-controller='PaginationCtrl as data'>
         <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
-             infinite-scroll-distance='0'>
+             infinite-scroll-distance='1'>
             <!--<div ng-repeat="classified in classifieds">-->
                 <table class="table table-striped table-hover">
                     <thead>

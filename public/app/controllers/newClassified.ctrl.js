@@ -28,10 +28,14 @@ angular.module('classifieds')
         });
 
         vm.addNewCategory = function() {
+
             vm.classifiedData.newCategories = [];
-            if (!vm.classifiedData.categories) {
+
+            /*if (!vm.classifiedData.categories) {
                 vm.classifiedData.categories = [];
-            }
+            }*/
+
+            vm.classifiedData.categories = vm.classifiedData.categories || [];
 
             if (!vm.newCategory) {
                 vm.newCategoryError = 'Введіть назву категорії';

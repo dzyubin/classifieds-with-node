@@ -34,12 +34,6 @@
                 showToast(message, 3000);
             });
 
-            /*Classified.getClassifieds()
-                .success(function (data) {
-                    $rootScope.classifieds = data;
-                    vm.categories = getCategories($rootScope.classifieds);
-                });*/
-
             vm.doLogout = function () {
 
                 // видалити user.id для того щоб вимкути фільтрування оголошень по автору оголошення
@@ -65,5 +59,19 @@
                         .hideDelay(delay)
                 );
             }
+
+            vm.getFBProfile = function() {
+                Auth.getFBProfile()
+                    .then(function(response) {
+                        console.log('getProfile', response);
+                        $rootScope.user = response.data;
+                    })
+                    .catch(function(response) {
+                        console.log(response);
+                        //toastr.error(response.data.message, response.status);
+                    });
+            };
+
+            //vm.getFBProfile();
         }])
 }());

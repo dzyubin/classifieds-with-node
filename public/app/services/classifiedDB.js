@@ -28,7 +28,8 @@ angular
             }*/
 
             var url = setURL(this);
-
+            console.log($rootScope.user);
+            console.log(url);
             $http.get(url).success(function(classifieds) {
                 for (var i = 0; i < classifieds.length; i++) {
                     $rootScope.classifieds.push(classifieds[i]);
@@ -40,7 +41,10 @@ angular
             function setURL(contextObj) {
                 var url = "/api/list?after=" + contextObj.after;
 
-                if ($rootScope.user && $rootScope.user.id) {
+               /* if ($rootScope.user._id) {
+                    $rootScope.user.id = $rootScope.user._id;
+                }*/
+                if ($rootScope.user && ($rootScope.user.id)) {
                     url = '/api/list/' + $rootScope.user.id + '?after=' + contextObj.after;
                 }
                 return url;

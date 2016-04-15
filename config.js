@@ -2,6 +2,7 @@ module.exports = {
 
     "database": "mongodb://root:mjunhy941@ds011369.mlab.com:11369/class1f1eds",
     "port": process.env.PORT || 3000,
-    "secretKey": "YourSecretKey"
+    "secretKey": "YourSecretKey",
+    "FACEBOOK_SECRET": "6026c164802222b7b9321aebaa77b9ba"
 
 };

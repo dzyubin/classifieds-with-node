@@ -18,6 +18,7 @@ var paths = {
         'public/app/js/vendor/ng-file-upload-shim.js',
         'public/app/js/vendor/ng-file-upload.js',
         'public/app/js/vendor/ng-infinite-scroll.js',
+        'public/app/js/vendor/satellizer.js',
         'public/app/js/app.js',
         'public/app/services/authService.js',
         'public/app/services/userService.js',

@@ -1,12 +1,16 @@
 angular
-    .module("classifieds", ['ngMaterial', 'ui.router', 'ngFileUpload', 'infinite-scroll', 'authService', 'userCtrl', 'userService', 'classifiedService', 'classifiedDBService'])
+    .module("classifieds", ['ngMaterial', 'ui.router', 'ngFileUpload', 'infinite-scroll', 'authService', 'userCtrl', 'userService', 'classifiedService', 'classifiedDBService', 'satellizer'])
 
-    .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, $httpProvider) {
+    .config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, $httpProvider, $authProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('orange');
 
         $httpProvider.interceptors.push('AuthInterceptor');
+
+        $authProvider.facebook({
+            clientId: '1019357971452075'
+        });
 
         //$urlRouterProvider.when('', '/classifieds');
 

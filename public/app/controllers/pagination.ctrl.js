@@ -10,10 +10,16 @@ angular.module('classifieds')
 
         // перезавантаження оголошень при зміні стану авторизації
         $scope.$watch('vm.loggedIn', function () {
+            console.log('loggedIn');
+            // ініціал-ія при авторизації через форму
             Auth.getUser()
                 .then(function (data) { // користувач авторизований
                     $rootScope.user = data.data;
+                    if ($rootScope.user._id) {
+                        $rootScope.user.id = $rootScope.user._id;
+                    }
                     $rootScope.classifieds = [];
+                    console.log($rootScope.user);
                     $scope.classifiedsDBService = new ClassifiedsDB();
                     $scope.classifiedsDBService.nextPage();
                     //$('#infinite-scroll-hack').css('display', 'block');
@@ -24,6 +30,23 @@ angular.module('classifieds')
                     $scope.classifiedsDBService.nextPage();
                     //$('#infinite-scroll-hack').css('display', 'block');
                 });
+
+            // ініціал-ія при авторизації через Facebook
+            /*Auth.getFBProfile()
+                .then(function(data) {
+                    console.log('getProfile', data);
+                    $rootScope.user = data.data;
+                    $rootScope.classifieds = [];
+                    $scope.classifiedsDBService = new ClassifiedsDB();
+                    $scope.classifiedsDBService.nextPage();
+                })
+                .catch(function(data) {
+                    console.log(data);
+                    $rootScope.classifieds = [];
+                    $rootScope.user = {};
+                    $scope.classifiedsDBService = new ClassifiedsDB();
+                    $scope.classifiedsDBService.nextPage();
+                });*/
         });
 
         //$scope.classifiedsDB = new ClassifiedsDB();
