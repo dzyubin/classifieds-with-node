@@ -168,14 +168,15 @@ module.exports = function(app, express) {
                 //console.log(response);
                 //console.log(profile);
                 if (req.header('Authorization')) {
+                    console.log('Authorization', req.header('Authorization'));
                     User.findOne({ facebook: profile.id }, function(err, existingUser) {
                         if (existingUser) {
                             return res.status(409).send({ message: 'There is already a Facebook account that belongs to you' });
                         }
-                         var token = req.header('Authorization').split(' ')[1];
-                        //console.log('auth/facebook', token);
-                        //var payload = jwt.decode(token, config.secretKey);
-                        /*User.findById(payload.sub, function(err, user) {
+                        var token = req.header('Authorization').split(' ')[1];
+                        console.log('auth/facebook', token);
+                        var payload = jwt.decode(token, config.secretKey);
+                        User.findById(payload.sub, function(err, user) {
                             if (!user) {
                                 return res.status(400).send({ message: 'User not found' });
                             }
@@ -186,7 +187,7 @@ module.exports = function(app, express) {
                                 var token = createJWT(user);
                                 res.send({ token: token });
                             });
-                        });*/
+                        });
                     });
                 } else {
                     // Step 3. Create a new user account or return an existing one.
@@ -198,14 +199,21 @@ module.exports = function(app, express) {
                                 user: existingUser
                             });
                         }
-                        /*var user = new User();
+                        var user = new User();
+                        console.log(user);
                         user.facebook = profile.id;
-                        user.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
-                        user.displayName = profile.name;
-                        user.save(function() {
+                        //user.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+                        //user.displayName = profile.name;
+                        user.username = profile.name;
+                        console.log('auth/facebook', user);
+                        user.save(function(data) {
+                            console.log(data);
                             var token = createJWT(user);
-                            res.send({ token: token });
-                        });*/
+                            res.send({
+                                token: token,
+                                user: user
+                            });
+                        });
                     });
                 }
             });
@@ -228,7 +236,7 @@ module.exports = function(app, express) {
         var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
         //check if token exist
-        console.log('api use', token);
+        //console.log('api use', token);
         if(token) {
             jsonwebtoken.verify(token, secretKey, function(err, decoded) {
                 if(err) {
@@ -236,7 +244,7 @@ module.exports = function(app, express) {
                 } else {
                     req.decoded = decoded;
                     req.decoded.id = req.decoded.id || req.decoded.sub;
-                    console.log('req.decoded', req.decoded);
+                    //console.log('req.decoded', req.decoded);
                     next();
                 }
             })
@@ -343,11 +351,11 @@ module.exports = function(app, express) {
     });
 
     api.get('/me', function(req, res) {
-        console.log('req.query', req.query);
+        //console.log('req.query', req.query);
 
         if (req.query.facebook) {
             User.findById(req.decoded.sub, function(err, user) {
-                console.log('user', user);
+                //console.log('user', user);
                 res.send(user);
             });
         } else {

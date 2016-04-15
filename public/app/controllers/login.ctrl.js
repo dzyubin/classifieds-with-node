@@ -50,8 +50,9 @@
                 $auth.authenticate(provider)
                     .then(function (data) {
                         $rootScope.user = data.data.user;
+                        console.log('vm.authentic', $rootScope.user);
                         $rootScope.user.id = $rootScope.user._id;
-                        //console.log($rootScope.user);
+                        console.log($rootScope.user);
                         $state.go('classifieds');
                     })
                     .catch(function (err) {
@@ -70,5 +71,12 @@
                     });*/
             };
 
+            /*$auth.unlink('facebook')
+                .then(function (res) {
+                    console.log(res);
+                })
+                .catch(function (res) {
+                    console.log(res);
+                });*/
         }]);
 }());
