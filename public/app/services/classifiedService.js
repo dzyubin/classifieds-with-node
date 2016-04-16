@@ -1,6 +1,6 @@
 angular.module('classifiedService', [])
 
-    .factory('Classified', ['$rootScope', '$http', '$timeout', 'Auth', function ($rootScope, $http, $timeout, Auth) {
+    .factory('Classified', ['$rootScope', '$http', function ($rootScope, $http) {
 
         var classifiedFactory = {};
 
@@ -8,12 +8,7 @@ angular.module('classifiedService', [])
             return $http.post('/api', classifiedData);
         };
 
-        /*classifiedFactory.getClassifieds = function () {
-            return $http.get('/api');
-        };*/
-
         classifiedFactory.getClassified = function (classified_id) {
-            //console.log(classified_id);
             return $http.get('/api/classified', {params: {classified_id: classified_id}});
         };
 

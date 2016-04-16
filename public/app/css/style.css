@@ -66,8 +66,20 @@ input.ng-valid.ng-touched {
     background: #3636ff;
 }
 
+md-select-value:first-child {
+    max-width: 170px;
+}
+
+md-input-container {
+    padding-bottom: 15px;
+}
+
 md-option {
     height: 24px;
+}
+
+.editing {
+    border: 1px solid red;
 }
 
 .dropdown button {

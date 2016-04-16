@@ -2,8 +2,8 @@
     'use strict';
 
 angular.module('classifieds')
-    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', 'Auth', 'Classified', 'ClassifiedsDB',
-        function($rootScope, $scope, $state, Auth, Classified, ClassifiedsDB){
+    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$mdToast', 'Auth', 'Classified', 'ClassifiedsDB',
+        function($rootScope, $scope, $state, $mdToast, Auth, Classified, ClassifiedsDB){
         var vm = this;
 
         vm.loggedIn = Auth.isLoggedIn();
@@ -25,6 +25,11 @@ angular.module('classifieds')
                     //$('#infinite-scroll-hack').css('display', 'block');
                 });
         });
+
+        Classified.getCategories()
+            .success(function (data) {
+                vm.categories = data[0].categories;
+            });
 
         //$scope.classifiedsDB = new ClassifiedsDB();
 
@@ -49,6 +54,33 @@ angular.module('classifieds')
                 .error(function (err) {
                     console.log(err);
                 })
-        }
+        };
+
+            vm.updateCategory = function (classified) {
+                Classified.editClassified(classified)
+                    .success(function (res) {
+                        showToast('Категорію(-ії) збережено!');
+                    })
+                    .error(function (err) {
+                        showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
+                    });
+            };
+
+            vm.addNewCategory = function (classified) {
+                classified.newCategories = [];
+                classified.category.push(vm.newCategory);
+                vm.categories.push(vm.newCategory);
+                classified.newCategories.push(vm.newCategory);
+                vm.newCategory = '';
+            };
+
+            function showToast(message) {
+                $mdToast.show(
+                    $mdToast.simple()
+                        .content(message)
+                        .position('top, right')
+                        .hideDelay(3000)
+                );
+            }
     }]);
 }());
