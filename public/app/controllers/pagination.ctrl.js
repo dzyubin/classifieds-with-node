@@ -7,24 +7,44 @@ angular.module('classifieds')
         var vm = this;
 
         vm.loggedIn = Auth.isLoggedIn();
+        vm.loadAllClassifieds = loadAllClassifieds;
+        vm.loadAMyClassifieds = loadMyClassifieds;
 
         // перезавантаження оголошень при зміні стану авторизації
         $scope.$watch('vm.loggedIn', function () {
             Auth.getUser()
                 .then(function (data) { // користувач авторизований
                     $rootScope.user = data.data;
-                    $rootScope.classifieds = [];
+                    /*$rootScope.classifieds = [];
                     $scope.classifiedsDBService = new ClassifiedsDB();
-                    $scope.classifiedsDBService.nextPage();
-                    //$('#infinite-scroll-hack').css('display', 'block');
+                    $scope.classifiedsDBService.nextPage();*/
+                    //loadClassifieds();
+                    loadMyClassifieds();
+                    //$scope.myClassifiedsBtnActive = true;
                 }, function () { // користувач не авторизований
-                    $rootScope.classifieds = [];
                     $rootScope.user = {};
+                    /*$rootScope.classifieds = [];
                     $scope.classifiedsDBService = new ClassifiedsDB();
-                    $scope.classifiedsDBService.nextPage();
-                    //$('#infinite-scroll-hack').css('display', 'block');
+                    $scope.classifiedsDBService.nextPage();*/
+                    loadAllClassifieds();
                 });
         });
+
+        function loadMyClassifieds() {
+            loadClassifieds($rootScope.user.id);
+            $scope.myClassifiedsBtnActive = true;
+        }
+
+        function loadAllClassifieds() {
+            loadClassifieds();
+            $scope.myClassifiedsBtnActive = false;
+        }
+
+        function loadClassifieds(userId) {
+            $rootScope.classifieds = [];
+            $scope.classifiedsDBService = new ClassifiedsDB(userId);
+            $scope.classifiedsDBService.nextPage();
+        }
 
         Classified.getCategories()
             .success(function (data) {
@@ -32,11 +52,6 @@ angular.module('classifieds')
             });
 
         //$scope.classifiedsDB = new ClassifiedsDB();
-
-        /*$rootScope.$on('newClassified', function (newClassified) {
-            console.log(newClassified);
-            //$scope.classifiedsDB.classifieds
-        });*/
 
         vm.editClassified = function (classified) {
             $state.go('classifieds.edit', {
@@ -56,31 +71,31 @@ angular.module('classifieds')
                 })
         };
 
-            vm.updateCategory = function (classified) {
-                Classified.editClassified(classified)
-                    .success(function (res) {
-                        showToast('Категорію(-ії) збережено!');
-                    })
-                    .error(function (err) {
-                        showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
-                    });
-            };
+        vm.updateCategory = function (classified) {
+            Classified.editClassified(classified)
+                .success(function (res) {
+                    showToast('Категорію(-ії) збережено!');
+                })
+                .error(function (err) {
+                    showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
+                });
+        };
 
-            vm.addNewCategory = function (classified) {
-                classified.newCategories = [];
-                classified.category.push(vm.newCategory);
-                vm.categories.push(vm.newCategory);
-                classified.newCategories.push(vm.newCategory);
-                vm.newCategory = '';
-            };
+        vm.addNewCategory = function (classified) {
+            classified.newCategories = [];
+            classified.category.push(vm.newCategory);
+            vm.categories.push(vm.newCategory);
+            classified.newCategories.push(vm.newCategory);
+            vm.newCategory = '';
+        };
 
-            function showToast(message) {
-                $mdToast.show(
-                    $mdToast.simple()
-                        .content(message)
-                        .position('top, right')
-                        .hideDelay(3000)
-                );
-            }
+        function showToast(message) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(message)
+                    .position('top, right')
+                    .hideDelay(3000)
+            );
+        }
     }]);
 }());

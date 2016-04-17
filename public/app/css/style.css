@@ -66,8 +66,13 @@ input.ng-valid.ng-touched {
     background: #3636ff;
 }
 
-md-select-value:first-child {
+/*md-select-value:first-child {
     max-width: 170px;
+}*/
+
+#category-edit {
+    position: absolute;
+    background: #ffffff;
 }
 
 md-input-container {
