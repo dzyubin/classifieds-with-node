@@ -96,7 +96,7 @@ module.exports = function(app, express) {
 
     api.get('/list', function(req, res) {
         var itemsPerPage = 20,
-            after = parseInt(req.query.after);
+            after = parseInt(req.query.after, 10);
 
         Classified.find()
             .skip(after)
@@ -258,7 +258,7 @@ module.exports = function(app, express) {
         .post(function(req, res) {
 
             if (req.body.newCategories) { // якщо користувач створив нові категорії
-                Categories.find({}, function (err, categories) { // додати їх в базу данних
+                /*Categories.find({}, function (err, categories) { // додати їх в базу данних
                     if (err) {
                         console.log(err);
                     } else {
@@ -270,9 +270,10 @@ module.exports = function(app, express) {
                             console.log('Categories saved:', categories);
                         });
                     }
-                });
-            }
+                });*/
 
+                addNewCategoriesToDB(req.body.newCategories);
+            }
             var classified = new Classified({
                 creator: req.decoded.id,
                 content: req.body.content,
@@ -295,6 +296,11 @@ module.exports = function(app, express) {
         });
 
     api.post('/update', function (req, res) {
+
+        if (req.body.newCategories) {
+            addNewCategoriesToDB(req.body.newCategories);
+        }
+
         Classified.findOne(
             {_id : req.body._id},
             function(err, classified) {
@@ -312,11 +318,28 @@ module.exports = function(app, express) {
                     // 3: SAVE the record
                     classified.save(function(err,classified){
                         console.log('Classified saved:', classified);
+                        res.end();
                     });
                 }
             }
         )
     });
+
+    function addNewCategoriesToDB(newCategories) {
+        Categories.find({}, function (err, categories) { // додати їх в базу данних
+            if (err) {
+                console.log(err);
+            } else {
+                newCategories.forEach(function (element, index) {
+                    categories[0].categories.push(element);
+                });
+
+                categories[0].save(function (err, categories) {
+                    console.log('Categories saved:', categories);
+                });
+            }
+        });
+    }
 
     api.post('/remove', function (req, res){
         Classified.findByIdAndRemove({ _id: req.body._id }, function (err, removedClassified) {

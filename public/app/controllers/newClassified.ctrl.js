@@ -52,7 +52,6 @@ angular.module('classifieds')
                     vm.newCategoryError = '';
                 }, 5000);
             }
-            console.log(vm.categories);
         };
 
         vm.uploadImageAndCreateClassified = function (file) {
@@ -124,7 +123,7 @@ angular.module('classifieds')
                     //$rootScope.$emit('newClassified', data);
 
                     closeSidebar();
-                    showToast("Товар Додано!");
+                    showToast("Оголошення Додано!");
                 })
         }
     }]);

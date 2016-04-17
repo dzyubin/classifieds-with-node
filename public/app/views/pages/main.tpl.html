@@ -12,15 +12,17 @@
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
             <li ng-if="!vm.loggedIn">
+                <!--todo: try this hack to remove duplicated <li> element-->
+                <!--<a ng-href="javascript:;" ng-click="vm.openSidebar()">-->
                 <a ng-href="#/classifieds" ng-click="vm.openSidebar()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    Новий Товар
+                    Нове Оголошення
                 </a>
             </li>
             <li ng-if="vm.loggedIn">
                 <a ng-href="#/classifieds/new" ng-click="vm.openSidebar()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
-                    Новий Товар
+                    Нове Оголошення
                 </a>
             </li>
             <!--<li>
@@ -82,78 +84,140 @@
 
 <ui-view></ui-view>
 
-<div class="container">
-    <div id="infinite-scroll-hack"></div>
-    <div ng-controller='PaginationCtrl as data'>
-        <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
-             infinite-scroll-distance='1'>
-            <!--<div ng-repeat="classified in classifieds">-->
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Назва</th>
-                            <th>Ціна</th>
-                            <th>Категорія</th>
-                            <th>Зображення</th>
-                            <th>Опис</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="classified in classifieds |
-                                  filter: classifiedsFilter |
-                                  filter: category |
-                                  filter: user.id">
-                        <td>{{classified.title}}</td>
-                        <td>{{classified.price}}</td>
-                        <!--<td>{{classified.category}}</td>-->
-                        <td><p ng-repeat="category in classified.category">{{category}}</p></td>
-                        <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
-                        <td>{{classified.content}}</td>
-                        <td>
-
-                            <!--Контактні дані-->
-                            <div class="dropdown">
-                                <button class="btn btn-default btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuContactData"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Контактні дані
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuContactData">
-                                    <li><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></li>
-                                    <li><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></li>
-                                    <li><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></li>
-                                </ul>
-                            </div>
-
-                            <!--Адмін-->
-                            <div class="dropdown" ng-show="vm.loggedIn">
-                                <button class="btn btn-default btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuAdmin"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Адмін
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
-                                    <li>
-                                        <a ng-href="javascript:;" ng-click="data.editClassified(classified)">
-                                            Редагувати
-                                        </a>
-                                        <a ng-href="javascript:;" ng-click="data.removeClassified(classified)">
-                                            Видалити
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+<div class="container"  ng-controller='PaginationCtrl as data'>
+    <div class="btn-group pull-right" ng-show="vm.loggedIn">
+        <button type="button" class="btn btn-default"
+                ng-class="{active: myClassifiedsBtnActive}" ng-click="data.loadAMyClassifieds()">
+            Мої Оголошення
+        </button>
+        <button type="button" class="btn btn-default"
+                ng-class="{active: !myClassifiedsBtnActive}" ng-click="data.loadAllClassifieds()">
+            Всі Оголошення
+        </button>
+    </div>
+    <!--<div id="infinite-scroll-hack"></div>-->
+    <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
+         infinite-scroll-distance='0'>
+        <!--<div ng-repeat="classified in classifieds">-->
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Назва</th>
+                        <th>Ціна</th>
+                        <th>Категорія</th>
+                        <th>Зображення</th>
+                        <th>Опис</th>
+                        <th></th>
                     </tr>
-                    <tr ng-show="classifiedsDBService.busy">
-                        <td colspan="5" class="text-center">
-                            <i class="fa fa-spinner fa-spin"></i>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            <!--</div>-->
-        </div>
+                </thead>
+                <tbody>
+                <tr ng-repeat="classified in classifieds |
+                              filter: classifiedsFilter |
+                              filter: category">
+                    <td>{{classified.title}}</td>
+                    <td>{{classified.price}}</td>
+                    <td>
+                        <p ng-show="!editingCategory" ng-repeat="category in classified.category">
+                            {{category}}
+                        </p>
+                        <div id="category-edit" class="well" ng-show="editingCategory">
+                            <md-input-container>
+                                <label for="categories">Категорія(-ії)</label>
+                                <md-select ng-show="editingCategory" id="categories" multiple ng-model="classified.category">
+                                    <i ng-show="!data.categories" class="fa fa-spinner fa-spin"></i>
+                                    <md-option ng-repeat="category in data.categories" value="{{category}}">
+                                        {{category}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container>
+                                <label for="newCategory">Нова категорія</label>
+                                <input type="text" id="newCategory" ng-model="data.newCategory">
+                            </md-input-container>
+                            <button class="btn btn-default btn-xs btn-block" aria-label="" type="button"
+                                       ng-click="data.addNewCategory(classified)">
+                                Додати нову категорію
+                            </button>
+                            <hr>
+                            <button class="btn btn-primary btn-xs btn-block pull-left" style="width: 70%; margin-right: 5px;"
+                                    ng-click="data.updateCategory(classified);editingCategory=false">
+                                Зберегти
+                            </button>
+                            <button class="btn btn-primary btn-xs btn-block" style="width: 25%;"
+                                    ng-click="editingCategory=false">
+                                X
+                            </button>
+                        </div>
+                        <button class="btn btn-primary btn-xs btn-block" ng-show="!editingCategory && vm.loggedIn"
+                                ng-click="editingCategory=true">
+                            Редагувати
+                        </button>
+                    </td>
+                    <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
+                    <td>{{classified.content}}</td>
+                    <td>
+
+                        <!--Контактні дані-->
+                        <div class="dropdown">
+                            <button class="btn btn-primary btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuContactData"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Контактні дані
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuContactData">
+                                <li><span class="glyphicon glyphicon-user"> {{ classified.contact.name }}</span></li>
+                                <li><span class="glyphicon glyphicon-phone"> {{ classified.contact.phone }}</span></li>
+                                <li><span class="glyphicon glyphicon-envelope"> {{ classified.contact.email }}</span></li>
+                            </ul>
+                        </div>
+
+                        <!--Адмін-->
+                        <div class="dropdown" ng-show="vm.loggedIn">
+                            <button class="btn btn-primary btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuAdmin"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Адмін
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+                                <li>
+                                    <a ng-href="javascript:;" ng-click="data.editClassified(classified)">
+                                        Редагувати
+                                    </a>
+                                    <a ng-href="javascript:;" ng-click="data.removeClassified(classified)">
+                                        Видалити
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!--Категорії-->
+                        <!--<div class="dropdown" ng-show="vm.loggedIn">
+                            <button class="btn btn-default btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuCategories"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Категорія
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuCategories">
+                                <li ng-repeat="category in data.categories">
+                                   <a ng-href="javascript:;">{{ category }}</a>
+                                </li>
+                                <li>
+                                    <button ng-click="show=true">Створити категорію</button>
+                                </li>
+                                <li ng-show="show">
+                                    <input placeholder="category">
+                                </li>
+                            </ul>
+                        </div>-->
+                    </td>
+                </tr>
+                <tr ng-show="classifiedsDBService.busy">
+                    <td colspan="5" class="text-center">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <!--</div>-->
     </div>
 </div>

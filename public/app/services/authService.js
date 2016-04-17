@@ -63,6 +63,7 @@ angular.module('authService', [])
             }
         };
 
+        // todo: rename 'token' to 'classifieds_token'
         authTokenFactory.setToken = function (token) {
             if(token) {
                 $window.localStorage.setItem('token', token);
