@@ -35,6 +35,7 @@
                         Auth.getUser()
                             .then(function (data) {
                                 $rootScope.user = data.data;
+                                console.log($rootScope.user);
                                 //vm.user = data.data;
                             });
 
@@ -50,9 +51,7 @@
                 $auth.authenticate(provider)
                     .then(function (data) {
                         $rootScope.user = data.data.user;
-                        console.log('vm.authentic', $rootScope.user);
                         $rootScope.user.id = $rootScope.user._id;
-                        console.log($rootScope.user);
                         $state.go('classifieds');
                     })
                     .catch(function (err) {

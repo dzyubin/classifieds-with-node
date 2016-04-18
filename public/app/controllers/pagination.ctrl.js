@@ -17,6 +17,7 @@ angular.module('classifieds')
             Auth.getUser()
                 .then(function (data) { // користувач авторизований
                     $rootScope.user = data.data;
+                    $rootScope.user.id = $rootScope.user.id || $rootScope.user._id;
                     /*$rootScope.classifieds = [];
                     $scope.classifiedsDBService = new ClassifiedsDB();
                     $scope.classifiedsDBService.nextPage();*/
@@ -50,11 +51,13 @@ angular.module('classifieds')
         });
 
         function loadMyClassifieds() {
+            console.log($rootScope.user);
             loadClassifieds($rootScope.user.id);
             $scope.myClassifiedsBtnActive = true;
         }
 
         function loadAllClassifieds() {
+            console.log('all classifieds');
             loadClassifieds();
             $scope.myClassifiedsBtnActive = false;
         }
