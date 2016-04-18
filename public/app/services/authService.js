@@ -30,17 +30,18 @@ angular.module('authService', [])
             } else {
                 return false;
             }
+
+            // одна стрічка заміняє if-блок
+            //return (token.token || token.FBToken);
         };
 
         authFactory.getUser = function() {
             var token = AuthToken.getToken();
-            //console.log(token);
             if(token.token) {
                 return $http.get('/api/me');
             } else if (token.FBToken) {
                 return $http.get('/api/me?facebook=true');
             } else {
-                //console.log('user has no token');
                 return $q.reject({ message: "User has no token" });
             }
         };
@@ -84,7 +85,6 @@ angular.module('authService', [])
         interceptorFactory.request = function (config) {
 
             var token = AuthToken.getToken();
-            //console.log(token);
             if (token.token || token.FBToken) {
                 config.headers['x-access-token'] = token.token || token.FBToken;
             }

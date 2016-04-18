@@ -95,6 +95,7 @@ module.exports = function(app, express) {
         });*/
 
     api.get('/list', function(req, res) {
+        // todo: використати функцію getClassifiedsList
         var itemsPerPage = 20,
             after = parseInt(req.query.after, 10);
 
@@ -158,8 +159,6 @@ module.exports = function(app, express) {
             if (response.statusCode !== 200) {
                 return res.status(500).send({ message: accessToken.error.message });
             }
-            //console.log(response);
-            //console.log(accessToken);
             // Step 2. Retrieve profile information about the current user.
             request.get({ url: graphApiUrl, qs: accessToken, json: true }, function(err, response, profile) {
                 if (response.statusCode !== 200) {
@@ -168,7 +167,7 @@ module.exports = function(app, express) {
                 //console.log(response);
                 //console.log(profile);
                 if (req.header('Authorization')) {
-                    console.log('Authorization', req.header('Authorization'));
+                    //console.log('Authorization', req.header('Authorization'));
                     User.findOne({ facebook: profile.id }, function(err, existingUser) {
                         if (existingUser) {
                             return res.status(409).send({ message: 'There is already a Facebook account that belongs to you' });
@@ -203,7 +202,6 @@ module.exports = function(app, express) {
                         console.log(user);
                         user.facebook = profile.id;
                         //user.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
-                        //user.displayName = profile.name;
                         user.username = profile.name;
                         console.log('auth/facebook', user);
                         user.save(function(data) {
@@ -236,7 +234,6 @@ module.exports = function(app, express) {
         var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
         //check if token exist
-        //console.log('api use', token);
         if(token) {
             jsonwebtoken.verify(token, secretKey, function(err, decoded) {
                 if(err) {
@@ -361,9 +358,10 @@ module.exports = function(app, express) {
     });
 
     api.get('/list/:userId', function(req, res) {
+        // todo: використати функцію getClassifiedsList
         var itemsPerPage = 20,
-            userId = req.params.userId,
-            after = parseInt(req.query.after);
+            after = parseInt(req.query.after),
+            userId = req.params.userId;
 
         Classified.find({ creator: userId })
             .skip(after)
@@ -372,6 +370,24 @@ module.exports = function(app, express) {
                 res.json(classifieds);
             });
     });
+
+    // todo: доробити функцію
+/*
+    function getClassifiedsList(after, userId) {
+        var itemsPerPage = 20,
+            after = parseInt(after);
+            //userId = req.params.userId;
+
+        userId = userId || '';
+
+        Classified.find({ creator: userId })
+            .skip(after)
+            .limit(itemsPerPage)
+            .exec(function (err, classifieds) {
+                res.json(classifieds);
+            });
+    }
+*/
 
     api.get('/me', function(req, res) {
         //console.log('req.query', req.query);
