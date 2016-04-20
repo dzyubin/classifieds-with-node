@@ -195,31 +195,28 @@ module.exports = function(app, express) {
         // Part 1 of 2: Initial request from Satellizer.
         if (!req.body.oauth_token || !req.body.oauth_verifier) {
 
-            console.log('!oauth.token');
+            //console.log('!oauth.token');
 
             var requestTokenOauth = {
                 consumer_key: config.TWITTER_KEY,
                 consumer_secret: config.TWITTER_SECRET,
                 callback: req.body.redirectUri
-                //callback: 'http://127.0.0.1/#/classifieds'
-                //callback: 'http://localhost:3000/auth/twitter'
-                //callback: 'oob'
             };
 
-            console.log('requestTokenOauth', requestTokenOauth);
+            //console.log('requestTokenOauth', requestTokenOauth);
 
             // Step 1. Obtain request token for the authorization popup.
             request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
                 var oauthToken = qs.parse(body);
 
                 // Step 2. Send OAuth token back to open the authorization screen.
-                console.log('oauthToken', oauthToken);
+                //console.log('oauthToken', oauthToken);
                 res.send(oauthToken);
             });
 
         } else {
 
-            console.log('else');
+            //console.log('else');
 
             // Part 2 of 2: Second request after Authorize app is clicked.
             var accessTokenOauth = {
@@ -246,18 +243,17 @@ module.exports = function(app, express) {
                     oauth: profileOauth,
                     json: true
                 }, function(err, response, profile) {
-                    console.log('profile', profile);
+                    //console.log('profile', profile);
                     // Step 5a. Link user accounts.
                     if (req.header('Authorization')) {
 
-                        console.log('Authorization');
+                        //console.log('Authorization');
                         User.findOne({ twitter: profile.id }, function(err, existingUser) {
                             if (existingUser) {
                                 return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
                             }
 
                             console.log('existUser', existingUser);
-                            /*
                             var token = req.header('Authorization').split(' ')[1];
                             var payload = jwt.decode(token, config.TOKEN_SECRET);
 
@@ -272,12 +268,10 @@ module.exports = function(app, express) {
                                 user.save(function(err) {
                                     res.send({ token: createJWT(user) });
                                 });
-                            });*/
+                            });
                         });
                     } else {
 
-                        console.log('notAuthorization');
-                        /*
                         // Step 5b. Create a new user account or return an existing one.
                         User.findOne({ twitter: profile.id }, function(err, existingUser) {
                             if (existingUser) {
@@ -287,11 +281,10 @@ module.exports = function(app, express) {
                             var user = new User();
                             user.twitter = profile.id;
                             user.username = profile.name;
-                            //user.picture = profile.profile_image_url.replace('_normal', '');
                             user.save(function() {
                                 res.send({ token: createJWT(user) });
                             });
-                        });*/
+                        });
                     }
                 });
             });
@@ -321,7 +314,6 @@ module.exports = function(app, express) {
                 } else {
                     req.decoded = decoded;
                     req.decoded.id = req.decoded.id || req.decoded.sub;
-                    //console.log('req.decoded', req.decoded);
                     next();
                 }
             })
@@ -470,11 +462,10 @@ module.exports = function(app, express) {
 */
 
     api.get('/me', function(req, res) {
-        //console.log('req.query', req.query);
 
+        // todo: перейменувати 'facebook' на 'social'
         if (req.query.facebook) {
             User.findById(req.decoded.sub, function(err, user) {
-                //console.log('user', user);
                 res.send(user);
             });
         } else {

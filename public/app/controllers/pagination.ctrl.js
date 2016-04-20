@@ -12,7 +12,6 @@ angular.module('classifieds')
 
         // перезавантаження оголошень при зміні стану авторизації
         $scope.$watch('vm.loggedIn', function () {
-            console.log('loggedIn');
             // ініціал-ія при авторизації через форму
             Auth.getUser()
                 .then(function (data) { // користувач авторизований
