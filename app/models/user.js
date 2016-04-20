@@ -8,7 +8,8 @@ var UserSchema = new Schema({
     username: { type: String, required: true, index: { unique: true }},
     password: { type: String, select: false },
     //password: { type: String, required: true, select: false }
-    facebook: String
+    facebook: String,
+    twitter: String
 });
 
 UserSchema.pre('save', function(next) {

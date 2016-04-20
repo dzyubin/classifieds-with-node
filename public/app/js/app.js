@@ -12,6 +12,8 @@ angular
             clientId: '1019357971452075'
         });
 
+
+
         //$urlRouterProvider.when('', '/classifieds');
 
         $stateProvider
