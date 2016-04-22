@@ -1,7 +1,31 @@
 var config = require('../../config'),
     User = require('../models/user'),
-    createJWT = require('./createJWT').createJWT,
-    request = require('request');
+    request = require('request'),
+    qs = require('qs'),
+    moment = require('moment'),
+    jwt = require('jwt-simple'),
+    jsonwebtoken = require('jsonwebtoken');
+
+var createJWT = function (user) {
+
+    var payload = {
+        sub: user._id,
+        iat: moment().unix(),
+        exp: moment().add(14, 'days').unix()
+    };
+    return jwt.encode(payload, config.secretKey);
+};
+
+var createToken = function (user){
+
+    return jsonwebtoken.sign({
+        id: user.id,
+        name: user.name,
+        username: user.username
+    }, config.secretKey, {
+        expiresInMinute: 1440
+    });
+};
 
 module.exports = {
     authFacebook: function(req, res) {
@@ -78,5 +102,136 @@ module.exports = {
                 }
             });
         });
+    },
+
+    authTwitter: function(req, res) {
+
+        var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
+        var accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
+        var profileUrl = 'https://api.twitter.com/1.1/users/show.json?screen_name=';
+
+        // Part 1 of 2: Initial request from Satellizer.
+        if (!req.body.oauth_token || !req.body.oauth_verifier) {
+
+            //console.log('!oauth.token');
+
+            var requestTokenOauth = {
+                consumer_key: config.TWITTER_KEY,
+                consumer_secret: config.TWITTER_SECRET,
+                callback: req.body.redirectUri
+            };
+
+            //console.log('requestTokenOauth', requestTokenOauth);
+
+            // Step 1. Obtain request token for the authorization popup.
+            request.post({ url: requestTokenUrl, oauth: requestTokenOauth }, function(err, response, body) {
+                var oauthToken = qs.parse(body);
+
+                // Step 2. Send OAuth token back to open the authorization screen.
+                //console.log('oauthToken', oauthToken);
+                res.send(oauthToken);
+            });
+
+        } else {
+
+            //console.log('else');
+
+            // Part 2 of 2: Second request after Authorize app is clicked.
+            var accessTokenOauth = {
+                consumer_key: config.TWITTER_KEY,
+                consumer_secret: config.TWITTER_SECRET,
+                token: req.body.oauth_token,
+                verifier: req.body.oauth_verifier
+            };
+
+            // Step 3. Exchange oauth token and oauth verifier for access token.
+            request.post({ url: accessTokenUrl, oauth: accessTokenOauth }, function(err, response, accessToken) {
+
+                accessToken = qs.parse(accessToken);
+
+                var profileOauth = {
+                    consumer_key: config.TWITTER_KEY,
+                    consumer_secret: config.TWITTER_SECRET,
+                    oauth_token: accessToken.oauth_token
+                };
+
+                // Step 4. Retrieve profile information about the current user.
+                request.get({
+                    url: profileUrl + accessToken.screen_name,
+                    oauth: profileOauth,
+                    json: true
+                }, function(err, response, profile) {
+                    //console.log('profile', profile);
+                    // Step 5a. Link user accounts.
+                    if (req.header('Authorization')) {
+
+                        //console.log('Authorization');
+                        User.findOne({ twitter: profile.id }, function(err, existingUser) {
+                            if (existingUser) {
+                                return res.status(409).send({ message: 'There is already a Twitter account that belongs to you' });
+                            }
+
+                            console.log('existUser', existingUser);
+                            var token = req.header('Authorization').split(' ')[1];
+                            var payload = jwt.decode(token, config.TOKEN_SECRET);
+
+                            User.findById(payload.sub, function(err, user) {
+                                if (!user) {
+                                    return res.status(400).send({ message: 'User not found' });
+                                }
+
+                                user.twitter = profile.id;
+                                user.username = user.displayName || profile.name;
+                                //user.picture = user.picture || profile.profile_image_url.replace('_normal', '');
+                                user.save(function(err) {
+                                    res.send({ token: createJWT(user) });
+                                });
+                            });
+                        });
+                    } else {
+
+                        // Step 5b. Create a new user account or return an existing one.
+                        User.findOne({ twitter: profile.id }, function(err, existingUser) {
+                            if (existingUser) {
+                                return res.send({ token: createJWT(existingUser) });
+                            }
+
+                            var user = new User();
+                            user.twitter = profile.id;
+                            user.username = profile.name;
+                            user.save(function() {
+                                res.send({ token: createJWT(user) });
+                            });
+                        });
+                    }
+                });
+            });
+        }
+    },
+
+    authLogin: function(req, res) {
+
+        User.findOne({
+            username: req.body.username
+        }).select('name username password').exec(function(err, user) {
+            if(err) { throw err; }
+            if(!user) {
+                res.send({ message: "User doesn't exist" });
+            }
+
+            var validPassword = user.comparePassword(req.body.password);
+            if(!validPassword) {
+                res.send({ message: "Invalid Password" });
+            } else {
+                //// token
+                var token = createToken(user);
+
+                res.json({
+                    success: true,
+                    message: "Successful login!",
+                    token: token
+                })
+            }
+        })
     }
-}
+};

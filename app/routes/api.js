@@ -5,11 +5,8 @@ var User = require('../models/user'),
     Auth = require('./Auth.js'),
     secretKey = config.secretKey;
 
-var moment = require('moment'),
-    jwt = require('jwt-simple'),
-    request = require('request'),
-    jsonwebtoken = require('jsonwebtoken'),
-    qs = require('qs');
+var request = require('request'),
+    jsonwebtoken = require('jsonwebtoken');
 
 module.exports = function(app, express) {
 
@@ -97,6 +94,9 @@ module.exports = function(app, express) {
         })
     });
 
+    api.post('/login', Auth.authLogin);
+
+/*
     api.post('/login', function(req, res) {
 
         User.findOne({
@@ -122,6 +122,7 @@ module.exports = function(app, express) {
             }
         })
     });
+*/
 
 /*
     app.post('/auth/facebook', function(req, res) {
@@ -204,6 +205,9 @@ module.exports = function(app, express) {
 
     app.post('/auth/facebook', Auth.authFacebook);
 
+    app.post('/auth/twitter', Auth.authTwitter);
+
+/*
     app.post('/auth/twitter', function(req, res) {
         // todo: винести функцію в окремий файл socialAuthorization.js
 
@@ -309,7 +313,9 @@ module.exports = function(app, express) {
             });
         }
     });
+*/
 
+/*
     function createJWT(user) {
         var payload = {
             sub: user._id,
@@ -318,6 +324,7 @@ module.exports = function(app, express) {
         };
         return jwt.encode(payload, config.secretKey);
     }
+*/
 
     api.use(function(req, res, next) {
 
