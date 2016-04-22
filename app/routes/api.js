@@ -2,9 +2,11 @@ var User = require('../models/user'),
     Classified = require('../models/classified'),
     Categories = require('../models/categories'),
     config = require('../../config'),
-    moment = require('moment'),
+    Auth = require('./Auth.js'),
+    secretKey = config.secretKey;
+
+var moment = require('moment'),
     jwt = require('jwt-simple'),
-    secretKey = config.secretKey,
     request = require('request'),
     jsonwebtoken = require('jsonwebtoken'),
     qs = require('qs');
@@ -38,7 +40,7 @@ module.exports = function(app, express) {
 
     function createToken(user){
 
-	    var token = jsonwebtoken.sign({
+	    /*var token = jsonwebtoken.sign({
 	        id: user.id,
 	        name: user.name,
 	        username: user.username
@@ -46,7 +48,15 @@ module.exports = function(app, express) {
 	        expiresInMinute: 1440
 	    });
 
-	    return token;
+	    return token;*/
+
+        return jsonwebtoken.sign({
+            id: user.id,
+            name: user.name,
+            username: user.username
+        }, secretKey, {
+            expiresInMinute: 1440
+        });
 	}
 
     api.get('/users', function(req, res) {
@@ -65,6 +75,7 @@ module.exports = function(app, express) {
 
     api.get('/list', function(req, res) {
         // todo: використати функцію getClassifiedsList
+        // getClassifiedsList(req.query.after);
         var itemsPerPage = 20,
             after = parseInt(req.query.after, 10);
 
@@ -112,7 +123,10 @@ module.exports = function(app, express) {
         })
     });
 
+/*
     app.post('/auth/facebook', function(req, res) {
+        // todo: винести функцію в окремий файл socialAuthorization.js
+
         var fields = ['id', 'email', 'first_name', 'last_name', 'link', 'name'];
         var accessTokenUrl = 'https://graph.facebook.com/v2.5/oauth/access_token';
         var graphApiUrl = 'https://graph.facebook.com/v2.5/me?fields=' + fields.join(',');
@@ -186,8 +200,13 @@ module.exports = function(app, express) {
             });
         });
     });
+*/
+
+    app.post('/auth/facebook', Auth.authFacebook);
 
     app.post('/auth/twitter', function(req, res) {
+        // todo: винести функцію в окремий файл socialAuthorization.js
+
         var requestTokenUrl = 'https://api.twitter.com/oauth/request_token';
         var accessTokenUrl = 'https://api.twitter.com/oauth/access_token';
         var profileUrl = 'https://api.twitter.com/1.1/users/show.json?screen_name=';
@@ -353,7 +372,6 @@ module.exports = function(app, express) {
             });
 
             classified.save(function(err, newClassified) {
-            //classified.save(function(err) {
                 if(err) {
                     res.send(err);
                     return;
@@ -395,7 +413,7 @@ module.exports = function(app, express) {
     });
 
     function addNewCategoriesToDB(newCategories) {
-        Categories.find({}, function (err, categories) { // додати їх в базу данних
+        Categories.find({}, function (err, categories) {
             if (err) {
                 console.log(err);
             } else {
@@ -420,6 +438,7 @@ module.exports = function(app, express) {
         })
     });
 
+    // todo: перейменувати на /single-classified
     api.get('/classified', function (req, res) {
         Classified.findById(
             req.query.classified_id,
@@ -431,6 +450,8 @@ module.exports = function(app, express) {
 
     api.get('/list/:userId', function(req, res) {
         // todo: використати функцію getClassifiedsList
+        // getClassifiedsList(req.query.after, req.params.userId);
+
         var itemsPerPage = 20,
             after = parseInt(req.query.after),
             userId = req.params.userId;
@@ -443,13 +464,11 @@ module.exports = function(app, express) {
             });
     });
 
-    // todo: доробити функцію
-/*
+    // todo: перевірити функцію
     function getClassifiedsList(after, userId) {
-        var itemsPerPage = 20,
-            after = parseInt(after);
-            //userId = req.params.userId;
+        var itemsPerPage = 20;
 
+        after = parseInt(after);
         userId = userId || '';
 
         Classified.find({ creator: userId })
@@ -459,7 +478,6 @@ module.exports = function(app, express) {
                 res.json(classifieds);
             });
     }
-*/
 
     api.get('/me', function(req, res) {
 

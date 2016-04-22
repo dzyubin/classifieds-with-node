@@ -10,6 +10,7 @@ angular.module('classifiedService', [])
 
         // todo: перейменувати на getSingleClassified
         classifiedFactory.getClassified = function (classified_id) {
+            // todo: перейменувати на /api/single-classified
             return $http.get('/api/classified', {params: {classified_id: classified_id}});
         };
 
