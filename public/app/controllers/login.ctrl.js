@@ -50,8 +50,6 @@
             vm.authenticate = function(provider) { // facebook авторизація
                 $auth.authenticate(provider)
                     .then(function (data) {
-                        //$rootScope.user = data.data.user;
-
                         // непотрібний рядок?
                         $rootScope.user.id = $rootScope.user._id;
 

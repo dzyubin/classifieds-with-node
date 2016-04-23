@@ -12,6 +12,10 @@ angular
             clientId: '1019357971452075'
         });
 
+        $authProvider.linkedin({
+            clientId: '77nj3q7ec8pekm'
+        });
+
         //$urlRouterProvider.when('', '/classifieds');
 
         $stateProvider

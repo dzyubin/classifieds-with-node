@@ -114,3 +114,15 @@ md-option {
     color: #fff;
     background-color: #0090c7;
 }
+
+.btn-linkedin {
+    color: #fff;
+    background-color: #0076B4;
+    border: 1px solid #009fdb;
+}
+
+.btn-linkedin:hover,
+.btn-linkedin:focus {
+    color: #fff;
+    background-color: #005380;
+}

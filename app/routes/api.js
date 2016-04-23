@@ -207,6 +207,8 @@ module.exports = function(app, express) {
 
     app.post('/auth/twitter', Auth.authTwitter);
 
+    app.post('/auth/linkedin', Auth.authLinkedin);
+
 /*
     app.post('/auth/twitter', function(req, res) {
         // todo: винести функцію в окремий файл socialAuthorization.js

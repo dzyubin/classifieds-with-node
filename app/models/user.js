@@ -9,7 +9,8 @@ var UserSchema = new Schema({
     password: { type: String, select: false },
     //password: { type: String, required: true, select: false }
     facebook: String,
-    twitter: String
+    twitter: String,
+    linkedin: String
 });
 
 UserSchema.pre('save', function(next) {

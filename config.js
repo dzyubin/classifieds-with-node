@@ -5,6 +5,7 @@ module.exports = {
     "secretKey": "YourSecretKey",
     "FACEBOOK_SECRET": "6026c164802222b7b9321aebaa77b9ba",
     "TWITTER_KEY": "n8Nm5YxgHA51jxeC88foH0Ovq",
-    "TWITTER_SECRET": "83bypFjGfRK7Y8PZUeJyYFzEMXovvXzoMluQZ23bkV2COJGX1g"
+    "TWITTER_SECRET": "83bypFjGfRK7Y8PZUeJyYFzEMXovvXzoMluQZ23bkV2COJGX1g",
+    "LINKEDIN_SECRET": "w2uLEufmtP2xUWPa"
 
 };
