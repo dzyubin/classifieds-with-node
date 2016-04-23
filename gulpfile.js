@@ -2,7 +2,8 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var pkg = require('./package.json');
-var ngAnnotate = require('gulp-ng-annotate');
+var ngAnnotate = require('gulp-ng-annotate'),
+    minifyCSS = require('gulp-clean-css');
 
 var paths = {
     js: [
@@ -30,7 +31,22 @@ var paths = {
         'public/app/controllers/login.ctrl.js',
         'public/app/controllers/edit.ctrl.js',
         'public/app/controllers/pagination.ctrl.js'
+    ],
+
+    css: [
+        'public/app/css/bootstrap.min.css',
+        'public/app/css/bootstrap-theme.min.css',
+        'public/app/css/bootstrap-theme.min.css.map',
+        'public/app/css/angular-material.css'
     ]
+/*
+    js: [
+        'public/app/js/vendor/!*.js',
+        'public/app/js/app.js',
+        'public/app/services/!*.js',
+        'public/app/controllers/!*.js'
+    ]
+*/
 };
 
 gulp.task('uglify', function(){
@@ -39,6 +55,13 @@ gulp.task('uglify', function(){
         .pipe(ngAnnotate())
         .pipe(uglify())
         .pipe(gulp.dest('public/app/js/build'));
+});
+
+gulp.task('css', function(){
+    gulp.src(paths.css)
+        .pipe(concat(pkg.name+'.css'))
+        .pipe(minifyCSS())
+        .pipe(gulp.dest('public/app/css/build'));
 });
 
 gulp.task('watch', function () {
