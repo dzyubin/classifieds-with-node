@@ -46,10 +46,6 @@ angular.module('authService', [])
             }
         };
 
-        /*authFactory.getFBProfile = function () {
-            return $http.get('/api/me?facebook=true');
-        };*/
-
         return authFactory;
     }])
     .factory('AuthToken', ['$window',

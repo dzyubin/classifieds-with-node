@@ -19,10 +19,9 @@
 
                 });*/
 
+            // видалити?
             $rootScope.$on('$stateChangeStart', function () {
-
                 vm.loggedIn = Auth.isLoggedIn();
-
                /* Auth.getUser()
                     .then(function (data) {
                         //vm.user = data.data;
@@ -36,7 +35,7 @@
 
             vm.doLogout = function () {
 
-                // видалити user.id для того щоб вимкути фільтрування оголошень по автору оголошення
+                // видалити user.id для того щоб вимкнути фільтрування оголошень по автору оголошення
                 $rootScope.user.id = '';
 
                 Auth.logout();
@@ -60,7 +59,7 @@
                 );
             }
 
-            vm.getFBProfile = function() {
+            /*vm.getFBProfile = function() {
                 Auth.getFBProfile()
                     .then(function(response) {
                         console.log('getProfile', response);
@@ -70,8 +69,7 @@
                         console.log(response);
                         //toastr.error(response.data.message, response.status);
                     });
-            };
+            };*/
 
-            //vm.getFBProfile();
         }])
 }());

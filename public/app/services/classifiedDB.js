@@ -29,6 +29,14 @@ angular
                 }
                 this.after = $rootScope.classifieds.length;
                 this.busy = false;
+
+                // todo: створити функцію initSelect2()
+                setTimeout(function () {
+                    $('.select').select2({
+                        tags: true
+                    });
+                }, 0);
+
             }.bind(this));
 
             function setURL(contextObj) {
@@ -41,7 +49,6 @@ angular
                 return url;
             }
         };
-
 
         return ClassifiedsDB;
     }]);

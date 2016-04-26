@@ -35,8 +35,6 @@
                         Auth.getUser()
                             .then(function (data) {
                                 $rootScope.user = data.data;
-                                console.log($rootScope.user);
-                                //vm.user = data.data;
                             });
 
                         if(data.success) {

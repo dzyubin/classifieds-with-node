@@ -2,54 +2,29 @@
     'use strict';
 
 angular.module('classifieds')
-    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$mdToast', 'Auth', 'Classified', 'ClassifiedsDB',
-        function($rootScope, $scope, $state, $mdToast, Auth, Classified, ClassifiedsDB){
+    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$mdToast', '$timeout', 'Auth', 'Classified', 'ClassifiedsDB',
+        function($rootScope, $scope, $state, $mdToast, $timeout, Auth, Classified, ClassifiedsDB){
         var vm = this;
 
+        vm.initialCategories = [];
         vm.loggedIn = Auth.isLoggedIn();
         vm.loadAllClassifieds = loadAllClassifieds;
-        vm.loadAMyClassifieds = loadMyClassifieds;
+        vm.loadUserClassifieds = loadUserClassifieds;
 
         // перезавантаження оголошень при зміні стану авторизації
         $scope.$watch('vm.loggedIn', function () {
-            // ініціал-ія при авторизації через форму
             Auth.getUser()
                 .then(function (data) { // користувач авторизований
                     $rootScope.user = data.data;
                     $rootScope.user.id = $rootScope.user.id || $rootScope.user._id;
-                    /*$rootScope.classifieds = [];
-                    $scope.classifiedsDBService = new ClassifiedsDB();
-                    $scope.classifiedsDBService.nextPage();*/
-                    //loadClassifieds();
-                    loadMyClassifieds();
-                    //$scope.myClassifiedsBtnActive = true;
+                    loadUserClassifieds();
                 }, function () { // користувач не авторизований
                     $rootScope.user = {};
-                    /*$rootScope.classifieds = [];
-                    $scope.classifiedsDBService = new ClassifiedsDB();
-                    $scope.classifiedsDBService.nextPage();*/
                     loadAllClassifieds();
                 });
-
-            // ініціал-ія при авторизації через Facebook
-            /*Auth.getFBProfile()
-                .then(function(data) {
-                    console.log('getProfile', data);
-                    $rootScope.user = data.data;
-                    $rootScope.classifieds = [];
-                    $scope.classifiedsDBService = new ClassifiedsDB();
-                    $scope.classifiedsDBService.nextPage();
-                })
-                .catch(function(data) {
-                    console.log(data);
-                    $rootScope.classifieds = [];
-                    $rootScope.user = {};
-                    $scope.classifiedsDBService = new ClassifiedsDB();
-                    $scope.classifiedsDBService.nextPage();
-                });*/
         });
 
-        function loadMyClassifieds() {
+        function loadUserClassifieds() {
             //console.log($rootScope.user);
             loadClassifieds($rootScope.user.id);
             $scope.myClassifiedsBtnActive = true;
@@ -70,9 +45,10 @@ angular.module('classifieds')
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
+                /*$timeout(function () {
+                    $('.select').select2();
+                }, 2000);*/
             });
-
-        //$scope.classifiedsDB = new ClassifiedsDB();
 
         vm.editClassified = function (classified) {
             $state.go('classifieds.edit', {
@@ -93,22 +69,40 @@ angular.module('classifieds')
         };
 
         vm.updateCategory = function (classified) {
+
+            var modalId = '#' + classified._id;
+
+            classified.category.forEach(function (elem){
+                if (vm.categories.indexOf(elem) === -1) {
+                    classified.newCategories = [];
+                    classified.newCategories.push(elem);
+                }
+            });
+
             Classified.editClassified(classified)
                 .success(function (res) {
+                    $(modalId).modal('hide');
                     showToast('Категорію(-ії) збережено!');
                 })
                 .error(function (err) {
+                    $(modalId).modal('hide');
                     showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
                 });
         };
 
-        vm.addNewCategory = function (classified) {
+        vm.cancelCategoriesEdit = function (classified) {
+            console.log('sdfd');
+            classified.category = vm.initialCategories;
+        };
+
+        /*vm.addNewCategory = function (classified) {
             classified.newCategories = [];
             classified.category.push(vm.newCategory);
+            var div = '#' + classified._id + ' select';
             vm.categories.push(vm.newCategory);
             classified.newCategories.push(vm.newCategory);
             vm.newCategory = '';
-        };
+        };*/
 
         function showToast(message) {
             $mdToast.show(
