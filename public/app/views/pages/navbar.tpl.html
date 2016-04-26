@@ -1,0 +1,62 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target="#nav-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/classifieds">Оголошення</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="nav-toggle">
+        <ul class="nav navbar-nav">
+            <!--<li ng-if="!vm.loggedIn">
+                &lt;!&ndash;todo: try this hack to remove duplicated <li> element&ndash;&gt;
+                &lt;!&ndash;<a ng-href="javascript:;" ng-click="vm.openSidebar()">&ndash;&gt;
+                <a ng-href="#/classifieds" ng-click="vm.openSidebar()">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                    Нове Оголошення
+                </a>
+            </li>-->
+            <li>
+                <a ng-href="javascript:;" ng-click="vm.openSidebar()">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                    Нове Оголошення
+                </a>
+            </li>
+            <!--<li>
+                <a ng-href="#" ng-click="showFilters = !showFilters">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Фільтр
+                </a>
+            </li>-->
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ng-if="!vm.loggedIn" ng-href="#/classifieds/register">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Реєстрація
+                </a>
+            </li>
+            <li>
+                <a ng-if="!vm.loggedIn" ng-href="#/classifieds/login">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    Увійти
+                </a>
+            </li>
+            <li>
+                <a ng-if="vm.loggedIn" ng-href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    {{ user.username }}
+                </a>
+            </li>
+            <li>
+                <a ng-if="vm.loggedIn" ng-href="#/classifieds/login" ng-click="vm.doLogout()">
+                    <span class="glyphicon glyphicon-log-out"></span>
+                    Вийти
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

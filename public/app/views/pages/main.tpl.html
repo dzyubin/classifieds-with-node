@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<!--<nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse"
                 data-target="#nav-toggle">
@@ -11,26 +11,18 @@
 
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
-            <li ng-if="!vm.loggedIn">
-                <!--todo: try this hack to remove duplicated <li> element-->
-                <!--<a ng-href="javascript:;" ng-click="vm.openSidebar()">-->
-                <a ng-href="#/classifieds" ng-click="vm.openSidebar()">
+            <li>
+                <a ng-href="{{vm.newClassifiedUrl}}" ng-click="vm.openSidebar()">
                     <span class="glyphicon glyphicon-plus-sign"></span>
                     Нове Оголошення
                 </a>
             </li>
-            <li ng-if="vm.loggedIn">
-                <a ng-href="#/classifieds/new" ng-click="vm.openSidebar()">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    Нове Оголошення
-                </a>
-            </li>
-            <!--<li>
+            &lt;!&ndash;<li>
                 <a ng-href="#" ng-click="showFilters = !showFilters">
                     <span class="glyphicon glyphicon-search"></span>
                     Фільтр
                 </a>
-            </li>-->
+            </li>&ndash;&gt;
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -59,7 +51,9 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav>-->
+
+<div navbar></div>
 <!--<div class="filters well form-inline clearfix" ng-show="showFilters">
 
     <div class="form-group">
@@ -206,6 +200,7 @@
                     <button type="button" class="btn btn-primary btn-xs btn-block" ng-show="vm.loggedIn"
                             data-toggle="modal" data-target="#{{classified._id}}" data-classified="classified"
                             ng-click="data.initialCategories = classified.category">
+                        <span class="glyphicon glyphicon-pencil"></span>
                         Редагувати
                     </button>
                 </td>
