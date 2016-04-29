@@ -2,17 +2,21 @@
     'use strict';
 
 angular.module('classifieds')
-    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$mdToast', '$timeout', 'Auth', 'Classified', 'ClassifiedsDB',
-        function($rootScope, $scope, $state, $mdToast, $timeout, Auth, Classified, ClassifiedsDB){
+    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$mdToast', '$timeout', 'Auth', 'Classified', 'ClassifiedsDB', 'userClassifieds',
+        function($rootScope, $scope, $state, $mdToast, $timeout, Auth, Classified, ClassifiedsDB, userClassifieds){
         var vm = this;
 
         vm.initialCategories = [];
+
+        // видалити?
         vm.loggedIn = Auth.isLoggedIn();
-        vm.loadAllClassifieds = loadAllClassifieds;
-        vm.loadUserClassifieds = loadUserClassifieds;
+
+        console.log(userClassifieds);
+        /*vm.loadAllClassifieds = loadAllClassifieds;
+        vm.loadUserClassifieds = loadUserClassifieds;*/
 
         // перезавантаження оголошень при зміні стану авторизації
-        $scope.$watch('vm.loggedIn', function () {
+        /*$scope.$watch('vm.loggedIn', function () {
             Auth.getUser()
                 .then(function (data) { // користувач авторизований
                     $rootScope.user = data.data;
@@ -22,7 +26,27 @@ angular.module('classifieds')
                     $rootScope.user = {};
                     loadAllClassifieds();
                 });
-        });
+        });*/
+
+        Auth.getUser()
+            .then(function (data) { // користувач авторизований
+                $rootScope.user = data.data;
+                $rootScope.user.id = $rootScope.user.id || $rootScope.user._id;
+                if (userClassifieds) {
+                    $scope.$emit('userClassifieds', 'my');
+                    loadUserClassifieds();
+                } else {
+                    $scope.$emit('userClassifieds', 'all');
+                    loadAllClassifieds();
+                }
+            }, function () { // користувач не авторизований
+                //$scope.$emit('userClassifieds');
+                $rootScope.user = {};
+                $scope.$emit('userClassifieds', 'all');
+                loadAllClassifieds();
+            });
+
+        //loadClassifieds($rootScope.user.id);
 
         function loadUserClassifieds() {
             //console.log($rootScope.user);
@@ -45,13 +69,13 @@ angular.module('classifieds')
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
-                /*$timeout(function () {
-                    $('.select').select2();
-                }, 2000);*/
+            })
+            .error(function (error) {
+                showToast('Не вдалося отримати дані. Спробуйте ще раз');
             });
 
         vm.editClassified = function (classified) {
-            $state.go('classifieds.edit', {
+            $state.go('edit', {
                 id: classified._id
             });
         };
@@ -104,6 +128,7 @@ angular.module('classifieds')
             vm.newCategory = '';
         };*/
 
+        // todo: винести функцію в сервіс
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()

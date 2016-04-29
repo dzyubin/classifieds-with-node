@@ -16,7 +16,6 @@ angular.module('authService', [])
                     AuthToken.setToken(data.token);
                     return data;
                 })
-
         };
 
         authFactory.logout = function() {
@@ -45,7 +44,6 @@ angular.module('authService', [])
                 return $q.reject({ message: "User has no token" });
             }
         };
-
         return authFactory;
     }])
     .factory('AuthToken', ['$window',

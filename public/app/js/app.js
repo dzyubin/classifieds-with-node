@@ -16,35 +16,56 @@ angular
             clientId: '77nj3q7ec8pekm'
         });
 
-        //$urlRouterProvider.when('', '/classifieds');
+        $urlRouterProvider.otherwise("/");
 
         $stateProvider
-            .state('/', {
-                url: '',
-                templateUrl: 'app/views/pages/main.tpl.html',
-                controller: 'classifiedsCtrl as vm'
+            .state('home', {
+                url: '/',
+                templateUrl: 'app/views/pages/home.tpl.html',
+                controller: 'homeCtrl as vm'
             })
-            .state('classifieds', {
-                url: '/classifieds',
-                templateUrl: 'app/views/pages/main.tpl.html',
+            /*.state('home', {
+                // todo: змінити на '/'
+                url: '/home',
+                templateUrl: 'app/views/pages/home.tpl.html',
                 controller: 'classifiedsCtrl as vm'
+            })*/
+            .state('all-classifieds', {
+                url: '/all-classifieds',
+                templateUrl: 'app/views/pages/classifieds.tpl.html',
+                controller: 'PaginationCtrl as data',
+                resolve: {
+                    userClassifieds: function () {
+                        return false;
+                    }
+                }
             })
-            .state('classifieds.login', {
+            .state('my-classifieds', {
+                url: '/my-classifieds',
+                templateUrl: 'app/views/pages/classifieds.tpl.html',
+                controller: 'PaginationCtrl as data',
+                resolve: {
+                    userClassifieds: function () {
+                        return true;
+                    }
+                }
+            })
+            .state('login', {
                 url: '/login',
                 templateUrl: 'app/views/pages/login.tpl.html',
-                controller: 'loginClassifiedsCtrl as vm'
+                controller: 'loginCtrl as vm'
             })
-            .state('classifieds.register', {
+            .state('register', {
                 url: '/register',
                 templateUrl: 'app/views/pages/register.tpl.html',
-                controller: 'UserCreateController as vm'
+                controller: 'UserCreateCtrl as vm'
             })
-            .state('classifieds.new', {
+            .state('new', {
                 url: '/new',
                 templateUrl: 'app/views/pages/newClassified.tpl.html',
-                controller: 'ClassifiedController as vm'
+                controller: 'ClassifiedCtrl as vm'
             })
-            .state('classifieds.edit', {
+            .state('edit', {
                 url: '/edit/:id',
                 templateUrl: 'app/views/pages/edit.tpl.html',
                 controller: 'editClassifiedsCtrl as vm',

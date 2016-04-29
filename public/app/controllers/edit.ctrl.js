@@ -27,7 +27,7 @@
                         $mdSidenav('left')
                             .close()
                             .then(function () {
-                                $state.go('classifieds');
+                                $state.go('my-classifieds');
                             });
                     }
                 });
@@ -50,11 +50,6 @@
                     vm.classified = {};
                     vm.sidenavOpen = false;
                     $scope.$emit('editSaved', 'Редагування збережено!');
-
-                   /* vm.classifieds.$save(vm.classified).then(function () {
-                        $scope.$emit('editSaved', 'Редагування збережено!');
-                        vm.sidenavOpen = false;
-                    });*/
                 }
 
                 function closeSidebar() {

@@ -1,6 +1,6 @@
 // todo: add 'use strict' to all js files
 angular.module('classifieds')
-    .controller('ClassifiedController', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$mdToast', '$state', 'Classified', 'Auth', 'Upload',
+    .controller('ClassifiedCtrl', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$mdToast', '$state', 'Classified', 'Auth', 'Upload',
         function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $mdToast, $state, Classified, Auth, Upload) {
 
         var vm = this;
@@ -22,7 +22,7 @@ angular.module('classifieds')
                 $mdSidenav('left')
                     .close()
                     .then(function () {
-                        $state.go('classifieds');
+                        $state.go('my-classifieds');
                     });
             }
         });

@@ -2,6 +2,7 @@
     <section class="panel login">
         <form name="myform" novalidate class="text-center" method="post" ng-submit="vm.doLogin()">
             <div class="textintro">
+                {{ vm.error }}
                 <h1>Доброго дня!</h1>
                 <p>Увійдіть для отримання доступу до додаткових можливостей</p>
                 <p ng-show="message">{{ message }}</p>

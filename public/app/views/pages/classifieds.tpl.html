@@ -1,33 +1,7 @@
-<div navbar></div>
-<!--<div class="filters well form-inline clearfix" ng-show="showFilters">
-
-    <div class="form-group">
-        <label for="search"></label>
-        <input type="text" class="form-control" id="search" ng-model="classifiedsFilter" autofocus
-        placeholder="Введіть ключове слово"/>
-    </div>
-
-    <div class="form-group">
-        <label for="category">Категорія</label>
-        <select name="category" class="form-control" id="category" ng-model="category">
-            <option ng-repeat="category in categories" value="{{ category }}">
-                {{ category }}
-            </option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <button class="btn btn-warning" ng-click="classifiedsFilter = ''; category = ''">Очистити</button>
-    </div>
-
-</div>-->
-
-<ui-view></ui-view>
-
-<div class="container"  ng-controller='PaginationCtrl as data'>
+<div class="container">
 
     <!--'Всі Оголошення'\'Мої Оголошення'-->
-    <div class="btn-group pull-right" ng-show="vm.loggedIn">
+    <!--<div class="btn-group pull-right" ng-show="vm.loggedIn">
         <button type="button" class="btn btn-default"
                 ng-class="{active: myClassifiedsBtnActive}" ng-click="data.loadUserClassifieds()">
             Мої Оголошення
@@ -36,20 +10,20 @@
                 ng-class="{active: !myClassifiedsBtnActive}" ng-click="data.loadAllClassifieds()">
             Всі Оголошення
         </button>
-    </div>
+    </div>-->
 
     <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
          infinite-scroll-distance='0'>
-         <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover">
             <thead>
-                <tr>
-                    <th>Назва</th>
-                    <th>Ціна</th>
-                    <th>Категорія</th>
-                    <th>Зображення</th>
-                    <th>Опис</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Назва</th>
+                <th>Ціна</th>
+                <th>Категорія</th>
+                <th>Зображення</th>
+                <th>Опис</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
             <tr ng-repeat="classified in classifieds | filter: classifiedsFilter | filter: category">
@@ -193,6 +167,6 @@
                 </td>
             </tr>
             </tbody>
-         </table>
+        </table>
     </div>
 </div>

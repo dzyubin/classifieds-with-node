@@ -10,7 +10,7 @@ angular.module('userCtrl', ['userService'])
             })
     })
 
-    .controller('UserCreateController', ['$scope', '$mdSidenav', '$state', 'User', '$location', '$window',
+    .controller('UserCreateCtrl', ['$scope', '$mdSidenav', '$state', 'User', '$location', '$window',
         function ($scope, $mdSidenav, $state, User, $location, $window) {
 
         var vm = this;
@@ -22,7 +22,7 @@ angular.module('userCtrl', ['userService'])
                 $mdSidenav('right')
                     .close()
                     .then(function () {
-                        $state.go('classifieds');
+                        $state.go('home');
                     });
             }
         });

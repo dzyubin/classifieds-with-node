@@ -1,4 +1,4 @@
-<div navbar></div>
+<!--<div navbar></div>-->
 <!--<div class="filters well form-inline clearfix" ng-show="showFilters">
 
     <div class="form-group">
@@ -22,11 +22,13 @@
 
 </div>-->
 
-<ui-view></ui-view>
+<!--<ui-view></ui-view>-->
 
-<div class="container"  ng-controller='PaginationCtrl as data'>
+<div>Home</div>
+{{ myClassifiedsBtnActive }}
+<!--<div class="container"  ng-controller='PaginationCtrl as data'>
 
-    <!--'Всі Оголошення'\'Мої Оголошення'-->
+    &lt;!&ndash;'Всі Оголошення'\'Мої Оголошення'&ndash;&gt;
     <div class="btn-group pull-right" ng-show="vm.loggedIn">
         <button type="button" class="btn btn-default"
                 ng-class="{active: myClassifiedsBtnActive}" ng-click="data.loadUserClassifieds()">
@@ -40,16 +42,16 @@
 
     <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
          infinite-scroll-distance='0'>
-         <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover">
             <thead>
-                <tr>
-                    <th>Назва</th>
-                    <th>Ціна</th>
-                    <th>Категорія</th>
-                    <th>Зображення</th>
-                    <th>Опис</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Назва</th>
+                <th>Ціна</th>
+                <th>Категорія</th>
+                <th>Зображення</th>
+                <th>Опис</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
             <tr ng-repeat="classified in classifieds | filter: classifiedsFilter | filter: category">
@@ -85,7 +87,7 @@
                                             </div>
                                         </div>
                                         <small>Щоб додати нову категорію, введіть назву в полі "Категорія" і натисніть "Enter"</small>
-                                        <!--<div class="form-group">
+                                        &lt;!&ndash;<div class="form-group">
                                             <label for="newCategory" class="col-sm-2 control-label">
                                                 Нова Категорія
                                             </label>
@@ -97,7 +99,7 @@
                                                     ng-click="data.addNewCategory(classified)">
                                                 Додати
                                             </button>
-                                        </div>-->
+                                        </div>&ndash;&gt;
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -113,7 +115,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div id="category-edit" class="well" ng-show="editingCategory">
+                    &lt;!&ndash;<div id="category-edit" class="well" ng-show="editingCategory">
                         <md-input-container>
                             <label for="categories">Категорія(-ії)</label>
                             <md-select ng-show="editingCategory" id="categories" multiple ng-model="classified.category">
@@ -140,8 +142,8 @@
                                 ng-click="editingCategory=false">
                             X
                         </button>
-                    </div>-->
-                    <!--todo: додати 'glyphicon-edit'-->
+                    </div>&ndash;&gt;
+                    &lt;!&ndash;todo: додати 'glyphicon-edit'&ndash;&gt;
                     <button type="button" class="btn btn-primary btn-xs btn-block" ng-show="vm.loggedIn"
                             data-toggle="modal" data-target="#{{classified._id}}" data-classified="classified"
                             ng-click="data.initialCategories = classified.category">
@@ -153,7 +155,7 @@
                 <td>{{classified.content}}</td>
                 <td>
 
-                    <!--Контактні дані-->
+                    &lt;!&ndash;Контактні дані&ndash;&gt;
                     <div class="dropdown">
                         <button class="btn btn-primary btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuContactData"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -167,7 +169,7 @@
                         </ul>
                     </div>
 
-                    <!--Адмін-->
+                    &lt;!&ndash;Адмін&ndash;&gt;
                     <div class="dropdown" ng-show="vm.loggedIn">
                         <button class="btn btn-primary btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuAdmin"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -193,6 +195,6 @@
                 </td>
             </tr>
             </tbody>
-         </table>
+        </table>
     </div>
-</div>
+</div>-->

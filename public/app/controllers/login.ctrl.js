@@ -4,7 +4,7 @@
 
     angular
         .module('classifieds')
-        .controller('loginClassifiedsCtrl',
+        .controller('loginCtrl',
         ['$rootScope', '$scope', '$mdSidenav', '$state', '$auth', 'Auth',
         function ($rootScope, $scope, $mdSidenav, $state, $auth, Auth) {
 
@@ -17,7 +17,7 @@
                     $mdSidenav('right')
                         .close()
                         .then(function () {
-                            $state.go('classifieds');
+                            $state.go('home');
                         });
                 }
             });
@@ -38,7 +38,7 @@
                             });
 
                         if(data.success) {
-                            $state.go('classifieds');
+                            $state.go('my-classifieds');
                         } else {
                             vm.error = data.message;
                         }
@@ -51,7 +51,7 @@
                         // непотрібний рядок?
                         $rootScope.user.id = $rootScope.user._id;
 
-                        $state.go('classifieds');
+                        $state.go('my-classifieds');
                     })
                     .catch(function (err) {
                         console.log(err);

@@ -16,12 +16,11 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <!--todo: видалити select2.css-->
     <link href="app/css/select2.min.css" rel="stylesheet"/>
     <link href="app/css/style.css" rel="stylesheet" type="text/css">
 </head>
-<body ng-app="classifieds" ng-cloak>
-
+<body ng-app="classifieds" ng-controller="classifiedsCtrl as vm" ng-cloak>
+    <div navbar></div>
     <ui-view></ui-view>
     <!--todo: видалити angular-* модулі з package.json-->
     <script src="app/js/vendor/jquery.js"></script>
@@ -52,6 +51,7 @@
     <script src="app/controllers/login.ctrl.js"></script>
     <script src="app/controllers/edit.ctrl.js"></script>
     <script src="app/controllers/pagination.ctrl.js"></script>
+    <script src="app/controllers/home.ctrl.js"></script>
 
     <script src="app/directives/navbar.dir.js"></script>
 
