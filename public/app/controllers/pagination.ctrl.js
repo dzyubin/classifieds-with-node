@@ -11,22 +11,8 @@ angular.module('classifieds')
         // видалити?
         vm.loggedIn = Auth.isLoggedIn();
 
-        console.log(userClassifieds);
         /*vm.loadAllClassifieds = loadAllClassifieds;
         vm.loadUserClassifieds = loadUserClassifieds;*/
-
-        // перезавантаження оголошень при зміні стану авторизації
-        /*$scope.$watch('vm.loggedIn', function () {
-            Auth.getUser()
-                .then(function (data) { // користувач авторизований
-                    $rootScope.user = data.data;
-                    $rootScope.user.id = $rootScope.user.id || $rootScope.user._id;
-                    loadUserClassifieds();
-                }, function () { // користувач не авторизований
-                    $rootScope.user = {};
-                    loadAllClassifieds();
-                });
-        });*/
 
         Auth.getUser()
             .then(function (data) { // користувач авторизований
@@ -115,20 +101,10 @@ angular.module('classifieds')
         };
 
         vm.cancelCategoriesEdit = function (classified) {
-            console.log('sdfd');
             classified.category = vm.initialCategories;
         };
 
-        /*vm.addNewCategory = function (classified) {
-            classified.newCategories = [];
-            classified.category.push(vm.newCategory);
-            var div = '#' + classified._id + ' select';
-            vm.categories.push(vm.newCategory);
-            classified.newCategories.push(vm.newCategory);
-            vm.newCategory = '';
-        };*/
-
-        // todo: винести функцію в сервіс
+        // todo: винести функцію в сервіс або замінити на bootstrap notification
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()

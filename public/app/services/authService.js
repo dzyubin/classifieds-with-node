@@ -24,14 +24,14 @@ angular.module('authService', [])
 
         authFactory.isLoggedIn = function() {
             var token = AuthToken.getToken();
-            if (token.token || token.FBToken) {
+            /*if (token.token || token.FBToken) {
                 return true;
             } else {
                 return false;
-            }
+            }*/
 
             // одна стрічка заміняє if-блок
-            //return (token.token || token.FBToken);
+            return (token.token || token.FBToken);
         };
 
         authFactory.getUser = function() {

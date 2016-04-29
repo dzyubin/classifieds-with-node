@@ -16,7 +16,7 @@
                 vm.saveEdit = saveEdit;
 
 
-                Classified.getClassified($state.params.id)
+                Classified.getSingleClassified($state.params.id)
                     .success(function (data) {
                         //console.log(data);
                         vm.classified = data;

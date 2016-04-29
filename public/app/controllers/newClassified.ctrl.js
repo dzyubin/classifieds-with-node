@@ -94,7 +94,6 @@ angular.module('classifieds')
                 vm.classifiedData.image = 'images/photo-default-th.png';
                 createClassifiedService();
             }
-            //Classified.categories(vm.classifiedData.categories);
         };
 
         function closeSidebar() {
@@ -115,12 +114,9 @@ angular.module('classifieds')
             Classified.create(vm.classifiedData)
                 .success(function (data) {
                     vm.classifiedData = '';
-
                     vm.message = data.message;
 
                     $rootScope.classifieds.push(data);
-
-                    //$rootScope.$emit('newClassified', data);
 
                     closeSidebar();
                     showToast("Оголошення Додано!");

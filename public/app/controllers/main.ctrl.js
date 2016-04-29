@@ -9,11 +9,7 @@
 
             var vm = this;
             vm.loggedIn = Auth.isLoggedIn();
-                //console.log('sdfgdsfg');
-                //$scope.myClassifiedsBtnActive = false;
-            //vm.newClassifiedUrl = vm.loggedIn ? "#/classifieds/new" : "#/classifieds";
 
-            // видалити?
             $rootScope.$on('$stateChangeStart', function () {
                 vm.loggedIn = Auth.isLoggedIn();
                 Auth.getUser()
@@ -24,7 +20,6 @@
             });
 
             $scope.$on('userClassifieds', function (event, message) {
-                console.log('scope.on');
                 $scope.myClassifiedsBtnActive = message;
             });
 
@@ -59,18 +54,5 @@
                         .hideDelay(delay)
                 );
             }
-
-            /*vm.getFBProfile = function() {
-                Auth.getFBProfile()
-                    .then(function(response) {
-                        console.log('getProfile', response);
-                        $rootScope.user = response.data;
-                    })
-                    .catch(function(response) {
-                        console.log(response);
-                        //toastr.error(response.data.message, response.status);
-                    });
-            };*/
-
         }])
 }());

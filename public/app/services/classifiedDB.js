@@ -31,11 +31,12 @@ angular
                 this.busy = false;
 
                 // todo: створити функцію initSelect2()
-                setTimeout(function () {
+                /*setTimeout(function () {
                     $('.select').select2({
                         tags: true
                     });
-                }, 0);
+                }, 0);*/
+                initSelect2();
 
             }.bind(this));
 
@@ -47,6 +48,14 @@ angular
                     url = '/api/list/' + contextObj.userId + '?after=' + contextObj.after;
                 }
                 return url;
+            }
+
+            function initSelect2() {
+                setTimeout(function () {
+                    $('.select').select2({
+                        tags: true
+                    });
+                }, 0);
             }
         };
 

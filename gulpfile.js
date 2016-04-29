@@ -26,12 +26,14 @@ var paths = {
         'public/app/services/userService.js',
         'public/app/services/classifiedService.js',
         'public/app/services/classifiedDB.js',
+        'public/app/controllers/home.ctrl.js',
         'public/app/controllers/main.ctrl.js',
         'public/app/controllers/user.ctrl.js',
         'public/app/controllers/newClassified.ctrl.js',
         'public/app/controllers/login.ctrl.js',
         'public/app/controllers/edit.ctrl.js',
-        'public/app/controllers/pagination.ctrl.js'
+        'public/app/controllers/pagination.ctrl.js',
+        'public/app/directives/navbar.dir.js'
     ],
 
     css: [
