@@ -30,12 +30,6 @@ angular
                 this.after = $rootScope.classifieds.length;
                 this.busy = false;
 
-                // todo: створити функцію initSelect2()
-                /*setTimeout(function () {
-                    $('.select').select2({
-                        tags: true
-                    });
-                }, 0);*/
                 initSelect2();
 
             }.bind(this));

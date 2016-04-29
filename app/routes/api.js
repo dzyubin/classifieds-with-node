@@ -70,18 +70,8 @@ module.exports = function(app, express) {
         });
     });
 
-    api.get('/list', function(req, res) {
-        // todo: використати функцію getClassifiedsList
-        // getClassifiedsList(req.query.after);
-        var itemsPerPage = 20,
-            after = parseInt(req.query.after, 10);
-
-        Classified.find()
-            .skip(after)
-            .limit(itemsPerPage)
-            .exec(function (err, classifieds) {
-                res.json(classifieds);
-            });
+    api.get('/list', function (req, res) {
+        getClassifiedsList(req, res);
     });
 
     api.get('/categories', function (req, res) {
@@ -232,29 +222,15 @@ module.exports = function(app, express) {
     });
 
     api.get('/list/:userId', function(req, res) {
-        // todo: використати функцію getClassifiedsList
-        // getClassifiedsList(req.query.after, req.params.userId);
-
-        var itemsPerPage = 20,
-            after = parseInt(req.query.after),
-            userId = req.params.userId;
-
-        Classified.find({ creator: userId })
-            .skip(after)
-            .limit(itemsPerPage)
-            .exec(function (err, classifieds) {
-                res.json(classifieds);
-            });
+         getClassifiedsList(req, res);
     });
 
-    // todo: перевірити функцію
-    function getClassifiedsList(after, userId) {
-        var itemsPerPage = 20;
+    function getClassifiedsList(req, res) {
+        var itemsPerPage = 20,
+            after = parseInt(req.query.after),
+            creatorId = req.params.userId ? { creator: req.params.userId } : {};
 
-        after = parseInt(after);
-        userId = userId || '';
-
-        Classified.find({ creator: userId })
+        Classified.find(creatorId)
             .skip(after)
             .limit(itemsPerPage)
             .exec(function (err, classifieds) {
