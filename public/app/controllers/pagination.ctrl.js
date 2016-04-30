@@ -13,7 +13,6 @@ angular.module('classifieds')
 
         /*vm.loadAllClassifieds = loadAllClassifieds;
         vm.loadUserClassifieds = loadUserClassifieds;*/
-
         Auth.getUser()
             .then(function (data) { // користувач авторизований
                 $rootScope.user = data.data;
@@ -22,11 +21,14 @@ angular.module('classifieds')
                     $scope.$emit('userClassifieds', 'my');
                     loadUserClassifieds();
                 } else {
+
+                    // todo: перенести в loadAllClassifieds()
                     $scope.$emit('userClassifieds', 'all');
                     loadAllClassifieds();
                 }
-            }, function () { // користувач не авторизований
+            }, function (error) { // користувач не авторизований
                 //$scope.$emit('userClassifieds');
+                console.log(error);
                 $rootScope.user = {};
                 $scope.$emit('userClassifieds', 'all');
                 loadAllClassifieds();

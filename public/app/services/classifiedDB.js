@@ -45,6 +45,7 @@ angular
             }
 
             function initSelect2() {
+                // todo: використати $timeout
                 setTimeout(function () {
                     $('.select').select2({
                         tags: true

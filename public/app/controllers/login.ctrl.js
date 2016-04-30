@@ -25,7 +25,6 @@
             vm.doLogin = function () {
 
                 //vm.processing = true;
-
                 vm.error = '';
 
                 Auth.login(vm.loginData.username, vm.loginData.password)

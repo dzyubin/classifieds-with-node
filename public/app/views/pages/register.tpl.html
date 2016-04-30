@@ -1,7 +1,10 @@
-<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-is-open="vm.sidenavOpen">
-    <section class="panel register">
-        <form name="myform" novalidate class="text-center" method="post" ng-submit="vm.signupUser()">
+<div id="loginForm" class="container">
+    <div class="row">
+        <div class="col-xs-4"></div>
+        <form name="myform" novalidate class="text-center col-sm-4 center-block" method="post"
+              ng-submit="vm.signupUser()">
             <div class="textintro">
+                {{ vm.error }}
                 <h1>Реєстрація!</h1>
                 <p>Зареєструйтесь для отримання доступу до додаткових можливостей</p>
                 <p ng-show="vm.message" class="alert alert-danger">{{ vm.message }}</p>
@@ -28,7 +31,7 @@
             </fieldset>
 
             <button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">Зареєструватись</button>
-            <p>або <a ng-href="#classifieds/login">увійти</a></p>
+            <p>або <a ng-href="#/login">увійти</a></p>
         </form>
-    </section>
-</md-sidenav>
+    </div>
+</div>

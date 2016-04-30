@@ -1,7 +1,10 @@
-<div class="container">
+<div class="container" ng-cloak>
+    <p class="alert alert-info" ng-if="!classifieds.length && !classifiedsDBService.busy">
+        Немає розміщених оголошень.
+        <a href="javascript:;" class="btn btn-info btn-sm" ng-click="vm.openSidebar()">Створити</a></p>
     <div infinite-scroll='classifiedsDBService.nextPage()' infinite-scroll-disabled='classifiedsDB.busy'
          infinite-scroll-distance='0'>
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" ng-if="classifieds.length">
             <thead>
             <tr>
                 <th>Назва</th>

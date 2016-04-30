@@ -233,7 +233,8 @@ module.exports = function(app, express) {
         Classified.find(creatorId)
             .skip(after)
             .limit(itemsPerPage)
-            .exec(function (err, classifieds) {
+            .exec(function (error, classifieds) {
+                if (error) res.json(error);
                 res.json(classifieds);
             });
     }

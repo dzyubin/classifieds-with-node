@@ -42,14 +42,6 @@ ul.navbar {
     margin: 0 5px 15px 15px;
 }
 
-classified-card button {
-    margin: 5px;
-}
-
-classified-card h2 {
-    margin-left: 25px;
-}
-
 input.ng-invalid.ng-touched {
     border: 1px solid #DA3637;
 }
@@ -125,4 +117,9 @@ md-option {
 .btn-linkedin:focus {
     color: #fff;
     background-color: #005380;
+}
+
+#loginForm form {
+    max-width: 300px;
+    margin: 10px auto;
 }

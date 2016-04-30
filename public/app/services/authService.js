@@ -16,6 +16,9 @@ angular.module('authService', [])
                     AuthToken.setToken(data.token);
                     return data;
                 })
+                .error(function (error) {
+                    throw new Error(error);
+                })
         };
 
         authFactory.logout = function() {
@@ -24,13 +27,7 @@ angular.module('authService', [])
 
         authFactory.isLoggedIn = function() {
             var token = AuthToken.getToken();
-            /*if (token.token || token.FBToken) {
-                return true;
-            } else {
-                return false;
-            }*/
 
-            // одна стрічка заміняє if-блок
             return (token.token || token.FBToken);
         };
 
