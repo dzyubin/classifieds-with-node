@@ -1,13 +1,14 @@
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
-     style="height: 300px;" data-interval="100000">
+     style="height: 300px; padding: 20px 0;" data-interval="false">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li ng-repeat="classified in classifieds" data-target="#carousel-example-generic"
-            data-slide-to="{{$index}}" ng-class="{active: $index===0}"></li>
+            data-slide-to="{{$index}}" ng-class="{active: $index===0}"
+            style="border-color: #000000; background: #777777;"></li>
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox" style="padding: 20px 0;">
+    <div class="carousel-inner" role="listbox" style="padding: 0px 0;">
         <div ng-class="{active: $index===0}" class="item" ng-repeat="classified in classifieds">
             <div class="row center-block" style="width: 70%;">
                 <div class="col-sm-4">
@@ -16,21 +17,42 @@
                 </div>
                 <div class="col-sm-8">
                     <h2 class="text-center">{{ classified.title }}</h2>
+
                 </div>
             </div>
             <div class="carousel-caption"
-                 style="color: #000; width: 70%; margin: auto; position: initial;">
-                <p>{{ classified.content }}</p>
-                <div class="row">
+                 style="color: #000; text-shadow: none; margin: 0 20%; position: initial;">
+                <!--<div class="row">
                     <h5 class="col-sm-3">Контактні Дані</h5>
                     <div class="col-sm-3"  ng-repeat="field in classified.contact">
                         <p>
                             {{ field }}
                         </p>
                     </div>
-                    <!--<p>{{ classified.contact.name}}</p>
-                    <p>{{ classified.contact.phone}}</p>
-                    <p>{{ classified.contact.email}}</p>-->
+                </div>-->
+                <div class="row" style="">
+                    <div class="col-sm-4" style="">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-info">Контактні дані</li>
+                            <li class="list-group-item" ng-repeat="field in classified.contact"
+                                style="padding: 5px 15px;">
+                                {{ field }}
+                            </li>
+                        </ul>
+                    <!--<div class="col-sm-4 panel panel-default" style="padding: 0;">-->
+                        <!--<p class="panel-heading">Контактні Дані</p>
+                        <div class="panel-body" style="padding: 0;">
+                            &lt;!&ndash;<span class="label label-primary pull-left" ng-repeat="field in classified.contact">
+                                {{field}}
+                            </span>&ndash;&gt;
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="field in classified.contact">
+                                    {{ field }}
+                                </li>
+                            </ul>
+                        </div>-->
+                    </div>
+                    <p class="col-sm-8">{{ classified.content }}</p>
                 </div>
             </div>
         </div>

@@ -31,10 +31,6 @@ angular.module('classifieds')
 
             vm.classifiedData.newCategories = [];
 
-            /*if (!vm.classifiedData.categories) {
-                vm.classifiedData.categories = [];
-            }*/
-
             vm.classifiedData.categories = vm.classifiedData.categories || [];
 
             if (!vm.newCategory) {
@@ -44,16 +40,19 @@ angular.module('classifieds')
                 vm.newCategory = '';
             } else {
                 vm.categories.push(vm.newCategory);
-                vm.classifiedData.categories.push(vm.newCategory); // обновити локальний список категорій
-                vm.classifiedData.newCategories.push(vm.newCategory); // додати категорії, які будуть додані до бази даних
+                // обновити локальний список категорій
+                vm.classifiedData.categories.push(vm.newCategory);
+                // додати категорії, які будуть додані до бази даних
+                vm.classifiedData.newCategories.push(vm.newCategory);
                 vm.newCategory = '';
                 //vm.newCategoryError = "Категорію додано. Щоб обрати натисніть 'Категорія(-ії)'";
-                $timeout(function () {
+                /*$timeout(function () {
                     vm.newCategoryError = '';
-                }, 5000);
+                }, 5000);*/
             }
         };
 
+        // todo: розділити на дві (чи більше?) функції
         vm.uploadImageAndCreateClassified = function (file) {
             vm.message = '';
 
@@ -63,7 +62,6 @@ angular.module('classifieds')
                 phone: "34-54-45",
                 email: "example@mail.com"
             };
-
             // upload image to 'public/images'
             if (file) { // якщо користувач обрав зображення
                 file.upload = Upload.upload({

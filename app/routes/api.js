@@ -118,30 +118,18 @@ module.exports = function(app, express) {
 
         .post(function(req, res) {
 
-            if (req.body.newCategories) { // якщо користувач створив нові категорії
-                /*Categories.find({}, function (err, categories) { // додати їх в базу данних
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        req.body.newCategories.forEach(function (element, index) {
-                            categories[0].categories.push(element);
-                        });
-
-                        categories[0].save(function (err, categories) {
-                            console.log('Categories saved:', categories);
-                        });
-                    }
-                });*/
-
+            if (req.body.newCategories) {
                 addNewCategoriesToDB(req.body.newCategories);
             }
+
             var classified = new Classified({
                 creator: req.decoded.id,
                 content: req.body.content,
                 title: req.body.title,
                 price: req.body.price,
                 image: req.body.image,
-                category: req.body.categories
+                category: req.body.categories,
+                contact: req.body.contact
             });
 
             classified.save(function(err, newClassified) {
@@ -231,6 +219,7 @@ module.exports = function(app, express) {
             creatorId = req.params.userId ? { creator: req.params.userId } : {};
 
         Classified.find(creatorId)
+            .sort({created: -1})
             .skip(after)
             .limit(itemsPerPage)
             .exec(function (error, classifieds) {
