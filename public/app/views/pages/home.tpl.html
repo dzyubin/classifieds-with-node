@@ -1,10 +1,10 @@
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
-     style="height: 300px; padding: 20px 0;" data-interval="false">
+     style="padding: 20px 0;">
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li ng-repeat="classified in classifieds" data-target="#carousel-example-generic"
             data-slide-to="{{$index}}" ng-class="{active: $index===0}"
-            style="border-color: #000000; background: #777777;"></li>
+            style="background: #777777;"></li>
     </ol>
 
     <!-- Wrapper for slides -->
@@ -22,14 +22,6 @@
             </div>
             <div class="carousel-caption"
                  style="color: #000; text-shadow: none; margin: 0 20%; position: initial;">
-                <!--<div class="row">
-                    <h5 class="col-sm-3">Контактні Дані</h5>
-                    <div class="col-sm-3"  ng-repeat="field in classified.contact">
-                        <p>
-                            {{ field }}
-                        </p>
-                    </div>
-                </div>-->
                 <div class="row" style="">
                     <div class="col-sm-4" style="">
                         <ul class="list-group">
@@ -39,18 +31,6 @@
                                 {{ field }}
                             </li>
                         </ul>
-                    <!--<div class="col-sm-4 panel panel-default" style="padding: 0;">-->
-                        <!--<p class="panel-heading">Контактні Дані</p>
-                        <div class="panel-body" style="padding: 0;">
-                            &lt;!&ndash;<span class="label label-primary pull-left" ng-repeat="field in classified.contact">
-                                {{field}}
-                            </span>&ndash;&gt;
-                            <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="field in classified.contact">
-                                    {{ field }}
-                                </li>
-                            </ul>
-                        </div>-->
                     </div>
                     <p class="col-sm-8">{{ classified.content }}</p>
                 </div>

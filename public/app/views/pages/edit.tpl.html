@@ -25,6 +25,7 @@
                 <label for="category">Категорія</label>
                 <input type="text" id="category" ng-model="vm.classified.category"/>
             </md-input-container>
+            <p class="alert alert-danger" ng-show="vm.error">{{ vm.error }}</p>
             <md-button ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>
             <md-button ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
         </form>

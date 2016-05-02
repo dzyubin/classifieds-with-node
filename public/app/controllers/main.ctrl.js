@@ -46,6 +46,7 @@
                 }
             };
 
+            //todo: замінити $mdToast на bootstrap notification
             function showToast(message, delay) {
                 $mdToast.show(
                     $mdToast.simple()

@@ -42,7 +42,7 @@
         <form name="myform" novalidate class="text-center col-sm-4 center-block" method="post"
               ng-submit="vm.doLogin()">
             <div class="textintro">
-                <p class="alert alert-danger">{{ vm.error }}</p>
+                <p class="alert alert-danger" ng-if="vm.error">{{ vm.error }}</p>
                 <h1>Доброго дня!</h1>
                 <p>Увійдіть для отримання доступу до додаткових можливостей</p>
                 <p ng-show="message">{{ message }}</p>
