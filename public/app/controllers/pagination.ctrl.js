@@ -7,12 +7,8 @@ angular.module('classifieds')
         var vm = this;
 
         vm.initialCategories = [];
-
-        // видалити?
         vm.loggedIn = Auth.isLoggedIn();
 
-        /*vm.loadAllClassifieds = loadAllClassifieds;
-        vm.loadUserClassifieds = loadUserClassifieds;*/
         Auth.getUser()
             .then(function (data) { // користувач авторизований
                 $rootScope.user = data.data;
@@ -28,7 +24,6 @@ angular.module('classifieds')
                 }
             }, function (error) { // користувач не авторизований
                 //$scope.$emit('userClassifieds');
-                console.log(error);
                 $rootScope.user = {};
                 $scope.$emit('userClassifieds', 'all');
                 loadAllClassifieds();

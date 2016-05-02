@@ -23,7 +23,7 @@ angular
 
             this.busy = true;
 
-            $http.get(url).success(function(classifieds) {
+            return $http.get(url).success(function(classifieds) {
                 for (var i = 0; i < classifieds.length; i++) {
                     $rootScope.classifieds.push(classifieds[i]);
                 }
