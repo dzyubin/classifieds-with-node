@@ -1,50 +1,86 @@
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
-     style="padding: 20px 0;">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li ng-repeat="classified in classifieds" data-target="#carousel-example-generic"
-            data-slide-to="{{$index}}" ng-class="{active: $index===0}"
-            style="background: #777777;"></li>
-    </ol>
+<div class="container">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"
+         style="padding: 20px 0;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li ng-repeat="classified in classifieds" data-target="#carousel-example-generic"
+                data-slide-to="{{$index}}" ng-class="{active: $index===0}"
+                style="background: #777777;"></li>
+        </ol>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox" style="padding: 0px 0;">
-        <div ng-class="{active: $index===0}" class="item" ng-repeat="classified in classifieds">
-            <div class="row center-block" style="width: 70%;">
-                <div class="col-sm-4">
-                    <img class="center-block" ng-src="{{ classified.image }}" alt="{{ classified.title }}"
-                         height="100" style="">
-                </div>
-                <div class="col-sm-8">
-                    <h2 class="text-center">{{ classified.title }}</h2>
-
-                </div>
-            </div>
-            <div class="carousel-caption"
-                 style="color: #000; text-shadow: none; margin: 0 20%; position: initial;">
-                <div class="row" style="">
-                    <div class="col-sm-4" style="">
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-info">Контактні дані</li>
-                            <li class="list-group-item" ng-repeat="field in classified.contact"
-                                style="padding: 5px 15px;">
-                                {{ field }}
-                            </li>
-                        </ul>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox" style="padding: 0px 0;">
+            <div ng-class="{active: $index===0}" class="item" ng-repeat="classified in classifieds">
+                <div class="row center-block" style="width: 70%;">
+                    <div class="col-sm-4">
+                        <img class="center-block" ng-src="{{ classified.image }}" alt="{{ classified.title }}"
+                             height="100" style="">
                     </div>
-                    <p class="col-sm-8">{{ classified.content }}</p>
+                    <div class="col-sm-8">
+                        <h2 class="text-center">{{ classified.title }}</h2>
+
+                    </div>
+                </div>
+                <div class="carousel-caption"
+                     style="color: #000; text-shadow: none; margin: 0 20%; position: initial;">
+                    <div class="row" style="">
+                        <div class="col-sm-4" style="">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-info">Контактні дані</li>
+                                <li class="list-group-item" ng-repeat="field in classified.contact"
+                                    style="padding: 5px 15px;">
+                                    {{ field }}
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="col-sm-8">{{ classified.content }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div id="homepage-info">
+        <div class="row">
+            <div class="col-sm-9">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Inventore laborum nihil rerum sit ut voluptates?
+                    Animi beatae cum eos illo, magnam maxime minus,
+                    odio officiis praesentium qui quibusdam quos repellat.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Inventore laborum nihil rerum sit ut voluptates?
+                    Animi beatae cum eos illo, magnam maxime minus,
+                    odio officiis praesentium qui quibusdam quos repellat.
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            </div>
+            <div class="col-sm-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Inventore laborum nihil rerum sit ut voluptates?
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Inventore laborum nihil rerum sit ut voluptates?</p>
+            </div>
+        </div>
+    </div>
 </div>

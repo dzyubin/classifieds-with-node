@@ -123,3 +123,12 @@ md-option {
     max-width: 300px;
     margin: 10px auto;
 }
+
+#homepage-info {
+    margin: 20px auto;
+}
+
+#homepage-info .row {
+    border-bottom: 1px solid #CCCCCC;
+    margin: 5px 0;
+}
