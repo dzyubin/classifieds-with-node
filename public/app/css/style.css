@@ -132,3 +132,12 @@ md-option {
     border-bottom: 1px solid #CCCCCC;
     margin: 5px 0;
 }
+
+.affix {
+    top: 20px;
+    width: 12%;
+}
+
+.categories-sidebar a {
+    padding: 5px 15px;
+}

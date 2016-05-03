@@ -33,7 +33,8 @@ var paths = {
         'public/app/controllers/login.ctrl.js',
         'public/app/controllers/edit.ctrl.js',
         'public/app/controllers/pagination.ctrl.js',
-        'public/app/directives/navbar.dir.js'
+        'public/app/directives/navbar.dir.js',
+        'public/app/directives/categories-sidebar.dir.js'
     ],
 
     css: [

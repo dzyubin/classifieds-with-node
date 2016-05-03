@@ -9,6 +9,14 @@ angular.module('classifieds')
         vm.initialCategories = [];
         vm.loggedIn = Auth.isLoggedIn();
 
+        /*$(document).ready(function(){
+            $('.categories-sidebar').affix({offset: {top: 60} });
+        });*/
+
+        $(document).ready(function(){
+            $('.list-group').affix({offset: {top: 60} });
+        });
+
         Auth.getUser()
             .then(function (data) { // користувач авторизований
                 $rootScope.user = data.data;
