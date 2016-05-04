@@ -37,16 +37,6 @@ module.exports = function(app, express) {
 
     function createToken(user){
 
-	    /*var token = jsonwebtoken.sign({
-	        id: user.id,
-	        name: user.name,
-	        username: user.username
-	    }, secretKey, {
-	        expiresInMinute: 1440
-	    });
-
-	    return token;*/
-
         return jsonwebtoken.sign({
             id: user.id,
             name: user.name,
@@ -215,10 +205,14 @@ module.exports = function(app, express) {
 
     function getClassifiedsList(req, res) {
         var itemsPerPage = 20,
-            after = parseInt(req.query.after),
-            creatorId = req.params.userId ? { creator: req.params.userId } : {};
+            after = parseInt(req.query.after);
 
-        Classified.find(creatorId)
+        var query = {};
+
+        if (req.params.userId) query.creator = req.params.userId;
+        if (req.query.category) query.category = req.query.category;
+
+        Classified.find(query)
             .sort({created: -1})
             .skip(after)
             .limit(itemsPerPage)

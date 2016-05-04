@@ -138,6 +138,6 @@ md-option {
     width: 12%;
 }
 
-.categories-sidebar a {
+.categories-sidebar button, .categories-sidebar a {
     padding: 5px 15px;
 }

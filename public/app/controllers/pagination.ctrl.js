@@ -2,16 +2,17 @@
     'use strict';
 
 angular.module('classifieds')
-    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$mdToast', '$timeout', 'Auth', 'Classified', 'ClassifiedsDB', 'userClassifieds',
-        function($rootScope, $scope, $state, $mdToast, $timeout, Auth, Classified, ClassifiedsDB, userClassifieds){
+    .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$location', '$mdToast', 'Auth', 'Classified', 'ClassifiedsDB', 'userClassifieds',
+        function($rootScope, $scope, $state, $location, $mdToast, Auth, Classified, ClassifiedsDB, userClassifieds){
         var vm = this;
 
         vm.initialCategories = [];
         vm.loggedIn = Auth.isLoggedIn();
+        vm.loadClassifieds = loadClassifieds;
+        vm.categoryBtnClass = '';
+        vm.currentPath = '#/' + $location.$$path.split('/')[1] + '/';
 
-        /*$(document).ready(function(){
-            $('.categories-sidebar').affix({offset: {top: 60} });
-        });*/
+        // todo: створити локальну змінну userId: var userId = $rootScope.user.id;
 
         $(document).ready(function(){
             $('.list-group').affix({offset: {top: 60} });
@@ -25,37 +26,41 @@ angular.module('classifieds')
                     $scope.$emit('userClassifieds', 'my');
                     loadUserClassifieds();
                 } else {
-
-                    // todo: перенести в loadAllClassifieds()
-                    $scope.$emit('userClassifieds', 'all');
                     loadAllClassifieds();
                 }
             }, function (error) { // користувач не авторизований
-                //$scope.$emit('userClassifieds');
                 $rootScope.user = {};
-                $scope.$emit('userClassifieds', 'all');
                 loadAllClassifieds();
             });
 
-        //loadClassifieds($rootScope.user.id);
-
         function loadUserClassifieds() {
-            //console.log($rootScope.user);
             loadClassifieds($rootScope.user.id);
             $scope.myClassifiedsBtnActive = true;
         }
 
         function loadAllClassifieds() {
-            //console.log('all classifieds');
+            $scope.$emit('userClassifieds', 'all');
             loadClassifieds();
             $scope.myClassifiedsBtnActive = false;
         }
 
         function loadClassifieds(userId) {
+            var category = $state.params.category;
             $rootScope.classifieds = [];
-            $scope.classifiedsDBService = new ClassifiedsDB(userId);
-            $scope.classifiedsDBService.nextPage();
+            $scope.classifiedsDBService = new ClassifiedsDB(userId, category);
+            $scope.classifiedsDBService.nextPage()
+                .error(function(error){
+                    showToast('Не вдалося отримати дані. Спробуйте ще раз')
+                });
         }
+
+        /*function loadClassifiedsByCategory(category) {
+            var userId = $rootScope.user.id ? $rootScope.user.id : null;
+            if ($state.current.url === '/all-classifieds') userId = null;
+            console.log(userId);
+            vm.categoryBtnClass = category;
+            loadClassifieds(userId, category);
+        }*/
 
         Classified.getCategories()
             .success(function (data) {

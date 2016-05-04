@@ -9,10 +9,11 @@ angular
             $rootScope.classifieds = [];
         }
 
-        var ClassifiedsDB = function(userId) {
+        var ClassifiedsDB = function(userId, category) {
             this.userId = userId;
             this.busy = false;
             this.after = '';
+            this.category = category;
         };
 
         ClassifiedsDB.prototype.nextPage = function() {
@@ -37,9 +38,12 @@ angular
             function setURL(contextObj) {
                 var url = "/api/list?after=" + contextObj.after;
 
-                //if ($rootScope.user && $rootScope.user.id) {
                 if (contextObj.userId) {
                     url = '/api/list/' + contextObj.userId + '?after=' + contextObj.after;
+                }
+
+                if(contextObj.category) {
+                    url += '&category=' + contextObj.category;
                 }
                 return url;
             }

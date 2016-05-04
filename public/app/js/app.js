@@ -24,13 +24,17 @@ angular
                 templateUrl: 'app/views/pages/home.tpl.html',
                 controller: 'homeCtrl as vm'
             })
-            /*.state('home', {
-                // todo: змінити на '/'
-                url: '/home',
-                templateUrl: 'app/views/pages/home.tpl.html',
-                controller: 'classifiedsCtrl as vm'
-            })*/
             .state('all-classifieds', {
+                url: '/all-classifieds/:category',
+                templateUrl: 'app/views/pages/classifieds.tpl.html',
+                controller: 'PaginationCtrl as data',
+                resolve: {
+                    userClassifieds: function () {
+                        return false;
+                    }
+                }
+            })
+            /*.state('all-classifieds/:category', {
                 url: '/all-classifieds',
                 templateUrl: 'app/views/pages/classifieds.tpl.html',
                 controller: 'PaginationCtrl as data',
@@ -40,8 +44,9 @@ angular
                     }
                 }
             })
+*/
             .state('my-classifieds', {
-                url: '/my-classifieds',
+                url: '/my-classifieds/:category',
                 templateUrl: 'app/views/pages/classifieds.tpl.html',
                 controller: 'PaginationCtrl as data',
                 resolve: {

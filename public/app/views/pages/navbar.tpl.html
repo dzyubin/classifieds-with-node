@@ -10,14 +10,6 @@
     </div>
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
-            <!--<li ng-if="!vm.loggedIn">
-                &lt;!&ndash;todo: try this hack to remove duplicated <li> element&ndash;&gt;
-                &lt;!&ndash;<a ng-href="javascript:;" ng-click="vm.openSidebar()">&ndash;&gt;
-                <a ng-href="#/classifieds" ng-click="vm.openSidebar()">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                    Нове Оголошення
-                </a>
-            </li>-->
             <li>
                 <a ng-href="javascript:;" ng-click="vm.openSidebar()">
                 <span class="glyphicon glyphicon-plus-sign"></span>
@@ -25,13 +17,13 @@
                 </a>
             </li>
             <li ng-class="{active: myClassifiedsBtnActive === 'all'}">
-                <a ng-href="#/all-classifieds">
+                <a ng-href="#/all-classifieds/">
                 <span class="glyphicon glyphicon-th-list"></span>
                     Всі оголошення
                 </a>
             </li>
             <li ng-if="vm.loggedIn" ng-class="{active: myClassifiedsBtnActive === 'my'}">
-                <a ng-href="#/my-classifieds">
+                <a ng-href="#/my-classifieds/">
                 <span class="glyphicon glyphicon-plus-sig"></span>
                     Мої оголошення
                 </a>
@@ -63,10 +55,6 @@
                 </a>
             </li>
             <li>
-                <!--<a ng-if="vm.loggedIn" ng-href="#/login" ng-click="vm.doLogout()">
-                    <span class="glyphicon glyphicon-log-out"></span>
-                    Вийти
-                </a>-->
                 <a ng-if="vm.loggedIn" ng-href="javascript:;" ng-click="vm.doLogout()">
                     <span class="glyphicon glyphicon-log-out"></span>
                     Вийти
