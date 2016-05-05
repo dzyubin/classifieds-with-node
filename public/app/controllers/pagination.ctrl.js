@@ -9,6 +9,7 @@ angular.module('classifieds')
         vm.initialCategories = [];
         vm.loggedIn = Auth.isLoggedIn();
         vm.loadClassifieds = loadClassifieds;
+        vm.disableSortingByCategory = disableSortingByCategory;
         vm.currentPath = '#/' + $location.$$path.split('/')[1] + '/';
 
         // todo: змінити $rootScope.user на $scope.user;
@@ -60,6 +61,11 @@ angular.module('classifieds')
                 });
         }
 
+        function disableSortingByCategory() {
+            $state.params.category = '';
+            loadClassifieds();
+        }
+
         /*function loadClassifiedsByCategory(category) {
             var userId = $rootScope.user.id ? $rootScope.user.id : null;
             if ($state.current.url === '/all-classifieds') userId = null;
@@ -98,6 +104,7 @@ angular.module('classifieds')
 
             var modalId = '#' + classified._id;
 
+            //todo: перенести в .success(...)
             classified.category.forEach(function (elem){
                 if (vm.categories.indexOf(elem) === -1) {
                     classified.newCategories = [];
@@ -120,7 +127,7 @@ angular.module('classifieds')
             classified.category = vm.initialCategories;
         };
 
-        // todo: винести функцію в сервіс або замінити на bootstrap notification
+        // todo: замінити на bootstrap notification і винести в сервіс
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()

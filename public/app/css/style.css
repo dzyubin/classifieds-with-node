@@ -141,3 +141,7 @@ md-option {
 .categories-sidebar button, .categories-sidebar a {
     padding: 5px 15px;
 }
+
+.categories-sidebar button.close {
+    padding: 0;
+}

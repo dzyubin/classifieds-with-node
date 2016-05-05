@@ -5,7 +5,13 @@
                 <a class="list-group-item"
                    ng-class="{active: data.activeCategory===category}"
                    ng-href="{{ data.currentPath + category }}"
-                   ng-repeat="category in data.categories">{{ category }}</a>
+                   ng-repeat="category in data.categories">
+                    {{ category }}
+                    <button type="button" class="close" ng-show="data.activeCategory===category"
+                            ng-click="data.disableSortingByCategory()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </a>
             </div>
         </div>
         <div class="col-sm-10">
