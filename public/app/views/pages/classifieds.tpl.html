@@ -2,13 +2,8 @@
     <div class="row">
         <div class="col-sm-2">
             <div class="list-group categories-sidebar">
-                <!--<button type="button" class="list-group-item"
-                        ng-class="{active: vm.categoryBtnClass===category}"
-                        ng-repeat="category in data.categories"
-                        ng-click="data.loadClassifiedsByCategory(category);">
-                    {{ category }}
-                </button>-->
                 <a class="list-group-item"
+                   ng-class="{active: data.activeCategory===category}"
                    ng-href="{{ data.currentPath + category }}"
                    ng-repeat="category in data.categories">{{ category }}</a>
             </div>
@@ -38,6 +33,7 @@
                             <p ng-repeat="category in classified.category">
                                 {{category}}
                             </p>
+                            <!--todo: модальне вікно в окремий файл-->
                             <div class="modal fade" id="{{classified._id}}" tabindex="-1" role="dialog"
                                  aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
@@ -130,7 +126,6 @@
                         <td><img ng-src="{{classified.image}}" alt="" width="100"></td>
                         <td>{{classified.content}}</td>
                         <td>
-
                             <!--Контактні дані-->
                             <div class="dropdown">
                                 <button class="btn btn-primary btn-xs dropdown-toggle btn-block" type="button" id="dropdownMenuContactData"

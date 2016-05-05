@@ -24,16 +24,18 @@ angular
 
             this.busy = true;
 
-            return $http.get(url).success(function(classifieds) {
-                for (var i = 0; i < classifieds.length; i++) {
-                    $rootScope.classifieds.push(classifieds[i]);
-                }
-                this.after = $rootScope.classifieds.length;
-                this.busy = false;
+            return $http.get(url)
+                //todo: перенести success в pagination.ctrl.js
+                .success(function(classifieds) {
+                    for (var i = 0; i < classifieds.length; i++) {
+                        $rootScope.classifieds.push(classifieds[i]);
+                    }
+                    this.after = $rootScope.classifieds.length;
+                    this.busy = false;
 
-                initSelect2();
+                    initSelect2();
 
-            }.bind(this));
+                }.bind(this));
 
             function setURL(contextObj) {
                 var url = "/api/list?after=" + contextObj.after;

@@ -1,3 +1,4 @@
+//todo: видалити файл
 angular
 .module('classifieds')
 .directive('categoriesSidebar', function () {

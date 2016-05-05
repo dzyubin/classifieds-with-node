@@ -9,10 +9,9 @@ angular.module('classifieds')
         vm.initialCategories = [];
         vm.loggedIn = Auth.isLoggedIn();
         vm.loadClassifieds = loadClassifieds;
-        vm.categoryBtnClass = '';
         vm.currentPath = '#/' + $location.$$path.split('/')[1] + '/';
 
-        // todo: створити локальну змінну userId: var userId = $rootScope.user.id;
+        // todo: змінити $rootScope.user на $scope.user;
 
         $(document).ready(function(){
             $('.list-group').affix({offset: {top: 60} });
@@ -20,14 +19,18 @@ angular.module('classifieds')
 
         Auth.getUser()
             .then(function (data) { // користувач авторизований
+
                 $rootScope.user = data.data;
                 $rootScope.user.id = $rootScope.user.id || $rootScope.user._id;
+
                 if (userClassifieds) {
+                    //todo: перенести в loadUserClassifieds()
                     $scope.$emit('userClassifieds', 'my');
                     loadUserClassifieds();
                 } else {
                     loadAllClassifieds();
                 }
+
             }, function (error) { // користувач не авторизований
                 $rootScope.user = {};
                 loadAllClassifieds();
@@ -49,6 +52,9 @@ angular.module('classifieds')
             $rootScope.classifieds = [];
             $scope.classifiedsDBService = new ClassifiedsDB(userId, category);
             $scope.classifiedsDBService.nextPage()
+                .success(function () {
+                    vm.activeCategory = category;
+                })
                 .error(function(error){
                     showToast('Не вдалося отримати дані. Спробуйте ще раз')
                 });

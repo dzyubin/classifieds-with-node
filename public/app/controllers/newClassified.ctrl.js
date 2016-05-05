@@ -7,9 +7,13 @@ angular.module('classifieds')
         vm.loggedIn = Auth.isLoggedIn();
         vm.closeSidebar = closeSidebar;
         vm.categories = [];
+
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
+            })
+            .error(function (error) {
+                showToast('Не вдалося отримати дані. Спробуйте ще раз');
             });
 
             // відкриває форму для додавання нового оголошення
@@ -33,6 +37,7 @@ angular.module('classifieds')
 
             vm.classifiedData.categories = vm.classifiedData.categories || [];
 
+            //todo: видалити два перших if-блока
             if (!vm.newCategory) {
                 vm.newCategoryError = 'Введіть назву категорії';
             } else if (vm.categories.indexOf(vm.newCategory) !== -1) {
@@ -45,10 +50,6 @@ angular.module('classifieds')
                 // додати категорії, які будуть додані до бази даних
                 vm.classifiedData.newCategories.push(vm.newCategory);
                 vm.newCategory = '';
-                //vm.newCategoryError = "Категорію додано. Щоб обрати натисніть 'Категорія(-ії)'";
-                /*$timeout(function () {
-                    vm.newCategoryError = '';
-                }, 5000);*/
             }
         };
 
@@ -76,7 +77,7 @@ angular.module('classifieds')
 
                         vm.classifiedData.image = 'images/' + response.config.data.file.name;
 
-                        createClassifiedService();
+                        createClassified();
 
                     });
                 }, function (response) {
@@ -90,7 +91,7 @@ angular.module('classifieds')
                 // todo: додати default до classified моделі
                 // image: { type: String, default: 'images/photo-default-th.png' }
                 vm.classifiedData.image = 'images/photo-default-th.png';
-                createClassifiedService();
+                createClassified();
             }
         };
 
@@ -107,7 +108,7 @@ angular.module('classifieds')
             );
         }
 
-        function createClassifiedService() {
+        function createClassified() {
 
             Classified.create(vm.classifiedData)
                 .success(function (data) {
