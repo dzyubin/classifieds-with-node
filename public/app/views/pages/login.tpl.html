@@ -1,41 +1,3 @@
-<!--<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right" md-is-open="vm.sidenavOpen">
-    <section class="panel login">
-        <form name="myform" novalidate class="text-center" method="post" ng-submit="vm.doLogin()">
-            <div class="textintro">
-                {{ vm.error }}
-                <h1>Доброго дня!</h1>
-                <p>Увійдіть для отримання доступу до додаткових можливостей</p>
-                <p ng-show="message">{{ message }}</p>
-            </div>
-
-            <fieldset>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="email" placeholder="Ім'я"
-                            ng-model="vm.loginData.username" ng-required="true" md-autofocus>
-                </div>
-                <p ng-show="myform.email.$invalid && myform.email.$touched">Некоректний E-mail</p>
-                <div class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Пароль"
-                           ng-model="vm.loginData.password" ng-required="true"/>
-                </div>
-                <p ng-show="myform.password.$invalid && myform.password.$touched">Необхідно ввести пароль</p>
-            </fieldset>
-
-            <button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">Увійти</button>
-            <p>або <a ng-href="#classifieds/register">зареєструватись</a></p>
-            <hr>
-            <button type="button" class="btn btn-block btn-facebook" ng-click="vm.authenticate('facebook')">
-                <i class="ion-social-facebook"></i> Facebook
-            </button>
-            <button type="button" class="btn btn-block btn-twitter" ng-click="vm.authenticate('twitter')">
-                <i class="ion-social-twitter"></i> Twitter
-            </button>
-            <button type="button" class="btn btn-block btn-linkedin" ng-click="vm.authenticate('linkedin')">
-                <i class="ion-social-linkedin"></i> LinkedIn
-            </button>
-        </form>
-    </section>
-</md-sidenav>-->
 <div id="loginForm" class="container">
     <div class="row">
         <div class="col-xs-4"></div>
@@ -45,13 +7,12 @@
                 <p class="alert alert-danger" ng-if="vm.error">{{ vm.error }}</p>
                 <h1>Доброго дня!</h1>
                 <p>Увійдіть для отримання доступу до додаткових можливостей</p>
-                <p ng-show="message">{{ message }}</p>
             </div>
 
             <fieldset>
                 <div class="form-group">
                     <input class="form-control" type="text" name="email" placeholder="Ім'я"
-                           ng-model="vm.loginData.username" ng-required="true" md-autofocus>
+                           ng-model="vm.loginData.username" ng-required="true" autofocus>
                 </div>
                 <p ng-show="myform.email.$invalid && myform.email.$touched">Некоректний E-mail</p>
                 <div class="form-group">

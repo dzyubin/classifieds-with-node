@@ -11,9 +11,11 @@
                 var vm = this;
 
                 this.sidenavOpen = true;
-
+                console.log($rootScope.classifieds);
                 vm.closeSidebar = closeSidebar;
                 vm.saveEdit = saveEdit;
+
+                $scope.$emit('userClassifieds', 'none');
 
                 Classified.getSingleClassified($state.params.id)
                     .success(function (data) {
@@ -34,23 +36,11 @@
 
                     Classified.editClassified(vm.classified)
                         .then(function (data) {
-                            updateLocalClassified();
-/*
-                            $rootScope.classifieds.forEach(function(classified) {
-                                if (classified._id === $state.params.id) {
-                                    for (var prop in vm.classified) {
-                                        if (vm.classified.hasOwnProperty(prop)) {
-                                            classified[prop] = vm.classified[prop];
-                                        }
-                                    }
-                                }
-                            });
-*/
-
+                            //updateLocalClassified();
                             vm.classified = {};
-                            vm.error = '';
-                            vm.sidenavOpen = false;
+                            //vm.error = '';
                             $scope.$emit('editSaved', 'Редагування збережено!');
+                            $state.go('my-classifieds');
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -58,7 +48,7 @@
                         });
                 }
 
-                function updateLocalClassified() {
+                /*function updateLocalClassified() {
                     $rootScope.classifieds.forEach(function(classified) {
                         if (classified._id === $state.params.id) {
                             for (var prop in vm.classified) {
@@ -68,10 +58,10 @@
                             }
                         }
                     });
-                }
+                }*/
 
                 function closeSidebar() {
-                    vm.sidenavOpen = false;
+                    $state.go('my-classifieds');
                 }
             }]);
 }());
