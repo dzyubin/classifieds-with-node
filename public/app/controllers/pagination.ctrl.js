@@ -61,25 +61,36 @@ angular.module('classifieds')
                 });
         }
 
-        function disableSortingByCategory() {
-            $state.params.category = '';
-            loadClassifieds();
+        function disableSortingByCategory(evt) {
+
+            preventParentDefault(evt);
+
+            //todo: створити змінну var path = $location.$$path;
+            if ($location.$$path.split('/')[1] === 'all-classifieds') {
+                //todo: знайти краще рішення
+                $state.go('my-classifieds');
+                $state.go('all-classifieds', {category: ''});
+            } else {
+                //todo: знайти краще рішення
+                $state.go('all-classifieds');
+                $state.go('my-classifieds', {category: ''});
+            }
         }
 
-        /*function loadClassifiedsByCategory(category) {
-            var userId = $rootScope.user.id ? $rootScope.user.id : null;
-            if ($state.current.url === '/all-classifieds') userId = null;
-            console.log(userId);
-            vm.categoryBtnClass = category;
-            loadClassifieds(userId, category);
-        }*/
+        function preventParentDefault(evt) {
+            //todo: замість preventDefault() використати stopPropagation()?
+            var parent = evt.currentTarget.parentElement;
+            parent.addEventListener('click', function (evt) {
+                evt.preventDefault();
+            });
+        }
 
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
             })
             .error(function (error) {
-                showToast('Не вдалося отримати дані. Спробуйте ще раз');
+                showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
             });
 
         vm.editClassified = function (classified) {
@@ -104,13 +115,7 @@ angular.module('classifieds')
 
             var modalId = '#' + classified._id;
 
-            //todo: перенести в .success(...)
-            classified.category.forEach(function (elem){
-                if (vm.categories.indexOf(elem) === -1) {
-                    classified.newCategories = [];
-                    classified.newCategories.push(elem);
-                }
-            });
+            createListOfNewCategories(classified);
 
             Classified.editClassified(classified)
                 .success(function (res) {
@@ -122,6 +127,15 @@ angular.module('classifieds')
                     showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
                 });
         };
+
+        function createListOfNewCategories(classified) {
+            classified.category.forEach(function (elem){
+                if (vm.categories.indexOf(elem) === -1) {
+                    classified.newCategories = [];
+                    classified.newCategories.push(elem);
+                }
+            });
+        }
 
         vm.cancelCategoriesEdit = function (classified) {
             classified.category = vm.initialCategories;

@@ -8,7 +8,7 @@
                    ng-repeat="category in data.categories">
                     {{ category }}
                     <button type="button" class="close" ng-show="data.activeCategory===category"
-                            ng-click="data.disableSortingByCategory()" aria-label="Close">
+                            ng-click="data.disableSortingByCategory($event)" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </a>
@@ -34,7 +34,7 @@
                     <tbody>
                     <tr ng-repeat="classified in classifieds | filter: classifiedsFilter | filter: category">
                         <td>{{classified.title}}</td>
-                        <td>{{classified.price}}</td>
+                        <td>{{classified.price | currency}}</td>
                         <td>
                             <p ng-repeat="category in classified.category">
                                 {{category}}
