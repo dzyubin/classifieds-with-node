@@ -28,7 +28,7 @@ var paths = {
         'public/app/services/classifiedDB.js',
         'public/app/controllers/home.ctrl.js',
         'public/app/controllers/main.ctrl.js',
-        'public/app/controllers/user.ctrl.js',
+        'public/app/controllers/register.ctrl.js',
         'public/app/controllers/newClassified.ctrl.js',
         'public/app/controllers/login.ctrl.js',
         'public/app/controllers/edit.ctrl.js',

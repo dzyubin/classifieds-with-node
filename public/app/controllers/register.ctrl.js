@@ -43,5 +43,6 @@ angular.module('userCtrl', ['userService'])
                     }
                     $location.path('/classifieds');
                 })
+                //todo: додати function(error) {
         };
     }]);
