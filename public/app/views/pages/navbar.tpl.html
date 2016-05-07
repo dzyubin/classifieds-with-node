@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
             <li>
-                <a ng-href="javascript:;" ng-click="vm.openSidebar()">
+                <a href="" ng-click="vm.openSidebar()">
                 <span class="glyphicon glyphicon-plus-sign"></span>
                     Нове Оголошення
                 </a>
@@ -49,13 +49,13 @@
                 </a>
             </li>
             <li>
-                <a ng-if="vm.loggedIn" ng-href="#">
+                <a ng-if="vm.loggedIn" href="">
                     <span class="glyphicon glyphicon-user"></span>
                     {{ user.username }}
                 </a>
             </li>
             <li>
-                <a ng-if="vm.loggedIn" ng-href="javascript:;" ng-click="vm.doLogout()">
+                <a ng-if="vm.loggedIn" href="" ng-click="vm.doLogout()">
                     <span class="glyphicon glyphicon-log-out"></span>
                     Вийти
                 </a>

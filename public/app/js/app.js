@@ -34,17 +34,6 @@ angular
                     }
                 }
             })
-            /*.state('all-classifieds/:category', {
-                url: '/all-classifieds',
-                templateUrl: 'app/views/pages/classifieds.tpl.html',
-                controller: 'PaginationCtrl as data',
-                resolve: {
-                    userClassifieds: function () {
-                        return false;
-                    }
-                }
-            })
-*/
             .state('my-classifieds', {
                 url: '/my-classifieds/:category',
                 templateUrl: 'app/views/pages/classifieds.tpl.html',
@@ -73,7 +62,6 @@ angular
             .state('edit', {
                 url: '/edit/:id',
                 templateUrl: 'app/views/pages/edit.tpl.html',
-                //todo: перейменувати на editCtrl
                 controller: 'editClassifiedsCtrl as vm',
                 params: {
                     classified: null

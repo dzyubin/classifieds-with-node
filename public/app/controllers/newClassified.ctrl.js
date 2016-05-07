@@ -120,5 +120,8 @@ angular.module('classifieds')
                     closeSidebar();
                     showToast("Оголошення Додано!");
                 })
+                .error(function (error) {
+                    showToast("Не вдалося створити оголошення. Спробуйте ще раз")
+                })
         }
     }]);

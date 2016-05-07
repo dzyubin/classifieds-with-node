@@ -4,13 +4,14 @@
 angular.module('classifieds')
     .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$location', '$mdToast', 'Auth', 'Classified', 'ClassifiedsDB', 'userClassifieds',
         function($rootScope, $scope, $state, $location, $mdToast, Auth, Classified, ClassifiedsDB, userClassifieds){
-        var vm = this;
+        var vm = this,
+            path = $location.$$path;
 
         vm.initialCategories = [];
         vm.loggedIn = Auth.isLoggedIn();
         vm.loadClassifieds = loadClassifieds;
         vm.disableSortingByCategory = disableSortingByCategory;
-        vm.currentPath = '#/' + $location.$$path.split('/')[1] + '/';
+        vm.currentPath = '#/' + path.split('/')[1] + '/';
 
         // todo: змінити $rootScope.user на $scope.user;
 
@@ -26,7 +27,7 @@ angular.module('classifieds')
 
                 if (userClassifieds) {
                     //todo: перенести в loadUserClassifieds()
-                    $scope.$emit('userClassifieds', 'my');
+                    //$scope.$emit('userClassifieds', 'my');
                     loadUserClassifieds();
                 } else {
                     loadAllClassifieds();
@@ -38,6 +39,7 @@ angular.module('classifieds')
             });
 
         function loadUserClassifieds() {
+            $scope.$emit('userClassifieds', 'my');
             loadClassifieds($rootScope.user.id);
             $scope.myClassifiedsBtnActive = true;
         }
@@ -66,7 +68,7 @@ angular.module('classifieds')
             preventParentDefault(evt);
 
             //todo: створити змінну var path = $location.$$path;
-            if ($location.$$path.split('/')[1] === 'all-classifieds') {
+            if (path.split('/')[1] === 'all-classifieds') {
                 //todo: знайти краще рішення
                 $state.go('my-classifieds');
                 $state.go('all-classifieds', {category: ''});
