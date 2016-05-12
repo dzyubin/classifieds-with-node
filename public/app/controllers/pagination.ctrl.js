@@ -1,6 +1,8 @@
 (function () {
     'use strict';
 
+    //todo: rename to classifieds.ctrl.js
+
 angular.module('classifieds')
     .controller('PaginationCtrl', ['$rootScope', '$scope', '$state', '$location', '$mdToast', 'Auth', 'Classified', 'ClassifiedsDB', 'userClassifieds',
         function($rootScope, $scope, $state, $location, $mdToast, Auth, Classified, ClassifiedsDB, userClassifieds){
@@ -13,12 +15,6 @@ angular.module('classifieds')
         vm.disableSortingByCategory = disableSortingByCategory;
         vm.currentPath = '#/' + path.split('/')[1] + '/';
 
-        // todo: змінити $rootScope.user на $scope.user;
-
-        $(document).ready(function(){
-            $('.list-group').affix({offset: {top: 60} });
-        });
-
         Auth.getUser()
             .then(function (data) { // користувач авторизований
 
@@ -26,8 +22,6 @@ angular.module('classifieds')
                 $rootScope.user.id = $rootScope.user.id || $rootScope.user._id;
 
                 if (userClassifieds) {
-                    //todo: перенести в loadUserClassifieds()
-                    //$scope.$emit('userClassifieds', 'my');
                     loadUserClassifieds();
                 } else {
                     loadAllClassifieds();
@@ -63,33 +57,10 @@ angular.module('classifieds')
                 });
         }
 
-        function disableSortingByCategory(evt) {
-
-            preventParentDefault(evt);
-
-            //todo: створити змінну var path = $location.$$path;
-            if (path.split('/')[1] === 'all-classifieds') {
-                //todo: знайти краще рішення
-                $state.go('my-classifieds');
-                $state.go('all-classifieds', {category: ''});
-            } else {
-                //todo: знайти краще рішення
-                $state.go('all-classifieds');
-                $state.go('my-classifieds', {category: ''});
-            }
-        }
-
-        function preventParentDefault(evt) {
-            //todo: замість preventDefault() використати stopPropagation()?
-            var parent = evt.currentTarget.parentElement;
-            parent.addEventListener('click', function (evt) {
-                evt.preventDefault();
-            });
-        }
-
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
+                $('.list-group').affix({offset: {top: 60} });
             })
             .error(function (error) {
                 showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
@@ -122,6 +93,13 @@ angular.module('classifieds')
             Classified.editClassified(classified)
                 .success(function (res) {
                     $(modalId).modal('hide');
+                    setTimeout(function () {
+                        if (path.split('/')[1] === 'all-classifieds') {
+                            loadAllClassifieds();
+                        } else {
+                            loadUserClassifieds();
+                        }
+                    }, 300);
                     showToast('Категорію(-ії) збережено!');
                 })
                 .error(function (err) {
@@ -142,6 +120,29 @@ angular.module('classifieds')
         vm.cancelCategoriesEdit = function (classified) {
             classified.category = vm.initialCategories;
         };
+
+        function disableSortingByCategory(evt) {
+
+            preventParentDefault(evt);
+
+            if (path.split('/')[1] === 'all-classifieds') {
+                //todo: знайти краще рішення
+                $state.go('my-classifieds');
+                $state.go('all-classifieds', {category: ''});
+            } else {
+                //todo: знайти краще рішення
+                $state.go('all-classifieds');
+                $state.go('my-classifieds', {category: ''});
+            }
+        }
+
+        function preventParentDefault(evt) {
+            //todo: замість preventDefault() використати stopPropagation()?
+            var parent = evt.currentTarget.parentElement;
+            parent.addEventListener('click', function (evt) {
+                evt.preventDefault();
+            });
+        }
 
         // todo: замінити на bootstrap notification і винести в сервіс
         function showToast(message) {

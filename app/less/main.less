@@ -1,0 +1,151 @@
+body {
+  background-image: url("/img/background.png");
+}
+
+body {
+  padding: 5px;
+}
+
+ul.navbar {
+  padding-top: 15px;
+}
+
+.panel {
+  padding: 10px;
+}
+
+.filters input, .filters select {
+  margin-right: 15px;
+}
+
+.classified.ng-enter, .classified.ng-move {
+  -webkit-transition: 0.4s all;
+  -moz-transition: 0.4s all;
+  -ms-transition: 0.4s all;
+  -o-transition: 0.4s all;
+  transition: 0.4s all;
+  opacity: 0;
+}
+
+.classified.ng-enter.ng-enter-active, .classified.ng-move.ng-move-active {
+  opacity: 1;
+}
+
+.classified.ng-leave {
+  -webkit-animation: 0.4s fade_classified;
+  -o-animation: 0.4s fade_classified;
+  animation: 0.4s fade_classified;
+}
+
+@keyframes fade_classified {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.classified img {
+  margin: 0 5px 15px 15px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #DA3637;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid #509D12;
+}
+
+.md-sidenav-backdrop.md-opaque, md-sidenav {
+  position: fixed;
+}
+
+.progress {
+  background: #3636ff;
+}
+
+/*md-select-value:first-child {
+    max-width: 170px;
+}*/
+
+#category-edit {
+  position: absolute;
+  background: #ffffff;
+}
+
+md-input-container {
+  padding-bottom: 15px;
+}
+
+md-option {
+  height: 24px;
+}
+
+.editing {
+  border: 1px solid red;
+}
+
+.dropdown button {
+  margin-bottom: 5px;
+}
+
+.btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border: 1px solid #335190;
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus {
+  color: #fff;
+  background-color: #294786;
+}
+
+.btn-twitter {
+  color: #fff;
+  background-color: #00aced;
+  border: 1px solid #009fdb;
+}
+
+.btn-twitter:hover,
+.btn-twitter:focus {
+  color: #fff;
+  background-color: #0090c7;
+}
+
+.btn-linkedin {
+  color: #fff;
+  background-color: #0076B4;
+  border: 1px solid #009fdb;
+}
+
+.btn-linkedin:hover,
+.btn-linkedin:focus {
+  color: #fff;
+  background-color: #005380;
+}
+
+#loginForm form, #editForm form {
+  max-width: 300px;
+  margin: 10px auto;
+}
+
+#homepage-info {
+  margin: 20px auto;
+}
+
+#homepage-info .row {
+  border-bottom: 1px solid #CCCCCC;
+  margin: 5px 0;
+}
+
+.affix {
+  top: 20px;
+  width: 12%;
+}
+
+.categories-sidebar button, .categories-sidebar a {
+  padding: 5px 15px;
+}
+
+.categories-sidebar button.close {
+  padding: 0;
+}

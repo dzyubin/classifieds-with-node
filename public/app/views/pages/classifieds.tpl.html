@@ -1,20 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-2" categories-sidebar></div>
-        <!--<div class="col-sm-2">
-            <div class="list-group categories-sidebar">
-                <a class="list-group-item"
-                   ng-class="{active: data.activeCategory===category}"
-                   ng-href="{{ data.currentPath + category }}"
-                   ng-repeat="category in data.categories">
-                    {{ category }}
-                    <button type="button" class="close" ng-show="data.activeCategory===category"
-                            ng-click="data.disableSortingByCategory($event)" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </a>
-            </div>
-        </div>-->
         <div class="col-sm-10">
             <p class="alert alert-info" ng-if="!classifieds.length && !classifiedsDBService.busy && vm.loggedIn">
                 Немає розміщених оголошень.
@@ -67,19 +53,6 @@
                                                     </div>
                                                 </div>
                                                 <small>Щоб додати нову категорію, введіть назву в полі "Категорія" і натисніть "Enter"</small>
-                                                <!--<div class="form-group">
-                                                    <label for="newCategory" class="col-sm-2 control-label">
-                                                        Нова Категорія
-                                                    </label>
-                                                    <div class="col-sm-8">
-                                                        <input type="text" id="newCategory" class="form-control"
-                                                               ng-model="data.newCategory">
-                                                    </div>
-                                                    <button type="button" class="btn btn-primary"
-                                                            ng-click="data.addNewCategory(classified)">
-                                                        Додати
-                                                    </button>
-                                                </div>-->
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -95,35 +68,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div id="category-edit" class="well" ng-show="editingCategory">
-                                <md-input-container>
-                                    <label for="categories">Категорія(-ії)</label>
-                                    <md-select ng-show="editingCategory" id="categories" multiple ng-model="classified.category">
-                                        <i ng-show="!data.categories" class="fa fa-spinner fa-spin"></i>
-                                        <md-option ng-repeat="category in data.categories" value="{{category}}">
-                                            {{category}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container>
-                                    <label for="newCategory">Нова категорія</label>
-                                    <input type="text" id="newCategory" ng-model="data.newCategory">
-                                </md-input-container>
-                                <button class="btn btn-default btn-xs btn-block" aria-label="" type="button"
-                                           ng-click="data.addNewCategory(classified)">
-                                    Додати нову категорію
-                                </button>
-                                <hr>
-                                <button class="btn btn-primary btn-xs btn-block pull-left" style="width: 70%; margin-right: 5px;"
-                                        ng-click="data.updateCategory(classified);editingCategory=false">
-                                    Зберегти
-                                </button>
-                                <button class="btn btn-primary btn-xs btn-block" style="width: 25%;"
-                                        ng-click="editingCategory=false">
-                                    X
-                                </button>
-                            </div>-->
-                            <button type="button" class="btn btn-primary btn-xs btn-block" ng-show="vm.loggedIn"
+                            <button type="button" class="btn btn-primary btn-xs btn-block"
+                                    ng-show="vm.loggedIn && (user.id === classified.creator)"
                                     data-toggle="modal" data-target="#{{classified._id}}" data-classified="classified"
                                     ng-click="data.initialCategories = classified.category">
                                 <span class="glyphicon glyphicon-pencil"></span>

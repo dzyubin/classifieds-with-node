@@ -11,7 +11,6 @@
                 var vm = this;
 
                 this.sidenavOpen = true;
-                console.log($rootScope.classifieds);
                 vm.closeSidebar = closeSidebar;
                 vm.saveEdit = saveEdit;
 
