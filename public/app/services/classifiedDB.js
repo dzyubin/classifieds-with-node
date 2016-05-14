@@ -9,11 +9,14 @@ angular
             $rootScope.classifieds = [];
         }
 
-        var ClassifiedsDB = function(userId, category) {
+        //todo: замість 4-х аргументів config-обєкт
+        var ClassifiedsDB = function(userId, category, itemsPerPage, ascend) {
             this.userId = userId;
             this.busy = false;
             this.after = '';
             this.category = category;
+            this.itemsPerPage = itemsPerPage;
+            this.ascend = ascend;
         };
 
         ClassifiedsDB.prototype.nextPage = function() {
@@ -46,6 +49,14 @@ angular
 
                 if(contextObj.category) {
                     url += '&category=' + contextObj.category;
+                }
+
+                if(contextObj.itemsPerPage) {
+                    url += '&itemsPerPage=' + contextObj.itemsPerPage;
+                }
+
+                if(contextObj.ascend) {
+                    url += '&ascend=' + contextObj.ascend;
                 }
                 return url;
             }

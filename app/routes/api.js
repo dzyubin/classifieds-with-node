@@ -204,8 +204,9 @@ module.exports = function(app, express) {
     });
 
     function getClassifiedsList(req, res) {
-        var itemsPerPage = 20,
-            after = parseInt(req.query.after);
+        var itemsPerPage = req.query.itemsPerPage || '',
+            after = parseInt(req.query.after),
+            ascend = req.query.ascend || -1;
 
         var query = {};
 
@@ -213,7 +214,7 @@ module.exports = function(app, express) {
         if (req.query.category) query.category = req.query.category;
 
         Classified.find(query)
-            .sort({created: -1})
+            .sort({created: ascend})
             .skip(after)
             .limit(itemsPerPage)
             .exec(function (error, classifieds) {

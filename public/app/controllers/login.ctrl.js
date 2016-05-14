@@ -49,6 +49,7 @@
                     .then(function (data) {
                         // непотрібний рядок?
                         if ($rootScope.user._id === 'undefined') {
+                            console.log($rootScope.user);
                             vm.error = 'Не вдалося провести авторизацію. Спробуйте ще раз';
                             return;
                         }

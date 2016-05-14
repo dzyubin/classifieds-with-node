@@ -47,7 +47,7 @@ angular.module('classifieds')
         function loadClassifieds(userId) {
             var category = $state.params.category;
             $rootScope.classifieds = [];
-            $scope.classifiedsDBService = new ClassifiedsDB(userId, category);
+            $scope.classifiedsDBService = new ClassifiedsDB(userId, category, 20);
             $scope.classifiedsDBService.nextPage()
                 .success(function () {
                     vm.activeCategory = category;

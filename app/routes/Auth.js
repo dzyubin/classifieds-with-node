@@ -282,12 +282,12 @@ module.exports = {
         }).select('name username password').exec(function(err, user) {
             if(err) { throw err; }
             if(!user) {
-                res.send({ message: "User doesn't exist" });
+                res.send({ message: "Невірні ім'я/пароль" });
             }
 
             var validPassword = user.comparePassword(req.body.password);
             if(!validPassword) {
-                res.send({ message: "Invalid Password" });
+                res.send({ message: "Невірний пароль" });
             } else {
                 //// token
                 var token = createToken(user);

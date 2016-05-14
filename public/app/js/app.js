@@ -67,4 +67,9 @@ angular
                     classified: null
                 }
             })
+            .state('admin', {
+                url: '/admin',
+                templateUrl: 'app/views/pages/chart.tpl.html',
+                controller: 'ChartCtrl as vm'
+            })
     });

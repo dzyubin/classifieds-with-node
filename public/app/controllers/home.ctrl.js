@@ -4,9 +4,9 @@ angular
 
         $scope.$emit('userClassifieds', 'none');
 
-        $scope.classifiedsGetter = new ClassifiedsDB();
+        $scope.classifiedsGetter = new ClassifiedsDB(null, null, 5);
         $scope.classifiedsGetter.nextPage()
-            .then(function (data) {
+            /*.then(function (data) {
                 $scope.classifieds = data.data.splice(0, 5);
-            });
+            });*/
     }]);
