@@ -20,7 +20,9 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="classified in classifieds | filter: classifiedsFilter | filter: category">
-                        <td>{{classified.title}}</td>
+                        <td>
+                            {{classified.title}}
+                        </td>
                         <td>{{classified.price | currency}}</td>
                         <td>
                             <p ng-repeat="category in classified.category">

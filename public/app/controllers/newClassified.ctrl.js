@@ -11,9 +11,29 @@ angular.module('classifieds')
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
+
+                /*for(var i = 0; i < 1; i+=1) {
+                    var categoryNumber = Math.floor(Math.random()*10),
+                        randomDay = Math.ceil(Math.random()*31),
+                        randomHour = Math.floor(Math.random()*24),
+                        //randomMonth = Math.ceil(Math.random()*12),
+                        dummyDate = new Date(2016, 2, randomDay);
+
+                    dummyDate.setHours(randomHour);
+
+                    vm.classifiedData = {};
+                    vm.classifiedData.title = "Charts Testing";
+                    vm.classifiedData.price = Math.ceil(Math.random()*10)*500;
+                    vm.classifiedData.content = "Testing Charts Description";
+                    vm.classifiedData.categories = vm.categories[categoryNumber];
+
+                    vm.classifiedData.created = dummyDate;
+                    console.log(vm.classifiedData);
+                    createClassified();
+                }*/
             })
             .error(function (error) {
-                showToast('Не вдалося отримати дані. Спробуйте ще раз');
+                showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
             });
 
             // відкриває форму для додавання нового оголошення
@@ -115,6 +135,8 @@ angular.module('classifieds')
                     vm.classifiedData = '';
                     vm.message = data.message;
 
+                    //todo: коли newClassified.tpl.html завантажується через рефреш (F5)
+                    // $rootScope.classifieds == undefined. додати try-catch
                     $rootScope.classifieds.push(data);
 
                     closeSidebar();

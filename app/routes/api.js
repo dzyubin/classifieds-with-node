@@ -119,7 +119,8 @@ module.exports = function(app, express) {
                 price: req.body.price,
                 image: req.body.image,
                 category: req.body.categories,
-                contact: req.body.contact
+                contact: req.body.contact,
+                created: req.body.created
             });
 
             classified.save(function(err, newClassified) {
@@ -127,8 +128,6 @@ module.exports = function(app, express) {
                     res.send(err);
                     return;
                 }
-                //io.emit('classified', newClassified);
-                //res.json({ message: "New Classified Created!" });
                 res.json(newClassified);
             });
         });
