@@ -88,10 +88,11 @@ angular.module('classifieds')
                 .success(function () {
                     $rootScope.classifieds = $rootScope.classifieds.filter(function (el) {
                         return el._id !== classified._id;
-                    })
+                    });
+                    showToast('Оголошення видалено!')
                 })
                 .error(function (err) {
-                    console.log(err);
+                    showToast("Не вдалося видалити оголошення. Спробуйте ще раз");
                 })
         };
 

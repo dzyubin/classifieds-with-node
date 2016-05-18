@@ -12,12 +12,13 @@ angular.module('classifieds')
             .success(function (data) {
                 vm.categories = data[0].categories;
 
-                /*for(var i = 0; i < 1; i+=1) {
+/*
+                for(var i = 0; i < 1; i+=1) {
                     var categoryNumber = Math.floor(Math.random()*10),
                         randomDay = Math.ceil(Math.random()*31),
                         randomHour = Math.floor(Math.random()*24),
                         //randomMonth = Math.ceil(Math.random()*12),
-                        dummyDate = new Date(2016, 2, randomDay);
+                        dummyDate = new Date(2016, 4, 14);
 
                     dummyDate.setHours(randomHour);
 
@@ -26,11 +27,13 @@ angular.module('classifieds')
                     vm.classifiedData.price = Math.ceil(Math.random()*10)*500;
                     vm.classifiedData.content = "Testing Charts Description";
                     vm.classifiedData.categories = vm.categories[categoryNumber];
+                    vm.classifiedData.image = images/photo-default-th.png;
 
                     vm.classifiedData.created = dummyDate;
                     console.log(vm.classifiedData);
                     createClassified();
-                }*/
+                }
+*/
             })
             .error(function (error) {
                 showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
