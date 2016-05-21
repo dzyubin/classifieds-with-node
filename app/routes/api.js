@@ -120,7 +120,7 @@ module.exports = function(app, express) {
                 image: req.body.image,
                 category: req.body.categories,
                 contact: req.body.contact,
-                //created: created
+                //created: req.body.created
             });
 
             classified.save(function(err, newClassified) {
@@ -206,6 +206,7 @@ module.exports = function(app, express) {
         var itemsPerPage = req.query.itemsPerPage || '',
             after = parseInt(req.query.after),
             ascend = req.query.ascend || -1;
+
         var query = {};
 
         if (req.params.userId) query.creator = req.params.userId;

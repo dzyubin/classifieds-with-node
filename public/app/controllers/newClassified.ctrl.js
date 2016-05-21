@@ -18,16 +18,16 @@ angular.module('classifieds')
                         randomDay = Math.ceil(Math.random()*31),
                         randomHour = Math.floor(Math.random()*24),
                         //randomMonth = Math.ceil(Math.random()*12),
-                        dummyDate = new Date(2016, 4, 14);
+                        dummyDate = new Date(2016, 3, 29, 15);
 
-                    dummyDate.setHours(randomHour);
-
+                    //dummyDate.setHours(randomHour);
+                    console.log(dummyDate);
                     vm.classifiedData = {};
                     vm.classifiedData.title = "Charts Testing";
                     vm.classifiedData.price = Math.ceil(Math.random()*10)*500;
                     vm.classifiedData.content = "Testing Charts Description";
                     vm.classifiedData.categories = vm.categories[categoryNumber];
-                    vm.classifiedData.image = images/photo-default-th.png;
+                    vm.classifiedData.image = "images/photo-default-th.png";
 
                     vm.classifiedData.created = dummyDate;
                     console.log(vm.classifiedData);

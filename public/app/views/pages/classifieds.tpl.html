@@ -22,8 +22,8 @@
                     <tr ng-repeat="classified in classifieds | filter: classifiedsFilter | filter: category">
                         <td>
                             {{classified.title}}
-                            <!--<br>
-                            {{classified.created}}-->
+                            <br>
+                            {{classified.created}}
                         </td>
                         <td>{{classified.price | currency}}</td>
                         <td>
