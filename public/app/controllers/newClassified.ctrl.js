@@ -13,12 +13,12 @@ angular.module('classifieds')
                 vm.categories = data[0].categories;
 
 /*
-                for(var i = 0; i < 1; i+=1) {
+                for(var i = 0; i < 3; i+=1) {
                     var categoryNumber = Math.floor(Math.random()*10),
                         randomDay = Math.ceil(Math.random()*31),
                         randomHour = Math.floor(Math.random()*24),
                         //randomMonth = Math.ceil(Math.random()*12),
-                        dummyDate = new Date(2016, 3, 29, 15);
+                        dummyDate = new Date(2014, 11, 28, 0);
 
                     //dummyDate.setHours(randomHour);
                     console.log(dummyDate);

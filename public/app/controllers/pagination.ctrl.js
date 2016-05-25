@@ -59,17 +59,6 @@ angular.module('classifieds')
 
         Classified.getCategories()
             .success(function (data) {
-                /*var classifieds = data.forEach(function (classified) {
-
-                    var dateObj = new Date(classified.created);
-                    classified.created = dateObj;
-                    classified.created.setSeconds(0);
-                    classified.created.setMinutes(0);
-                    classified.created = classified.created.toString();
-                    console.log(classified.created);
-
-                });
-                    console.log(_.uniqBy(data, 'created'));*/
                 vm.categories = data[0].categories;
                 $('.list-group').affix({offset: {top: 60} });
             })

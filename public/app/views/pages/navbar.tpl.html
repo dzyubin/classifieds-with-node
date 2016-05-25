@@ -61,9 +61,9 @@
                 </a>
             </li>
             <li>
-                <a ng-href="#/admin">
-                    <span class=""></span>
-                    Admin
+                <a ng-if="vm.loggedIn" ng-href="#/admin">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    Адмін
                 </a>
             </li>
         </ul>

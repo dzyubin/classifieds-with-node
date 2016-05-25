@@ -8,28 +8,12 @@ angular
     ['$rootScope', '$scope', '$mdToast', 'ClassifiedsDB',
         function ($rootScope, $scope, $mdToast, ClassifiedsDB) {
 
+            $rootScope.classifieds = [];
+
             $scope.ClassifiedsDBService = new ClassifiedsDB(null, null, null, 1);
             $scope.ClassifiedsDBService.nextPage()
                 .success(function () {
 
-                    /*
-                     **
-                     *   Classifieds Prices Chart
-                     */
-
-                    /*var data = $rootScope.classifieds.map(function (obj) {
-                        var mappedObj = {};
-                        //var date = new Date(obj.created);
-                        mappedObj.date = obj.created.split('T')[0];
-                        mappedObj.open = (obj.price + 200).toString();
-                        mappedObj.high = (obj.price + 300).toString();
-                        mappedObj.low = obj.price.toString();
-                        mappedObj.close = (obj.price + 100).toString();
-
-                        return mappedObj;
-
-                    });
-
                     AmCharts.shortMonthNames = [
                         'Січ',
                         'Лют',
@@ -45,95 +29,16 @@ angular
                         'Гру'
                     ];
 
-                    AmCharts.makeChart("classifiedsPricesChart",
-                        {
-                            "type": "serial",
-                            "categoryField": "date",
-                            "categoryAxis": {
-                                "parseDates": true
-                            },
-                            "chartCursor": {
-                                "enabled": true
-                            },
-                            "chartScrollbar": {
-                                "enabled": true,
-                                "graph": "g1",
-                                "graphType": "line",
-                                "scrollbarHeight": 30
-                            },
-                            "trendLines": [],
-                            "graphs": [
-                                {
-                                    "balloonText": "На початок:<b>[[open]]</b><br>Найнижча:<b>[[low]]</b><br>Найвища:<b>[[high]]</b><br>На кінець:<b>[[close]]</b><br>",
-                                    "closeField": "close",
-                                    "fillAlphas": 0.9,
-                                    "fillColors": "#7f8da9",
-                                    "highField": "high",
-                                    "id": "g1",
-                                    "lineColor": "#7f8da9",
-                                    "lowField": "low",
-                                    "negativeFillColors": "#db4c3c",
-                                    "negativeLineColor": "#db4c3c",
-                                    "openField": "open",
-                                    "title": "Price:",
-                                    "type": "candlestick",
-                                    "valueField": "close"
-                                }
-                            ],
-                            "guides": [],
-                            "valueAxes": [
-                                {
-                                    "id": "ValueAxis-1"
-                                }
-                            ],
-                            "allLabels": [],
-                            "balloon": {},
-                            "titles": [],
-                            "dataProvider": data
-                        }
-                    );*/
+                    var chartConfig = {
+                        minPeriod: "DD"
+                    };
 
-
-                    AmCharts.shortMonthNames = [
-                        'Січ',
-                        'Лют',
-                        'Бер',
-                        'Кві',
-                        'Тра',
-                        'Чер',
-                        'Лип',
-                        'Сер',
-                        'Вер',
-                        'Жов',
-                        'Лис',
-                        'Гру'
-                    ];
+                    getClassifiedsCountAndRenderChart(chartConfig);
 
                     /*
                     **
                     *   Classifieds Count Chart
                      */
-                    var chartData = formatDate();
-                        /*$rootScope.classifieds.map(function (obj) {
-                        var mappedObj = {};
-
-                        //todo: function setTimeToZero()
-                        obj.created = new Date(obj.created);
-                        obj.created.setSeconds(0);
-                        obj.created.setMinutes(0);
-                        mappedObj.hours = obj.created.getHours();
-                        obj.created.setHours(0);
-                        mappedObj.year = obj.created.getFullYear();
-                        mappedObj.month = obj.created.getMonth();
-                        mappedObj.day = obj.created.getDate();
-                        obj.created = obj.created.toString();
-
-                        mappedObj.date = obj.created;
-
-                        //console.log(mappedObj);
-                        return mappedObj;
-
-                    });*/
 
                     function formatDate(minPeriod) {
                         return $rootScope.classifieds.map(function (obj) {
@@ -143,98 +48,72 @@ angular
                             mappedObj.date = new Date(obj.created);
                             mappedObj.date.setSeconds(0);
                             mappedObj.date.setMinutes(0);
-                            //console.log(mappedObj.date);
                             mappedObj.hours = mappedObj.date.getHours();
-                            //console.log(typeof minPeriod);
-                            if (minPeriod !== "hours") {
+                            if (minPeriod !== "hh") {
                                 mappedObj.date.setHours(0);
                             }
                             mappedObj.year = mappedObj.date.getFullYear();
                             mappedObj.month = mappedObj.date.getMonth();
+                            if (minPeriod === "YYYY") {
+                                mappedObj.date.setMonth(0);
+                            }
                             mappedObj.day = mappedObj.date.getDate();
+                            if (minPeriod === "MM" || minPeriod === "YYYY") {
+                                mappedObj.date.setDate(1);
+                            }
                             mappedObj.date = mappedObj.date.toString();
 
-                            //mappedObj.date = obj.created;
+                            function getWeekNumber(d) {
+                                // Copy date so don't modify original
+                                d = new Date(+d);
+                                d.setHours(0,0,0);
+                                // Set to nearest Thursday: current date + 4 - current day number
+                                // Make Sunday's day number 7
+                                d.setDate(d.getDate() + 4 - (d.getDay()||7));
+                                // Get first day of year
+                                var yearStart = new Date(d.getFullYear(),0,1);
+                                // Calculate full weeks to nearest Thursday
+                                var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+                                // Return array of year and week number
+                                return [d.getFullYear(), weekNo];
+                            }
 
-                            //console.log(mappedObj);
+                            mappedObj.weekNo = getWeekNumber(new Date(obj.created));
+                            mappedObj.weekNo = mappedObj.weekNo[0].toString() + mappedObj.weekNo[1].toString();
+
                             return mappedObj;
 
                         });
                     }
 
-                    var classifiedsCreationDates = _.uniqBy(chartData, 'date');
+                    //todo: use array.prototype.reduce technique from "Learning behavior-driven
+                    // development with Javascript" page 56
+                    function getClassifiedsCountAndRenderChart(config) {
 
-                    classifiedsCreationDates.forEach(function (elemOuter) {
-                        elemOuter.classifiedsCount = 0;
-                        chartData.forEach(
-                            //todo: function increaseClassifiedsCount()
-                            function (elem) {
-                                if (elem.date === elemOuter.date) {
-                                    elemOuter.classifiedsCount += 1;
-                                }
+                        $scope.chartScaleBtn = config.minPeriod;
+
+                        var chartData = formatDate(config.minPeriod);
+
+                        if (config.minPeriod === "YYYY") {
+                            for (var i = 0; i < 3; i++) {
+                                chartData.unshift({
+                                    date: new Date(2014, 11, 20)
+                                });
                             }
-                        );
-                    });
+                        }
 
-                    var classifiedsCreationDatesMonthly = _.uniqBy(chartData, 'month');
-
-                    classifiedsCreationDatesMonthly.forEach(function (elemOuter) {
-                        elemOuter.classifiedsCountMonthly = 0;
-                        chartData.forEach(
-                            function (elem) {
-                                if (elem.month === elemOuter.month) {
-                                    elemOuter.classifiedsCountMonthly += 1;
-                                }
-                                //console.log(elem.date);
-                            }
-                        );
-                    });
-
-                    var chart = new AmCharts.AmSerialChart();
-                    chart.dataProvider = chartData;
-                    chart.categoryField = "date";
-                    /*chart.startDuration = 1;
-                    chart.sequencedAnimation = false;*/
-                    chart.categoryAxis = {
-                        parseDates: true,
-                        //minPeriod: 'hh'
-                    };
-                    chart.chartCursor = {
-                        "enabled": true
-                    };
-                    chart.chartScrollbar = {
-                        "enabled": true,
-                        "graph": "g1",
-                        "graphType": "line",
-                        "scrollbarHeight": 30
-                    };
-                    chart.valueAxes = [ {
-                        "title": "Кіл-ть оголошень",
-                        "minimum": 0
-                    } ];
-
-                    var graph = new AmCharts.AmGraph();
-                    graph.id = "g1";
-                    graph.valueField = "classifiedsCount";
-                    graph.type = "column";
-                    graph.fillAlphas = 0.8;
-                    graph.balloonText = "[[category]]: <b>[[value]]</b> оголош.";
-
-                    chart.addGraph(graph);
-
-                    chart.angle = 30;
-                    chart.depth3D = 5;
-
-                    chart.write('classifiedsCountChart');
-
-
-
-                    $scope.classifiedsCountHourly = function () {
-
-                        $scope.classifiedsHourly = true;
-                        var chartData = formatDate("hours");
+                        if (config.minPeriod === "MM") {
+                            chartData.unshift({
+                                date: new Date(2015, 8, 10)
+                            })
+                        }
 
                         var classifiedsCreationDates = _.uniqBy(chartData, 'date');
+
+                        if (config.minPeriod === "7DD") {
+                            classifiedsCreationDates = _.uniqBy(chartData, 'weekNo');
+                        }
+
 
                         classifiedsCreationDates.forEach(function (elemOuter) {
                             elemOuter.classifiedsCount = 0;
@@ -251,21 +130,24 @@ angular
                         var chart = new AmCharts.AmSerialChart();
                         chart.dataProvider = chartData;
                         chart.categoryField = "date";
-                        /*chart.startDuration = 1;
-                         chart.sequencedAnimation = false;*/
                         chart.categoryAxis = {
                             parseDates: true,
-                            minPeriod: 'hh'
+                            minPeriod: config.minPeriod
                         };
                         chart.chartCursor = {
-                            "enabled": true
+                            "pan": true,
+                            "enabled": true,
+                            "categoryBalloonDateFormat": config.balloonDateFormat || "MMM DD, YYYY"
                         };
                         chart.chartScrollbar = {
                             "enabled": true,
                             "graph": "g1",
                             "graphType": "line",
-                            "scrollbarHeight": 30
+                            "scrollbarHeight": 30,
+                            "dragIcon": "dragIconRectBig",
+                            "autoGridCount": true
                         };
+
                         chart.valueAxes = [ {
                             "title": "Кіл-ть оголошень",
                             "minimum": 0
@@ -283,93 +165,82 @@ angular
                         chart.angle = 30;
                         chart.depth3D = 5;
 
+                        console.log(chart);
+
                         chart.write('classifiedsCountChart');
+                    }
+
+                    $scope.classifiedsCountHourly = function () {
+
+                        var config = {
+                            minPeriod: "hh",
+                            balloonDateFormat: "J:NN, DD MMM"
+                        };
+
+                        getClassifiedsCountAndRenderChart(config);
                     };
 
-                    /*var chart = AmCharts.makeChart( "classifiedsCountChart", {
-                        "type": "stock",
-                        "theme": "light",
+                    $scope.classifiedsCountDaily = function () {
 
-                        "dataProvider": chartData,
-                        "categoryField": "date",
+                        var config = {
+                            minPeriod: "DD"
+                        };
 
-                        "panels": [ {
-                            "showCategoryAxis": false,
-                            "title": "Value",
-                            "percentHeight": 70,
-                            "stockGraphs": [ {
-                                "id": "g1",
-                                "valueField": "classifiedsCount",
-                                "comparable": true,
-                                "compareField": "classifiedsCount",
-                                "balloonText": "[[title]]:<b>[[value]]</b>",
-                                "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>"
-                            } ],
-                            "stockLegend": {
-                                "periodValueTextComparing": "[[classifiedsCount]]%",
-                                "periodValueTextRegular": "[[classifiedsCount]]"
-                            }
-                        } ],
+                        getClassifiedsCountAndRenderChart(config);
 
-                        "chartScrollbarSettings": {
-                            "graph": "g1"
-                        },
+                    };
 
-                        "chartCursorSettings": {
-                            "valueBalloonsEnabled": true,
-                            "fullWidth": true,
-                            "cursorAlpha": 0.1,
-                            "valueLineBalloonEnabled": true,
-                            "valueLineEnabled": true,
-                            "valueLineAlpha": 0.5
-                        },
+                    $scope.classifiedsCountWeekly = function () {
 
-                        "periodSelector": {
-                            "position": "bottom",
-                            "periods": [ {
-                                "period": "MM",
-                                "selected": true,
-                                "count": 1,
-                                "label": "1 month"
-                            }, {
-                                "period": "YYYY",
-                                "count": 1,
-                                "label": "1 year"
-                            }, {
-                                "period": "YTD",
-                                "label": "YTD"
-                            }, {
-                                "period": "MAX",
-                                "label": "MAX"
-                            } ]
-                        }
-                    } );*/
+                        var config = {
+                            minPeriod: "7DD"
+                        };
 
+                        getClassifiedsCountAndRenderChart(config);
+                    };
+
+                    $scope.classifiedsCountMonthly = function () {
+
+                        var config = {
+                            minPeriod: "MM",
+                            balloonDateFormat: "MMM, YYYY"
+                        };
+
+                        getClassifiedsCountAndRenderChart(config);
+                    };
+
+                    $scope.classifiedsCountYearly = function () {
+
+                        var config = {
+                            minPeriod: "YYYY",
+                            balloonDateFormat: "YYYY"
+                        };
+
+                        getClassifiedsCountAndRenderChart(config);
+                    };
 
                     /*
                      **
                      *   Classifieds Prices Chart
                      */
 
-                    //console.log($rootScope.classifieds);
-                    /*var chartDataPrices = $rootScope.classifieds.map(function (obj) {
+                    var chartDataPrices = $rootScope.classifieds.map(function (obj) {
                         var mappedObj = {};
 
                         //todo: function setTimeToZero()
-                        obj.created = new Date(obj.created);
-                        obj.created.setSeconds(0);
-                        obj.created.setMinutes(0);
-                        //obj.created.setHours(0);
-                        //obj.created = obj.created;
-
-                        mappedObj.date = obj.created;
+                        mappedObj.date = new Date(obj.created);
+                        mappedObj.date.setSeconds(0);
+                        mappedObj.date.setMinutes(0);
+                        mappedObj.date.setHours(0);
+                        mappedObj.date = mappedObj.date.toString();
                         mappedObj.price = obj.price;
-                        console.log(mappedObj);
                         return mappedObj;
 
                     });
 
                     var classifiedsCreationDatesPrices = _.uniqBy(chartDataPrices, 'date');
+
+                    console.log(classifiedsCreationDatesPrices);
 
                     classifiedsCreationDatesPrices.forEach(function (elemOuter) {
                         elemOuter.close = 0;
@@ -381,7 +252,6 @@ angular
                             if (elemOuter.date === classified.date) {
 
                                 elemOuter.sumOfPrices += classified.price;
-
                                 elemOuter.classifiedsCount += 1;
 
                                 if (elemOuter.close < classified.price) {
@@ -394,17 +264,9 @@ angular
                         });
 
                         elemOuter.averagePrice = (elemOuter.sumOfPrices / elemOuter.classifiedsCount).toFixed(2);
-                    });*/
-
-/*
-                    angular.forEach(classifiedsCreationDatesPrices, function (value, key) {
-                        console.log(value.date);
-                        console.log(value.close);
-                        console.log(value.open);
                     });
-*/
 
-                    /*AmCharts.makeChart( "classifiedsPricesChart", {
+                    AmCharts.makeChart( "classifiedsPricesChart", {
                         "type": "serial",
                         "theme": "light",
                         "legend": {
@@ -431,7 +293,8 @@ angular
                                 "lineColor": "#BBBBBB",
                                 "openField": "open",
                                 "type": "column",
-                                "valueField": "close"
+                                "valueField": "close",
+                                "title": "Найвища/Найнижча Ціна"
                             },
                             {
                                 "id": "g2",
@@ -466,74 +329,10 @@ angular
                             "graphType": "line",
                             "scrollbarHeight": 30
                         },
-                        "export": {
+                        /*"export": {
                             "enabled": true
-                        }
-                    } );*/
-
-                    /*var chartData= [
-                        {date: new Date(2011, 5, 1, 0, 0, 0, 0), val:10},
-                        {date: new Date(2011, 5, 2, 0, 0, 0, 0), val:11},
-                        {date: new Date(2011, 5, 3, 0, 0, 0, 0), val:12},
-                        {date: new Date(2011, 5, 4, 0, 0, 0, 0), val:11},
-                        {date: new Date(2011, 5, 5, 0, 0, 0, 0), val:10},
-                        {date: new Date(2011, 5, 6, 0, 0, 0, 0), val:11},
-                        {date: new Date(2011, 5, 7, 0, 0, 0, 0), val:13},
-                        {date: new Date(2011, 5, 8, 0, 0, 0, 0), val:14},
-                        {date: new Date(2011, 5, 9, 0, 0, 0, 0), val:17},
-                        {date: new Date(2011, 5, 10, 0, 0, 0, 0), val:13}
-                    ];
-
-                    var chartData= [
-                        {date: new Date(2011, 5, 1, 10, 0, 0, 0), val:10},
-                        //{date: new Date(2011, 5, 1, 11, 0, 0, 0), val:11},
-                        {date: new Date(2011, 5, 1, 12, 0, 0, 0), val:12},
-                        {date: new Date(2011, 5, 1, 13, 0, 0, 0), val:11},
-                        {date: new Date(2011, 5, 1, 14, 0, 0, 0), val:10},
-                        //{date: new Date(2011, 5, 1, 15, 0, 0, 0), val:11},
-                        //{date: new Date(2011, 5, 1, 16, 0, 0, 0), val:13},
-                        {date: new Date(2011, 5, 1, 17, 0, 0, 0), val:14},
-                        {date: new Date(2011, 5, 1, 18, 0, 0, 0), val:17},
-                        {date: new Date(2011, 5, 1, 19, 0, 0, 0), val:13}
-                    ];*/
-                    /*var chart = new AmCharts.AmStockChart();
-
-                    //chart.pathToImages = "amcharts/images/";
-
-                    var dataSet = new AmCharts.DataSet();
-                    dataSet.dataProvider = chartData;
-                    dataSet.fieldMappings = [{fromField:"classifiedsCount", toField:"value"}];
-                    dataSet.categoryField = "date";
-
-                    chart.dataSets = [dataSet];
-
-                    var stockPanel = new AmCharts.StockPanel();
-
-                    chart.panels = [stockPanel];
-
-                    var panelsSettings = new AmCharts.PanelsSettings();
-                    panelsSettings.startDuration = 1;
-
-                    chart.panelsSettings = panelsSettings;
-
-                    var graph = new AmCharts.StockGraph();
-                    graph.valueField = "value";
-                    graph.type = "column";
-                    graph.fillAlphas = 1;
-                    graph.title = "Кіл-ть оголошень";
-
-                    stockPanel.addStockGraph(graph);
-
-                    var categoryAxesSettings = new AmCharts.CategoryAxesSettings();
-                    //categoryAxesSettings.minPeriod = "";
-                    categoryAxesSettings.equalSpacing = false;
-                    chart.categoryAxesSettings = categoryAxesSettings;
-
-                    var valueAxesSettings = new AmCharts.ValueAxesSettings();
-                    valueAxesSettings.title = "К-ть оголошень";
-                    chart.valueAxesSettings = valueAxesSettings;*/
-
-                    //chart.write("classifiedsCountChart");
+                        }*/
+                    } );
 
                 })
                 .error(function (error) {
