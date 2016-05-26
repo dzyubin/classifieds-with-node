@@ -36,7 +36,8 @@ angular.module('classifieds')
 */
             })
             .error(function (error) {
-                showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
+                //showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
+                Classified.notify("Не вдалося отримати перелік категорій. Спробуйте ще раз");
             });
 
             // відкриває форму для додавання нового оголошення
@@ -122,6 +123,7 @@ angular.module('classifieds')
             vm.sidenavNewClassifiedOpen = false;
         }
 
+/*
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -130,6 +132,7 @@ angular.module('classifieds')
                     .hideDelay(3000)
             );
         }
+*/
 
         function createClassified() {
 
@@ -143,10 +146,12 @@ angular.module('classifieds')
                     $rootScope.classifieds.push(data);
 
                     closeSidebar();
-                    showToast("Оголошення Додано!");
+                    //showToast("Оголошення Додано!");
+                    Classified.notify("Оголошення Додано!");
                 })
                 .error(function (error) {
-                    showToast("Не вдалося створити оголошення. Спробуйте ще раз")
+                    //showToast("Не вдалося створити оголошення. Спробуйте ще раз")
+                    Classified.notify("Не вдалося створити оголошення. Спробуйте ще раз");
                 })
         }
     }]);

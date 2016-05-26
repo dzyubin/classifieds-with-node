@@ -53,7 +53,8 @@ angular.module('classifieds')
                     vm.activeCategory = category;
                 })
                 .error(function(error){
-                    showToast('Не вдалося отримати дані. Спробуйте ще раз')
+                    //showToast('Не вдалося отримати дані. Спробуйте ще раз')
+                    Classified.notify("Не вдалося отримати дані. Спробуйте ще раз");
                 });
         }
 
@@ -63,7 +64,8 @@ angular.module('classifieds')
                 $('.list-group').affix({offset: {top: 60} });
             })
             .error(function (error) {
-                showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
+                //showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
+                Classified.notify("Не вдалося отримати перелік категорій. Спробуйте ще раз");
             });
 
         vm.editClassified = function (classified) {
@@ -78,10 +80,12 @@ angular.module('classifieds')
                     $rootScope.classifieds = $rootScope.classifieds.filter(function (el) {
                         return el._id !== classified._id;
                     });
-                    showToast('Оголошення видалено!')
+                    //showToast('Оголошення видалено!')
+                    Classified.notify("Оголошення видалено!");
                 })
                 .error(function (err) {
-                    showToast("Не вдалося видалити оголошення. Спробуйте ще раз");
+                    //showToast("Не вдалося видалити оголошення. Спробуйте ще раз");
+                    Classified.notify("Не вдалося видалити оголошення. Спробуйте ще раз");
                 })
         };
 
@@ -101,11 +105,13 @@ angular.module('classifieds')
                             loadUserClassifieds();
                         }
                     }, 300);
-                    showToast('Категорію(-ії) збережено!');
+                    //showToast('Категорію(-ії) збережено!');
+                    Classified.notify("Категорію(-ії) збережено!");
                 })
                 .error(function (err) {
                     $(modalId).modal('hide');
-                    showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
+                    //showToast('Не вдалося зберегти категорії. Спробуйте ще раз');
+                    Classified.notify("Не вдалося зберегти категорії. Спробуйте ще раз");
                 });
         };
 
@@ -146,6 +152,7 @@ angular.module('classifieds')
         }
 
         // todo: замінити на bootstrap notification і винести в сервіс
+/*
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -154,5 +161,6 @@ angular.module('classifieds')
                     .hideDelay(3000)
             );
         }
-    }]);
+*/
+        }]);
 }());

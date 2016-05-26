@@ -5,8 +5,8 @@
 angular
     .module('classifieds')
     .controller('ChartCtrl',
-    ['$rootScope', '$scope', '$mdToast', 'ClassifiedsDB',
-        function ($rootScope, $scope, $mdToast, ClassifiedsDB) {
+    ['$rootScope', '$scope', '$mdToast', 'ClassifiedsDB', 'Classified',
+        function ($rootScope, $scope, $mdToast, ClassifiedsDB, Classified) {
 
             $rootScope.classifieds = [];
 
@@ -336,16 +336,17 @@ angular
 
                 })
                 .error(function (error) {
-                    showToast('Не вдалося отримати дані. Спробуйте ще раз');
+                    Classified.notify("Не вдалося отримати дані. Спробуйте ще раз");
+                    //showToast('Не вдалося отримати дані. Спробуйте ще раз');
                 });
 
-            function showToast(message) {
+            /*function showToast(message) {
                 $mdToast.show(
                     $mdToast.simple()
                         .content(message)
                         .position('top, right')
                         .hideDelay(3000)
                 );
-            }
+            }*/
         }]);
 }());

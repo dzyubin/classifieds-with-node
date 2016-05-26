@@ -21,6 +21,7 @@ var paths = {
         'public/app/js/vendor/ng-infinite-scroll.js',
         'public/app/js/vendor/satellizer.js',
         'public/app/js/vendor/select2.min.js',
+        'public/app/js/vendor/bootstrap-notify.js',
         'public/app/js/app.js',
         'public/app/services/authService.js',
         'public/app/services/userService.js',

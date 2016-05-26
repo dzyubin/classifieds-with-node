@@ -37,6 +37,12 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a ng-if="vm.loggedIn" ng-href="#/admin">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    Адмін
+                </a>
+            </li>
+            <li>
                 <a ng-if="!vm.loggedIn" ng-href="#/register">
                     <span class="glyphicon glyphicon-pencil"></span>
                     Реєстрація
@@ -58,12 +64,6 @@
                 <a ng-if="vm.loggedIn" href="" ng-click="vm.doLogout()">
                     <span class="glyphicon glyphicon-log-out"></span>
                     Вийти
-                </a>
-            </li>
-            <li>
-                <a ng-if="vm.loggedIn" ng-href="#/admin">
-                    <span class="glyphicon glyphicon-stats"></span>
-                    Адмін
                 </a>
             </li>
         </ul>

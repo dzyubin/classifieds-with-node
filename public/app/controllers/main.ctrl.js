@@ -24,7 +24,8 @@
             });
 
             $scope.$on('editSaved', function (event, message) {
-                showToast(message, 3000);
+                //showToast(message, 3000);
+                Classified.notify(message);
             });
 
             vm.doLogout = function () {
@@ -42,11 +43,13 @@
                 if (Auth.isLoggedIn()) {
                     $state.go('new');
                 } else {
-                    showToast("Необхідна авторизація (натисніть 'Увійти')", 1000);
+                    Classified.notify("Необхідна авторизація (натисніть 'Увійти')");
+                    //showToast("Необхідна авторизація (натисніть 'Увійти')", 1000);
                 }
             };
 
             //todo: замінити $mdToast на bootstrap notification
+/*
             function showToast(message, delay) {
                 $mdToast.show(
                     $mdToast.simple()
@@ -55,5 +58,6 @@
                         .hideDelay(delay)
                 );
             }
+*/
         }])
 }());

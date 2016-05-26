@@ -35,7 +35,6 @@
 
                     Classified.editClassified(vm.classified)
                         .then(function (data) {
-                            //updateLocalClassified();
                             vm.classified = {};
                             //vm.error = '';
                             $scope.$emit('editSaved', 'Редагування збережено!');
@@ -46,18 +45,6 @@
                             vm.error = "Не вдалося зберегти редагування. Спробуйте ще раз"
                         });
                 }
-
-                /*function updateLocalClassified() {
-                    $rootScope.classifieds.forEach(function(classified) {
-                        if (classified._id === $state.params.id) {
-                            for (var prop in vm.classified) {
-                                if (vm.classified.hasOwnProperty(prop)) {
-                                    classified[prop] = vm.classified[prop];
-                                }
-                            }
-                        }
-                    });
-                }*/
 
                 function closeSidebar() {
                     $state.go('my-classifieds');

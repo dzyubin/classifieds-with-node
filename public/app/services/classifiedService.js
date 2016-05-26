@@ -25,5 +25,19 @@ angular.module('classifiedService', [])
             return $http.post('/api/remove', classified);
         };
 
+        classifiedFactory.notify = function (msg) {
+            $.notify({
+                //title: "Welcome:",
+                icon: "glyphicon glyphicon-ok",
+                message: msg
+            }, {
+                offset: 50,
+                animate: {
+                    enter: 'animated fadeInRight',
+                    exit: 'animated fadeOutRight'
+                }
+            });
+        };
+
         return classifiedFactory;
     }]);
