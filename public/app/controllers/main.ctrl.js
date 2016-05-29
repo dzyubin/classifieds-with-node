@@ -20,7 +20,7 @@
             });
 
             $scope.$on('userClassifieds', function (event, message) {
-                $scope.myClassifiedsBtnActive = message;
+                $scope.activeNavbarBtn = message;
             });
 
             $scope.$on('editSaved', function (event, message) {

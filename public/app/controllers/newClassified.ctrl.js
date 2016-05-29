@@ -5,12 +5,15 @@ angular.module('classifieds')
 
         var vm = this;
         vm.loggedIn = Auth.isLoggedIn();
-        vm.closeSidebar = closeSidebar;
+        vm.finishAddingNewClassified = finishAddingNewClassified;
         vm.categories = [];
+
+        $scope.$emit('userClassifieds', 'newClassified');
 
         Classified.getCategories()
             .success(function (data) {
                 vm.categories = data[0].categories;
+                initializeSelect2();
 
 /*
                 for(var i = 0; i < 3; i+=1) {
@@ -36,12 +39,20 @@ angular.module('classifieds')
 */
             })
             .error(function (error) {
-                //showToast('Не вдалося отримати перелік категорій. Спробуйте ще раз');
                 Classified.notify("Не вдалося отримати перелік категорій. Спробуйте ще раз");
             });
 
+        function initializeSelect2() {
+            // todo: використати $timeout
+            setTimeout(function () {
+                $('.select').select2({
+                    tags: true
+                });
+            }, 0);
+        }
+
             // відкриває форму для додавання нового оголошення
-        $mdComponentRegistry.when('left').then(function(it){
+        /*$mdComponentRegistry.when('left').then(function(it){
             it.open();
         });
 
@@ -53,8 +64,9 @@ angular.module('classifieds')
                         $state.go('my-classifieds');
                     });
             }
-        });
+        });*/
 
+/*
         vm.addNewCategory = function() {
 
             vm.classifiedData.newCategories = [];
@@ -76,6 +88,7 @@ angular.module('classifieds')
                 vm.newCategory = '';
             }
         };
+*/
 
         // todo: розділити на дві (чи більше?) функції
         vm.uploadImageAndCreateClassified = function (file) {
@@ -115,12 +128,16 @@ angular.module('classifieds')
                 // todo: додати default до classified моделі
                 // image: { type: String, default: 'images/photo-default-th.png' }
                 vm.classifiedData.image = 'images/photo-default-th.png';
+
+                createListOfNewCategories(vm.classifiedData);
+
                 createClassified();
             }
         };
 
-        function closeSidebar() {
-            vm.sidenavNewClassifiedOpen = false;
+        function finishAddingNewClassified() {
+            vm.classifiedData = {};
+            $state.go('my-classifieds');
         }
 
 /*
@@ -143,15 +160,22 @@ angular.module('classifieds')
 
                     //todo: коли newClassified.tpl.html завантажується через рефреш (F5)
                     // $rootScope.classifieds == undefined. додати try-catch
-                    $rootScope.classifieds.push(data);
+                    //$rootScope.classifieds.push(data);
 
-                    closeSidebar();
-                    //showToast("Оголошення Додано!");
+                    finishAddingNewClassified();
                     Classified.notify("Оголошення Додано!");
                 })
                 .error(function (error) {
-                    //showToast("Не вдалося створити оголошення. Спробуйте ще раз")
                     Classified.notify("Не вдалося створити оголошення. Спробуйте ще раз");
                 })
+        }
+
+        function createListOfNewCategories(classified) {
+            classified.category.forEach(function (elem){
+                if (vm.categories.indexOf(elem) === -1) {
+                    classified.newCategories = [];
+                    classified.newCategories.push(elem);
+                }
+            });
         }
     }]);

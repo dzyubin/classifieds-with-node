@@ -57,7 +57,13 @@ angular
             .state('new', {
                 url: '/new',
                 templateUrl: 'app/views/pages/newClassified.tpl.html',
-                controller: 'ClassifiedCtrl as vm'
+                controller: 'ClassifiedCtrl as vm',
+                /*resolve: {
+                    userClassifieds: function () {
+                        return false;
+                    }
+                }*/
+
             })
             .state('edit', {
                 url: '/edit/:id',

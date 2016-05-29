@@ -118,7 +118,7 @@ module.exports = function(app, express) {
                 title: req.body.title,
                 price: req.body.price,
                 image: req.body.image,
-                category: req.body.categories,
+                category: req.body.category,
                 contact: req.body.contact,
                 //created: req.body.created
             });

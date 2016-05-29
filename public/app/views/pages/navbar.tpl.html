@@ -10,19 +10,19 @@
     </div>
     <div class="collapse navbar-collapse" id="nav-toggle">
         <ul class="nav navbar-nav">
-            <li>
+            <li ng-class="{active: activeNavbarBtn === 'newClassified'}">
                 <a href="" ng-click="vm.openSidebar()">
                 <span class="glyphicon glyphicon-plus-sign"></span>
                     Нове Оголошення
                 </a>
             </li>
-            <li ng-class="{active: myClassifiedsBtnActive === 'all'}">
+            <li ng-class="{active: activeNavbarBtn === 'all'}">
                 <a ng-href="#/all-classifieds/">
                 <span class="glyphicon glyphicon-th-list"></span>
                     Всі оголошення
                 </a>
             </li>
-            <li ng-if="vm.loggedIn" ng-class="{active: myClassifiedsBtnActive === 'my'}">
+            <li ng-if="vm.loggedIn" ng-class="{active: activeNavbarBtn === 'my'}">
                 <a ng-href="#/my-classifieds/">
                 <span class="glyphicon glyphicon-plus-sig"></span>
                     Мої оголошення

@@ -36,7 +36,7 @@ angular
                     this.after = $rootScope.classifieds.length;
                     this.busy = false;
 
-                    initSelect2();
+                    //initSelect2();
 
                 }.bind(this));
 
@@ -61,14 +61,14 @@ angular
                 return url;
             }
 
-            function initSelect2() {
+            /*function initSelect2() {
                 // todo: використати $timeout
                 setTimeout(function () {
                     $('.select').select2({
                         tags: true
                     });
                 }, 0);
-            }
+            }*/
         };
 
         return ClassifiedsDB;

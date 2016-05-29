@@ -50,12 +50,22 @@ angular.module('classifieds')
             $scope.classifiedsDBService = new ClassifiedsDB(userId, category, 20);
             $scope.classifiedsDBService.nextPage()
                 .success(function () {
+                    initializeSelect2();
                     vm.activeCategory = category;
                 })
                 .error(function(error){
                     //showToast('Не вдалося отримати дані. Спробуйте ще раз')
                     Classified.notify("Не вдалося отримати дані. Спробуйте ще раз");
                 });
+        }
+
+        function initializeSelect2() {
+            // todo: використати $timeout
+            setTimeout(function () {
+                $('.select').select2({
+                    tags: true
+                });
+            }, 0);
         }
 
         Classified.getCategories()

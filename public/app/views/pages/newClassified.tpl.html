@@ -1,5 +1,108 @@
 <!--todo: bootstrap замість angular-material-->
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="vm.sidenavNewClassifiedOpen">
+
+<div id="editForm" class="container">
+    <div class="row">
+        <form name="myform" novalidate class="text-center center-block"
+              method="post" ng-submit="vm.uploadImageAndCreateClassified(picFile)">
+            <div class="textintro">
+                <p class="alert alert-danger" ng-if="vm.error">{{ vm.error }}</p>
+                <h2>Нове оголошення</h2>
+                <hr>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="title">Назва</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="title"
+                           ng-model="vm.classifiedData.title" autofocus/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="price">Ціна</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="price"
+                           ng-model="vm.classifiedData.price"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="description">Опис</label>
+                </div>
+                <div class="col-sm-8">
+                    <textarea class="form-control" id="description"
+                              ng-model="vm.classifiedData.content"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <!--<div class="col-sm-4">
+                    <label for="image">Зображення</label>
+                </div>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="image"
+                           ng-model="vm.classifiedData.image">
+                </div>-->
+                <fieldset>
+                    <div class="col-sm-4">
+                        <label for="image">Додати Зображення</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input id="image" type="file" ngf-select ng-model="picFile" name="file"
+                               accept="image/*" ngf-model-invalid="errorFile">
+                        <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+                        <button type="button" ng-click="picFile = null" ng-show="picFile">
+                            Скасувати
+                        </button>
+                        <br>
+                        <span class="progress" ng-show="picFile.progress >= 0">
+                            <div style="width:{{picFile.progress}}%"
+                                 ng-bind="picFile.progress + '%'"></div>
+                        </span>
+                        <span ng-show="picFile.result">Upload Successful</span>
+                        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="category">Категорія</label>
+                </div>
+                <div class="col-sm-8">
+                    <!--<input type="text" class="form-control" id="category"
+                           ng-model="vm.classifiedData.category">-->
+                    <!--<md-select id="category" multiple ng-model="vm.classifiedData.categories">
+                        <i ng-show="!vm.categories" class="fa fa-spinner fa-spin"></i>
+                        <md-option ng-repeat="category in vm.categories" value="{{category}}">
+                            {{category}}
+                        </md-option>
+                    </md-select>-->
+                    <select id="category" class="select form-control" multiple
+                            ng-model="vm.classifiedData.category"
+                            style="width: 100%;">
+                        <option ng-repeat="category in vm.categories"
+                                value="{{category}}">
+                            {{ category }}
+                        </option>
+                    </select>
+                    {{ vm.classifiedData.category }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary btn-block">Зберегти</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-warning btn-block"
+                            ng-click="vm.finishAddingNewClassified()">Скасувати</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-open="vm.sidenavNewClassifiedOpen">
     <md-toolbar>
         <h1 class="md-toolbar-tools">Додати Оголошення</h1>
     </md-toolbar>
@@ -15,7 +118,7 @@
             </md-input-container>
             <md-input-container>
                 <label for="description">Опис</label>
-                <!--todo: rename 'content' to 'description'-->
+                &lt;!&ndash;todo: rename 'content' to 'description'&ndash;&gt;
                 <textarea id="description" ng-model="vm.classifiedData.content"></textarea>
             </md-input-container>
             <md-input-container>
@@ -48,8 +151,8 @@
                     <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
                     <button ng-click="picFile = null" ng-show="picFile">Скасувати</button>
                     <br>
-                    <!--<button
-                            ng-click="uploadPic(picFile)">Додати</button>-->
+                    &lt;!&ndash;<button
+                            ng-click="uploadPic(picFile)">Додати</button>&ndash;&gt;
                     <span class="progress" ng-show="picFile.progress >= 0">
                         <div style="width:{{picFile.progress}}%"
                              ng-bind="picFile.progress + '%'"></div>
@@ -60,8 +163,8 @@
                 <br>
             </md-input-container>
             <md-button ng-if="!editing" class="md-primary">Зберегти</md-button>
-            <!--<md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>-->
+            &lt;!&ndash;<md-button ng-if="editing" ng-click="vm.saveEdit()" class="md-primary">Зберегти Редагування</md-button>&ndash;&gt;
             <md-button type="button" ng-click="vm.closeSidebar()" class="md-warn">Скасувати</md-button>
         </form>
     </md-content>
-</md-sidenav>
+</md-sidenav>-->
