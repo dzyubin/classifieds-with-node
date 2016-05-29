@@ -2,7 +2,6 @@
 angular.module('classifieds')
     .controller('ClassifiedCtrl', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$mdToast', '$state', 'Classified', 'Auth', 'Upload',
         function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $mdToast, $state, Classified, Auth, Upload) {
-
         var vm = this;
         vm.loggedIn = Auth.isLoggedIn();
         vm.finishAddingNewClassified = finishAddingNewClassified;
@@ -95,11 +94,11 @@ angular.module('classifieds')
             vm.message = '';
 
             // todo: додати в контролер можливість додавати контактні дані
-            vm.classifiedData.contact = {
+            /*vm.classifiedData.contact = {
                 name: "Олександр",
                 phone: "34-54-45",
                 email: "example@mail.com"
-            };
+            };*/
             // upload image to 'public/images'
             if (file) { // якщо користувач обрав зображення
                 file.upload = Upload.upload({
@@ -152,6 +151,8 @@ angular.module('classifieds')
 */
 
         function createClassified() {
+
+            vm.classifiedData.contact.name = $rootScope.user.username;
 
             Classified.create(vm.classifiedData)
                 .success(function (data) {

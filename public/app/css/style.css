@@ -1,5 +1,7 @@
 body {
     padding: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #eeffff;
 }
 
 ul.navbar {
@@ -14,7 +16,7 @@ ul.navbar {
     margin-right: 15px;
 }
 
-.classified.ng-enter, .classified.ng-move {
+.ng-enter, .ng-move {
     -webkit-transition: 0.4s all;
     -moz-transition: 0.4s all;
     -ms-transition: 0.4s all;
@@ -23,11 +25,11 @@ ul.navbar {
     opacity: 0;
 }
 
-.classified.ng-enter.ng-enter-active, .classified.ng-move.ng-move-active {
+.ng-enter.ng-enter-active, .ng-move.ng-move-active {
     opacity: 1;
 }
 
-.classified.ng-leave {
+.ng-leave {
     -webkit-animation: 0.4s fade_classified;
     -o-animation: 0.4s fade_classified;
     animation: 0.4s fade_classified;
@@ -121,7 +123,14 @@ md-option {
 
 #loginForm form, #editForm form {
     max-width: 350px;
-    margin: 10px auto;
+    border-bottom: 1px dashed #eeffff;
+    padding-bottom: 15px;
+    /*margin: 10px auto;*/
+}
+
+.required label span {
+    color: #ff0000;
+    font-weight: bold;
 }
 
 #homepage-info {
