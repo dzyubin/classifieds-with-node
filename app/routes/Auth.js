@@ -283,6 +283,7 @@ module.exports = {
             if(err) { throw err; }
             if(!user) {
                 res.send({ message: "Невірні ім'я/пароль" });
+                return;
             }
 
             var validPassword = user.comparePassword(req.body.password);

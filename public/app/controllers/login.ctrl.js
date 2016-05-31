@@ -10,7 +10,7 @@
 
             var vm = this;
 
-            this.sidenavOpen = true;
+            /*this.sidenavOpen = true;
 
             $scope.$watch('vm.sidenavOpen', function (sidenav) {
                 if (sidenav === false) {
@@ -20,34 +20,37 @@
                             $state.go('home');
                         });
                 }
-            });
+            });*/
 
             vm.doLogin = function () {
 
-                //vm.processing = true;
-                vm.error = '';
+                vm.message = '';
 
-                Auth.login(vm.loginData.username, vm.loginData.password)
-                    .success(function (data) {
-                        //vm.processing = false;
+                if ($scope.myform.$valid) {
+                    $scope.showSpinner = true;
 
-                        Auth.getUser()
-                            .then(function (data) {
-                                $rootScope.user = data.data;
-                            });
+                    Auth.login(vm.loginData.username, vm.loginData.password)
+                        .success(function (data) {
 
-                        if(data.success) {
-                            $state.go('my-classifieds');
-                        } else {
-                            vm.error = data.message;
-                        }
-                    });
+                            Auth.getUser()
+                                .then(function (data) {
+                                    $rootScope.user = data.data;
+                                });
+
+                            if (data.success) {
+                                $state.go('my-classifieds');
+                            } else {
+                                vm.message = data.message;
+                            }
+                        });
+                } else {
+                    $scope.showValidation = true;
+                }
             };
 
             vm.authenticate = function(provider) { // facebook авторизація
                 $auth.authenticate(provider)
                     .then(function (data) {
-                        // непотрібний рядок?
                         if ($rootScope.user === 'undefined') {
                             console.log($rootScope.user);
                             Classified.notify('Не вдалося провести авторизацію. Спробуйте ще раз');
@@ -59,6 +62,7 @@
                     })
                     .catch(function (err) {
                         console.log(err);
+                        Classified.notify('Не вдалося провести авторизацію. Спробуйте ще раз');
                     });
             };
         }]);
