@@ -210,6 +210,9 @@ module.exports = function(app, express) {
         var query = {};
 
         if (req.params.userId) query.creator = req.params.userId;
+
+        //todo: query results for category doesn't match. Try clicking 'Спорт' category and
+        // scroll down to see
         if (req.query.category) query.category = req.query.category;
 
         Classified.find(query)

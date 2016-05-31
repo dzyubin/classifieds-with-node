@@ -4,8 +4,8 @@
 
     angular
         .module("classifieds")
-        .controller("classifiedsCtrl", ['$rootScope', '$scope', '$http', '$mdSidenav', '$state', '$location', '$mdToast', 'Auth', 'Classified',
-            function ($rootScope, $scope, $http, $mdSidenav, $state, $location, $mdToast, Auth, Classified) {
+        .controller("classifiedsCtrl", ['$rootScope', '$scope', '$http', '$state', 'Auth', 'Classified',
+            function ($rootScope, $scope, $http, $state, Auth, Classified) {
 
             var vm = this;
             vm.loggedIn = Auth.isLoggedIn();
@@ -24,7 +24,6 @@
             });
 
             $scope.$on('editSaved', function (event, message) {
-                //showToast(message, 3000);
                 Classified.notify(message);
             });
 
@@ -37,6 +36,7 @@
                 // todo: hack. знайти краще рішення
                 $state.go('all-classifieds');
                 $state.go('home');
+                //Classified.notify('До побачення!');
             };
 
             vm.openSidebar = function openSidebar() {
@@ -44,20 +44,7 @@
                     $state.go('new');
                 } else {
                     Classified.notify("Необхідна авторизація (натисніть 'Увійти')");
-                    //showToast("Необхідна авторизація (натисніть 'Увійти')", 1000);
                 }
             };
-
-            //todo: замінити $mdToast на bootstrap notification
-/*
-            function showToast(message, delay) {
-                $mdToast.show(
-                    $mdToast.simple()
-                        .content(message)
-                        .position('top, right')
-                        .hideDelay(delay)
-                );
-            }
-*/
         }])
 }());

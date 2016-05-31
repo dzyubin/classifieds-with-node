@@ -48,9 +48,9 @@
                 $auth.authenticate(provider)
                     .then(function (data) {
                         // непотрібний рядок?
-                        if ($rootScope.user._id === 'undefined') {
+                        if ($rootScope.user === 'undefined') {
                             console.log($rootScope.user);
-                            vm.error = 'Не вдалося провести авторизацію. Спробуйте ще раз';
+                            Classified.notify('Не вдалося провести авторизацію. Спробуйте ще раз');
                             return;
                         }
                         $rootScope.user.id = $rootScope.user._id;

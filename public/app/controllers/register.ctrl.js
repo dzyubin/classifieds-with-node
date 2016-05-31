@@ -15,9 +15,9 @@ angular.module('userCtrl', ['userService'])
 
         var vm = this;
 
-        vm.sidenavOpen = true;
+        //vm.sidenavOpen = true;
 
-        $scope.$watch('vm.sidenavOpen', function (sidenav) {
+        /*$scope.$watch('vm.sidenavOpen', function (sidenav) {
             if (sidenav === false) {
                 $mdSidenav('right')
                     .close()
@@ -25,24 +25,29 @@ angular.module('userCtrl', ['userService'])
                         $state.go('home');
                     });
             }
-        });
+        });*/
 
         vm.signupUser = function () {
             vm.message = '';
 
-            User.create(vm.userData)
-                .then(function (response) {
-                    var data = response.data;
-                    vm.userData = {};
-                    if (data.code === 11000) {
-                        vm.message = 'Користувач з таким ім\'ям вже зареєстрований. Оберіть інше ім\'я';
-                        return;
-                    }
-                    if (data.token) {
-                        $window.localStorage.setItem('token', data.token);
-                    }
-                    $location.path('/classifieds');
-                })
+            if ($scope.myform.$valid) {
+                $scope.showSpinner = true;
+                User.create(vm.userData)
+                    .then(function (response) {
+                        var data = response.data;
+                        vm.userData = {};
+                        if (data.code === 11000) {
+                            vm.message = 'Користувач з таким ім\'ям вже зареєстрований. Оберіть інше ім\'я';
+                            return;
+                        }
+                        if (data.token) {
+                            $window.localStorage.setItem('token', data.token);
+                        }
+                        $state.go('my-classifieds');
+                    });
                 //todo: додати function(error) {
+            } else {
+                $scope.showValidation = true;
+            }
         };
     }]);

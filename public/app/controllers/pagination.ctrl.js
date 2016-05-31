@@ -161,16 +161,5 @@ angular.module('classifieds')
             });
         }
 
-        // todo: замінити на bootstrap notification і винести в сервіс
-/*
-        function showToast(message) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(message)
-                    .position('top, right')
-                    .hideDelay(3000)
-            );
-        }
-*/
         }]);
 }());

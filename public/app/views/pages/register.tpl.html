@@ -4,7 +4,6 @@
         <form name="myform" novalidate class="text-center col-sm-4 center-block" method="post"
               ng-submit="vm.signupUser()">
             <div class="textintro">
-                {{ vm.error }}
                 <h1>Реєстрація!</h1>
                 <p>Зареєструйтесь для отримання доступу до додаткових можливостей</p>
                 <p ng-show="vm.message" class="alert alert-danger">{{ vm.message }}</p>
@@ -19,18 +18,35 @@
 
                 <div class="form-group">
                     <input class="form-control" type="text" name="username" placeholder="Ім'я"
-                           ng-model="vm.userData.username" ng-required="true"/>
+                           ng-model="vm.userData.username" ng-required="true"
+                            ng-minlength="4"/>
                 </div>
-                <p ng-show="myform.username.$invalid && myform.username.$touched">Необхідно ввести ім'я</p>
-
+                <div ng-show="showValidation">
+                    <p class="alert alert-warning" ng-show="myform.username.$error.required">
+                        Необхідно ввести ім'я
+                    </p>
+                    <p class="alert alert-warning" ng-show="myform.username.$error.minlength">
+                        Ім'я має містити щонайменше 4 символи
+                    </p>
+                </div>
                 <div class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="Пароль"
-                           ng-model="vm.userData.password" ng-required="true"/>
+                           ng-model="vm.userData.password" ng-required="true"
+                            ng-minlength="6"/>
                 </div>
-                <p ng-show="myform.password.$invalid && myform.password.$touched">Необхідно ввести пароль</p>
+                <div ng-show="showValidation">
+                    <p class="alert alert-warning" ng-show="myform.password.$error.required">
+                        Необхідно ввести пароль
+                    </p>
+                    <p class="alert alert-warning" ng-show="myform.password.$error.minlength">
+                        Пароль має містити щонайменше 6 символів
+                    </p>
+                </div>
             </fieldset>
-
-            <button type="submit" class="btn btn-default" ng-disabled="myform.$invalid">Зареєструватись</button>
+            <button type="submit" class="btn btn-default">
+                <i class="fa fa-spinner fa-spin" ng-show="showSpinner"></i>
+                Зареєструватись
+            </button>
             <p>або <a ng-href="#/login">увійти</a></p>
         </form>
     </div>
