@@ -2,7 +2,7 @@
 
 <div id="editForm" class="container">
     <div class="row">
-        <form name="myform" class="col-sm-offset-2"
+        <form name="myform" class="col-sm-offset-2" novalidate
               method="post" ng-submit="vm.uploadImageAndCreateClassified(picFile)">
             <div class="textintro">
                 <p class="alert alert-danger" ng-if="vm.error">{{ vm.error }}</p>
@@ -14,18 +14,28 @@
                     <label for="title">Назва<span>*</span></label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="title"
+                    <input type="text" class="form-control" id="title" name="title"
                            ng-model="vm.classifiedData.title" autofocus required/>
                 </div>
+            </div>
+            <div ng-show="showValidation">
+                <p class="alert alert-warning" ng-show="myform.title.$error.required">
+                    Необхідно ввести назву
+                </p>
             </div>
             <div class="form-group row required">
                 <div class="col-sm-4">
                     <label for="price">Ціна<span>*</span></label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="price"
-                           ng-model="vm.classifiedData.price"/>
+                    <input type="text" class="form-control" id="price" name="price"
+                           ng-model="vm.classifiedData.price" required/>
                 </div>
+            </div>
+            <div ng-show="showValidation">
+                <p class="alert alert-warning" ng-show="myform.price.$error.required">
+                    Необхідно ввести ціну
+                </p>
             </div>
             <div class="form-group row">
                 <div class="col-sm-4">
@@ -79,7 +89,7 @@
                         </md-option>
                     </md-select>-->
                     <select id="category" class="select form-control" multiple
-                            ng-model="vm.classifiedData.category"
+                            ng-model="vm.classifiedData.category" name="category"
                             style="width: 100%;" required>
                         <option ng-repeat="category in vm.categories"
                                 value="{{category}}">
@@ -87,6 +97,11 @@
                         </option>
                     </select>
                 </div>
+            </div>
+            <div ng-show="showValidation">
+                <p class="alert alert-warning" ng-show="myform.category.$error.required">
+                    Необхідно обрати\створити категорію
+                </p>
             </div>
             <hr>
             <fieldset>
@@ -96,23 +111,34 @@
                         <label for="userEmail">E-mail<span>*</span></label>
                     </div>
                     <div class="col-sm-8">
-                        <input id="userEmail" type="email" class="form-control"
+                        <input id="userEmail" type="email" class="form-control" name="email"
                                ng-model="vm.classifiedData.contact.email" required>
                     </div>
                 </div>
+                <div ng-show="showValidation">
+                    <p class="alert alert-warning" ng-show="myform.email.$error.required">
+                        Необхідно ввести e-mail
+                    </p>
+                    <p class="alert alert-warning" ng-show="myform.email.$error.email">
+                        Необхідно ввести коректний e-mail
+                    </p>
+                </div>
                 <div class="form-group row required">
                     <div class="col-sm-4">
-                        <label for="userPhone">Телефон<span>*</span></label>
+                        <label for="userPhone">Телефон</label>
                     </div>
                     <div class="col-sm-8">
-                        <input id="userPhone" type="text" class="form-control"
+                        <input id="userPhone" type="text" class="form-control" name="phone"
                                ng-model="vm.classifiedData.contact.phone">
                     </div>
                 </div>
             </fieldset>
             <div class="row">
                 <div class="col-sm-6">
-                    <button class="btn btn-primary btn-block">Зберегти</button>
+                    <button class="btn btn-primary btn-block">
+                        <i class="fa fa-spinner fa-spin" ng-show="showSpinner"></i>
+                        Зберегти
+                    </button>
                 </div>
                 <div class="col-sm-6">
                     <button type="button" class="btn btn-warning btn-block"

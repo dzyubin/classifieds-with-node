@@ -1,7 +1,7 @@
 // todo: add 'use strict' to all js files
 angular.module('classifieds')
-    .controller('ClassifiedCtrl', ['$rootScope', '$scope', '$timeout', '$mdSidenav', '$mdComponentRegistry', '$mdToast', '$state', 'Classified', 'Auth', 'Upload',
-        function ($rootScope, $scope, $timeout, $mdSidenav, $mdComponentRegistry, $mdToast, $state, Classified, Auth, Upload) {
+    .controller('ClassifiedCtrl', ['$rootScope', '$scope', '$timeout', '$mdToast', '$state', 'Classified', 'Auth', 'Upload',
+        function ($rootScope, $scope, $timeout, $mdToast, $state, Classified, Auth, Upload) {
         var vm = this;
         vm.loggedIn = Auth.isLoggedIn();
         vm.finishAddingNewClassified = finishAddingNewClassified;
@@ -50,20 +50,6 @@ angular.module('classifieds')
             }, 0);
         }
 
-            // відкриває форму для додавання нового оголошення
-        /*$mdComponentRegistry.when('left').then(function(it){
-            it.open();
-        });
-
-        $scope.$watch('vm.sidenavNewClassifiedOpen', function (sidenav) {
-            if (sidenav === false) {
-                $mdSidenav('left')
-                    .close()
-                    .then(function () {
-                        $state.go('my-classifieds');
-                    });
-            }
-        });*/
 
 /*
         vm.addNewCategory = function() {
@@ -91,53 +77,55 @@ angular.module('classifieds')
 
         // todo: розділити на дві (чи більше?) функції
         vm.uploadImageAndCreateClassified = function (file) {
-            vm.message = '';
+            //vm.message = '';
 
-            // todo: додати в контролер можливість додавати контактні дані
-            /*vm.classifiedData.contact = {
-                name: "Олександр",
-                phone: "34-54-45",
-                email: "example@mail.com"
-            };*/
-            // upload image to 'public/images'
-            if (file) { // якщо користувач обрав зображення
-                file.upload = Upload.upload({
-                    url: '/uploads',
-                    method: 'POST',
-                    data: {user: $rootScope.user, file: file}
-                });
+            if ($scope.myform.$valid) {
+                $scope.showSpinner = true;
 
-                file.upload.then(function (response) {
-                    $timeout(function () {
-                        file.result = response.data;
-
-                        vm.classifiedData.image = 'images/' + response.config.data.file.name;
-
-                        createClassified();
-
+                // todo: додати в контролер можливість додавати контактні дані
+                /*vm.classifiedData.contact = {
+                 name: "Олександр",
+                 phone: "34-54-45",
+                 email: "example@mail.com"
+                 };*/
+                // upload image to 'public/images'
+                if (file) { // якщо користувач обрав зображення
+                    file.upload = Upload.upload({
+                        url: '/uploads',
+                        method: 'POST',
+                        data: {user: $rootScope.user, file: file}
                     });
-                }, function (response) {
-                    if (response.status > 0)
-                        $scope.errorMsg = response.status + ': ' + response.data;
-                }, function (evt) {
-                    // Math.min is to fix IE which reports 200% sometimes
-                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                });
-            } else { // якщо користувач не обрав зображення, використати зображення за замовчуванням
-                // todo: додати default до classified моделі
-                // image: { type: String, default: 'images/photo-default-th.png' }
-                vm.classifiedData.image = 'images/photo-default-th.png';
 
-                createListOfNewCategories(vm.classifiedData);
+                    file.upload.then(function (response) {
+                        $timeout(function () {
 
-                createClassified();
+                            file.result = response.data;
+                            vm.classifiedData.image = 'images/' + response.config.data.file.name;
+                            createClassified();
+
+                        });
+                    }, function (response) {
+                        if (response.status > 0)
+                            $scope.errorMsg = response.status + ': ' + response.data;
+                    }, function (evt) {
+                        // Math.min is to fix IE which reports 200% sometimes
+                        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                    });
+                } else { // якщо користувач не обрав зображення, використати зображення за замовчуванням
+                    // todo: додати default до classified моделі
+                    // image: { type: String, default: 'images/photo-default-th.png' }
+                    vm.classifiedData.image = 'images/photo-default-th.png';
+
+                    //createListOfNewCategories(vm.classifiedData);
+                    createClassified();
+                }
+            } else {
+                $scope.showValidation = true;
+                console.log($scope.myform);
             }
         };
 
-        function finishAddingNewClassified() {
-            vm.classifiedData = {};
-            $state.go('my-classifieds');
-        }
+
 
 /*
         function showToast(message) {
@@ -153,11 +141,12 @@ angular.module('classifieds')
         function createClassified() {
 
             vm.classifiedData.contact.name = $rootScope.user.username;
+            createListOfNewCategories(vm.classifiedData);
 
             Classified.create(vm.classifiedData)
                 .success(function (data) {
                     vm.classifiedData = '';
-                    vm.message = data.message;
+                    //vm.message = data.message;
 
                     //todo: коли newClassified.tpl.html завантажується через рефреш (F5)
                     // $rootScope.classifieds == undefined. додати try-catch
@@ -169,6 +158,11 @@ angular.module('classifieds')
                 .error(function (error) {
                     Classified.notify("Не вдалося створити оголошення. Спробуйте ще раз");
                 })
+        }
+
+        function finishAddingNewClassified() {
+            vm.classifiedData = {};
+            $state.go('my-classifieds');
         }
 
         function createListOfNewCategories(classified) {

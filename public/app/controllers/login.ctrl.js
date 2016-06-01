@@ -5,8 +5,8 @@
     angular
         .module('classifieds')
         .controller('loginCtrl',
-        ['$rootScope', '$scope', '$mdSidenav', '$state', '$auth', 'Auth',
-        function ($rootScope, $scope, $mdSidenav, $state, $auth, Auth) {
+        ['$rootScope', '$scope', '$mdSidenav', '$state', '$auth', 'Auth', 'Classified',
+        function ($rootScope, $scope, $mdSidenav, $state, $auth, Auth, Classified) {
 
             var vm = this;
 
@@ -41,7 +41,11 @@
                                 $state.go('my-classifieds');
                             } else {
                                 vm.message = data.message;
+                                $scope.showSpinner = false;
                             }
+                        })
+                        .error(function (error) {
+                            console.log(error);
                         });
                 } else {
                     $scope.showValidation = true;
